@@ -29,7 +29,6 @@
 
 #include <ostream>
 #include <initializer_list>
-#include <vector>
 
 #include "../GenoInts.h"
 
@@ -38,7 +37,7 @@ class GenoVector {
 
 	static_assert(N > 0, "Vector dimensions must be greater than 0!");
 
-	private:
+	protected:
 		GenoVector(T * v) :
 			v(v) {}
 	public:
@@ -52,8 +51,8 @@ class GenoVector {
 			const T * VECTOR_END = v + N;
 			const T * iterator = list.begin() - 1;
 			T * vector = v - 1;
-			while (++iterator < list.end() && ++v < VECTOR_END)
-				*v = *iterator;
+			while (++iterator < list.end() && ++vector < VECTOR_END)
+				*vector = *iterator;
 		}
 		
 		GenoVector(const GenoVector<N, T> & vector) :
@@ -124,11 +123,17 @@ class GenoVector {
 			return *this;
 		}
 
-		GenoVector<N, T> operator-() const {
+		GenoVector<N, T> operator-() const & {
 			GenoVector<N, T> negative = *this;
 			negative.v[0] = -negative.v[0];
 			negative.v[1] = -negative.v[1];
 			return negative;
+		}
+
+		GenoVector<N, T> && operator-() && {
+			for (uint32 i = 0; i < N; ++i)
+				this->v[i] = -this->v[i];
+			return (GenoVector<N, T> &&) *this;
 		}
 
 		GenoVector<N, T> operator+(const GenoVector<N, T> & vector) const {
@@ -138,11 +143,10 @@ class GenoVector {
 			return GenoVector<N, T>(newV);
 		}
 
-		GenoVector<N, T> operator+(GenoVector<N, T> && vector) const {
-			GenoVector<N, T> sum = vector;
+		GenoVector<N, T> && operator+(GenoVector<N, T> && vector) const {
 			for (uint32 i = 0; i < N; ++i)
-				sum.v[i] = v[i] + sum.v[i];
-			return sum;
+				vector.v[i] = v[i] + vector.v[i];
+			return vector;
 		}
 
 		GenoVector<N, T> operator-(const GenoVector<N, T> & vector) const {
@@ -152,11 +156,10 @@ class GenoVector {
 			return GenoVector<N, T>(newV);
 		}
 
-		GenoVector<N, T> operator-(GenoVector<N, T> && vector) const {
-			GenoVector<N, T> difference = vector;
+		GenoVector<N, T> && operator-(GenoVector<N, T> && vector) const {
 			for (uint32 i = 0; i < N; ++i)
-				difference.v[i] = v[i] - difference.v[i];
-			return difference;
+				vector.v[i] = v[i] - vector.v[i];
+			return vector;
 		}
 
 		GenoVector<N, T> operator*(const GenoVector<N, T> & vector) const {
@@ -166,11 +169,10 @@ class GenoVector {
 			return GenoVector<N, T>(newV);
 		}
 
-		GenoVector<N, T> operator*(GenoVector<N, T> && vector) const {
-			GenoVector<N, T> product = vector;
+		GenoVector<N, T> && operator*(GenoVector<N, T> && vector) const {
 			for (uint32 i = 0; i < N; ++i)
-				product.v[i] = v[i] * product.v[i];
-			return product;
+				vector.v[i] = v[i] * vector.v[i];
+			return vector;
 		}
 
 		GenoVector<N, T> operator/(const GenoVector<N, T> & vector) const {
@@ -180,11 +182,10 @@ class GenoVector {
 			return GenoVector<N, T>(newV);
 		}
 
-		GenoVector<N, T> operator/(GenoVector<N, T> && vector) const {
-			GenoVector<N, T> quotient = vector;
+		GenoVector<N, T> && operator/(GenoVector<N, T> && vector) const {
 			for (uint32 i = 0; i < N; ++i)
-				quotient.v[i] = v[i] / quotient.v[i];
-			return quotient;
+				vector.v[i] = v[i] / vector.v[i];
+			return vector;
 		}
 		
 		bool operator==(const GenoVector<N, T> & vector) const {
@@ -223,7 +224,7 @@ class GenoVector {
 			return (dot(vector) / vector.lengthSquared()) * vector;
 		}
 
-		GenoVector<N, T> getProjectionOnto(GenoVector<N, T> && vector) const {
+		GenoVector<N, T> && getProjectionOnto(GenoVector<N, T> && vector) const {
 			return (dot(vector) / vector.lengthSquared()) * vector;
 		}
 
