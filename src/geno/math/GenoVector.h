@@ -39,20 +39,15 @@ class GenoVector {
 
 	protected:
 		GenoVector(T * v) :
-			v(v) {
-			std::cout << "Also checks out" << std::endl;
-		}
+			v(v) {}
 	public:
 		T * v;
 
 		GenoVector() :
-			v(new T[N] ()) {
-			std::cout << "What the finna" << std::endl;
-		}
+			v(new T[N] ()) {}
 
 		GenoVector(std::initializer_list<T> list) :
 			v(new T[N]) {
-			std::cout << "Checks out" << std::endl;
 			const T * VECTOR_END = v + N;
 			const T * iterator = list.begin() - 1;
 			T * vector = v - 1;
@@ -62,14 +57,12 @@ class GenoVector {
 		
 		GenoVector(const GenoVector<N, T> & vector) :
 			v(new T[N]) {
-			std::cout << "Red alert" << std::endl;
 			for (uint32 i = 0; i < N; ++i)
 				v[i] = vector.v[i];
 		}
 		
 		GenoVector(GenoVector<N, T> && vector) noexcept :
 			v(vector.v) {
-			std::cout << "Ultra instinct check out" << std::endl;
 			vector.v = 0;
 		}
 
@@ -82,14 +75,12 @@ class GenoVector {
 		}
 
 		GenoVector<N, T> & operator=(const GenoVector<N, T> & vector) {
-			std::cout << "Red alert" << std::endl;
 			for (uint32 i = 0; i < N; ++i)
 				v[i] = vector.v[i];
 			return *this;
 		}
 		
 		GenoVector<N, T> & operator=(GenoVector<N, T> && vector) noexcept {
-			std::cout << "Ultra instinct check out" << std::endl;
 			delete [] v;
 			v = vector.v;
 			vector.v = 0;

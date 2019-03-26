@@ -31,12 +31,7 @@
 
 int32 main(int32 argc, char ** argv) {
 
-	GenoVector2f vec1{ 1, 2 };
-	GenoVector2f vec2;
 
-	vec2 = -GenoVector2f(1, 2);
-
-	std::cout << vec2 << std::endl;
 
 	//////// DO NOT REMOVE BELOW ////////
 	std::cout << "Press enter to continue . . ." << std::endl;
