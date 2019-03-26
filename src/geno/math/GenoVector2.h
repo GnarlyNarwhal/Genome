@@ -42,32 +42,27 @@ class GenoVector;
 #include "GenoVector.h"
 
 template <typename T>
-class GenoVector2 : GenoVector<2, T> {
+class GenoVector2 : public GenoVector<2, T> {
 	private:
 		typedef GenoVector<2, T> GenoVector;
+
+		GenoVector2(T * newV) :
+			GenoVector(newV) {}
 	public:
 		GenoVector2() :
 			GenoVector() {}
 		
 		GenoVector2(const T & x) :
-			GenoVector(new T[]{ x, T() }) {}
+			GenoVector(new T[2] { x, T() }) {}
 
 		GenoVector2(const T & x, const T & y) :
-			GenoVector(new T[]{ x, y }) {}
-
-		GenoVector2(std::initializer_list<T> list) :
-			GenoVector(list) {}
+			GenoVector(new T[2] { x, y }) {}
 
 		GenoVector2(const GenoVector2<T> & vector) :
 			GenoVector(vector) {}
 
 		GenoVector2(GenoVector2<T> && vector) noexcept :
 			GenoVector(vector) {}
-
-		GenoVector2<T> & operator=(std::initializer_list<T> list) {
-			GenoVector::operator=(list);
-			return *this;
-		}
 
 		GenoVector2<T> & operator=(const GenoVector2<T> & vector) {
 			GenoVector::v[0] = vector.v[0];
@@ -92,9 +87,21 @@ class GenoVector2 : GenoVector<2, T> {
 			return *this;
 		}
 
+		GenoVector2<T> & operator*=(const T & scalar) {
+			GenoVector::v[0] *= scalar;
+			GenoVector::v[1] *= scalar;
+			return *this;
+		}
+
 		GenoVector2<T> & operator*=(const GenoVector2<T> & vector) {
 			GenoVector::v[0] *= vector.v[0];
 			GenoVector::v[1] *= vector.v[1];
+			return *this;
+		}
+
+		GenoVector2<T> & operator/=(const T & scalar) {
+			GenoVector::v[0] /= scalar;
+			GenoVector::v[1] /= scalar;
 			return *this;
 		}
 
@@ -111,66 +118,205 @@ class GenoVector2 : GenoVector<2, T> {
 			);
 		}
 
-		GenoVector2<T> && operator-() && {
+		GenoVector2<T> operator-() && {
+			T * newV = GenoVector::v;
+			newV[0] = -GenoVector::v[0];
+			newV[1] = -GenoVector::v[1];
+			GenoVector::v = 0;
+			return GenoVector2<T>(newV);
+		}
+
+		GenoVector2<T> & negate() {
 			GenoVector::v[0] = -GenoVector::v[0];
-			GenoVector::v[1] = -GenoVector::v[1]
+			GenoVector::v[1] = -GenoVector::v[1];
 			return *this;
 		}
 
-		GenoVector2<T> operator+(const GenoVector2<T> & vector) {
+		GenoVector2<T> operator+(const GenoVector2<T> & vector) const & {
 			return GenoVector2<T>(
 				GenoVector::v[0] + vector.v[0],
 				GenoVector::v[1] + vector.v[1]
 			);
 		}
 
-		GenoVector2<T> && operator+(GenoVector2<T> && vector) {
-			vector.v[0] = GenoVector::v[0] + vector.v[0];
-			vector.v[1] = GenoVector::v[1] + vector.v[1];
-			return vector;
+		GenoVector2<T> operator+(GenoVector2<T> && vector) const & {
+			T * newV = vector.v;
+			newV[0] = GenoVector::v[0] + vector.v[0];
+			newV[1] = GenoVector::v[1] + vector.v[1];
+			vector.v = 0;
+			return GenoVector2<T>(newV);
 		}
 
-		GenoVector2<T> operator-(const GenoVector2<T> & vector) {
+		GenoVector2<T> operator+(const GenoVector2<T> & vector) && {
+			T * newV = GenoVector::v;
+			newV[0] = GenoVector::v[0] + vector.v[0];
+			newV[1] = GenoVector::v[1] + vector.v[1];
+			GenoVector::v = 0;
+			return GenoVector<T>(newV);
+		}
+
+		GenoVector2<T> operator-(const GenoVector2<T> & vector) const & {
 			return GenoVector2<T>(
 				GenoVector::v[0] - vector.v[0],
 				GenoVector::v[1] - vector.v[1]
 			);
 		}
 
-		GenoVector2<T> && operator-(GenoVector2<T> && vector) {
-			vector.v[0] = GenoVector::v[0] - vector.v[0];
-			vector.v[1] = GenoVector::v[1] - vector.v[1];
-			return vector;
+		GenoVector2<T> operator-(GenoVector2<T> && vector) const & {
+			T * newV = vector.v;
+			newV[0] = GenoVector::v[0] - vector.v[0];
+			newV[1] = GenoVector::v[1] - vector.v[1];
+			vector.v = 0;
+			return GenoVector2<T>(newV);
 		}
 
-		GenoVector2<T> operator*(const GenoVector2<T> & vector) {
+		GenoVector2<T> operator-(const GenoVector2<T> & vector) && {
+			T * newV = GenoVector::v;
+			newV[0] = GenoVector::v[0] - vector.v[0];
+			newV[1] = GenoVector::v[1] - vector.v[1];
+			GenoVector::v = 0;
+			return GenoVector<T>(newV);
+		}
+		
+		GenoVector2<T> operator*(const T & scalar) const & {
+			return GenoVector2<T>(
+				GenoVector::v[0] * scalar,
+				GenoVector::v[1] * scalar
+			);
+		}
+		
+		GenoVector2<T> operator*(const T & scalar) && {
+			T * newV = GenoVector::v;
+			newV[0] = GenoVector::v[0] * scalar;
+			newV[1] = GenoVector::v[1] * scalar;
+			vector.v = 0;
+			return GenoVector2<T>(newV);
+		}
+
+		GenoVector2<T> operator*(const GenoVector2<T> & vector) const & {
 			return GenoVector2<T>(
 				GenoVector::v[0] * vector.v[0],
 				GenoVector::v[1] * vector.v[1]
 			);
 		}
 
-		GenoVector2<T> operator*(GenoVector2<T> && vector) {
-			vector.v[0] = GenoVector::v[0] * vector.v[0];
-			vector.v[1] = GenoVector::v[1] * vector.v[1];
-			return vector;
+		GenoVector2<T> operator*(GenoVector2<T> && vector) const & {
+			T * newV = vector.v;
+			newV[0] = GenoVector::v[0] * vector.v[0];
+			newV[1] = GenoVector::v[1] * vector.v[1];
+			vector.v = 0;
+			return GenoVector2<T>(newV);
+		}
+
+		GenoVector2<T> operator*(const GenoVector2<T> & vector) && {
+			T * newV = GenoVector::v;
+			newV[0] = GenoVector::v[0] * vector.v[0];
+			newV[1] = GenoVector::v[1] * vector.v[1];
+			GenoVector::v = 0;
+			return GenoVector<T>(newV);
 		}
 		
-		GenoVector2<T> operator/(const GenoVector2<T> & vector) {
+		GenoVector2<T> operator/(const T & scalar) const & {
+			return GenoVector2<T>(
+				GenoVector::v[0] / scalar,
+				GenoVector::v[1] / scalar
+			);
+		}
+		
+		GenoVector2<T> operator/(const T & scalar) && {
+			T * newV = GenoVector::v;
+			newV[0] = GenoVector::v[0] / scalar;
+			newV[1] = GenoVector::v[1] / scalar;
+			vector.v = 0;
+			return GenoVector2<T>(newV);
+		}
+		
+		GenoVector2<T> operator/(const GenoVector2<T> & vector) const & {
 			return GenoVector2<T>(
 				GenoVector::v[0] / vector.v[0],
 				GenoVector::v[1] / vector.v[1]
 			);
 		}
 
-		GenoVector2<T> operator/(GenoVector2<T> && vector) {
-			vector.v[0] = GenoVector::v[0] / vector.v[0];
-			vector.v[1] = GenoVector::v[1] / vector.v[1];
-			return vector;
+		GenoVector2<T> operator/(GenoVector2<T> && vector) const & {
+			T * newV = vector.v;
+			newV[0] = GenoVector::v[0] / vector.v[0];
+			newV[1] = GenoVector::v[1] / vector.v[1];
+			vector.v = 0;
+			return GenoVector2<T>(newV);
+		}
+
+		GenoVector2<T> operator/(const GenoVector2<T> & vector) && {
+			T * newV = GenoVector::v;
+			newV[0] = GenoVector::v[0] / vector.v[0];
+			newV[1] = GenoVector::v[1] / vector.v[1];
+			GenoVector::v = 0;
+			return GenoVector2<T>(newV);
+		}
+
+		bool operator==(const GenoVector2<T> & vector) const {
+			return GenoVector::v[0] == vector.v[0] && GenoVector::v[1] == vector.v[1];
+		}
+
+		bool operator!=(const GenoVector2<T> & vector) const {
+			return GenoVector::v[0] != vector.v[0] || GenoVector::v[1] != vector.v[1];
+		}
+
+		T getLength() const {
+			return sqrt(GenoVector::v[0] * GenoVector::v[0] + GenoVector::v[1] * GenoVector::v[1]);
+		}
+
+		T getLengthSquared() const {
+			return GenoVector::v[0] * GenoVector::v[0] + GenoVector::v[1] * GenoVector::v[1];
+		}
+
+		GenoVector2<T> & setLength(const T & length) {
+			T scale = length / getLength();
+			GenoVector::v[0] *= scale;
+			GenoVector::v[1] *= scale;
+			return *this;
 		}
 
 		T dot(const GenoVector2<T> & vector) const {
 			return GenoVector::v[0] * vector.v[0] + GenoVector::v[1] * vector.v[1];
+		}
+
+		GenoVector2<T> getProject(const GenoVector2<T> & vector) const {
+			return (dot(vector) / vector.lengthSquared()) * vector;
+		}
+
+		GenoVector2<T> & project(const GenoVector2<T> & vector) {
+			T scalar = dot(vector) / vector.lengthSquared();
+			GenoVector::v[0] = scalar * vector.v[0];
+			GenoVector::v[1] = scalar * vector.v[1];
+			return *this;
+		}
+
+		T getAngle() const {
+			return atan2(GenoVector::v[1], GenoVector::v[0]);
+		}
+
+		GenoVector2<T> & setAngle(const T & angle) const {
+			T length = getLength();
+			GenoVector::v[0] = cos(angle) * length;
+			GenoVector::v[1] = sin(angle) * length;
+			return *this;
+		}
+
+		GenoVector2<T> getRotate(const T & angle) const {
+			T sine   = sin(angle);
+			T cosine = cos(angle);
+			return { GenoVector::[0] * cosine - GenoVector::[1] * sine, GenoVector::[0] * sine + GenoVector::[1] * cosine };
+		}
+
+		GenoVector2<T> & rotate(const T & angle) {
+			T sine   = sin(angle);
+			T cosine = cos(angle);
+			T x = GenoVector::[0] * cosine - GenoVector::[1] * sine;
+			T y = GenoVector::[0] * sine   + GenoVector::[1] * cosine;
+			GenoVector::v[0] = x;
+			GenoVector::v[1] = y;
+			return *this;
 		}
 
 		T & x() {
@@ -189,32 +335,37 @@ class GenoVector2 : GenoVector<2, T> {
 			return GenoVector::v[1];
 		}
 
-		GenoVector xx() const {
+		GenoVector2<T> xx() const {
 			return { GenoVector::v[0], GenoVector::v[0] };
 		}
 
-		GenoVector xy() const {
+		GenoVector2<T> xy() const {
 			return { GenoVector::v[0], GenoVector::v[1] };
 		}
 
-		GenoVector yx() const {
+		GenoVector2<T> yx() const {
 			return { GenoVector::v[1], GenoVector::v[0] };
 		}
 
-		GenoVector yy() const {
+		GenoVector2<T> yy() const {
 			return { GenoVector::v[1], GenoVector::v[1] };
 		}
 
 		virtual ~GenoVector2() noexcept {}
 };
 
-typedef GenoVector2<int8>   GenoVector2b;
+template <typename T>
+std::ostream & operator<<(std::ostream & stream, const GenoVector2<T> & vector) {
+	return stream << '<' << vector.v[0] << ", " << vector.v[1] << '>' << std::endl;
+}
+
+typedef GenoVector2< int8>  GenoVector2b;
 typedef GenoVector2<uint8>  GenoVector2ub;
-typedef GenoVector2<int16>  GenoVector2s;
+typedef GenoVector2< int16> GenoVector2s;
 typedef GenoVector2<uint16> GenoVector2us;
-typedef GenoVector2<int32>  GenoVector2i;
+typedef GenoVector2< int32> GenoVector2i;
 typedef GenoVector2<uint32> GenoVector2ui;
-typedef GenoVector2<int64>  GenoVector2l;
+typedef GenoVector2< int64> GenoVector2l;
 typedef GenoVector2<uint64> GenoVector2ul;
 typedef GenoVector2<float>  GenoVector2f;
 typedef GenoVector2<double> GenoVector2d;
