@@ -124,16 +124,10 @@ class GenoVector {
 		}
 
 		GenoVector<N, T> operator-() const {
-			GenoVector<N, T> negative = *this;
-			negative.v[0] = -negative.v[0];
-			negative.v[1] = -negative.v[1];
-			return negative;
-		}
-
-		GenoVector<N, T> & negate() {
+			T * newV = new T[N];
 			for (uint32 i = 0; i < N; ++i)
-				v[i] = -v[i];
-			return *this;
+				newV[i] = -v[i];
+			return GenoVector<N, T>(newV);
 		}
 
 		GenoVector<N, T> operator+(const GenoVector<N, T> & vector) const {
@@ -192,6 +186,97 @@ class GenoVector {
 			return false;
 		}
 
+		GenoVector<N, T> & getNegate() const {
+			T * newV = new T[N];
+			for (uint32 i = 0; i < N; ++i)
+				newV[i] = -v[i];
+			return GenoVector<N, T>(newV);
+		}
+
+		GenoVector<N, T> & negate() {
+			for (uint32 i = 0; i < N; ++i)
+				v[i] = -v[i];
+			return *this;
+		}
+
+		GenoVector<N, T> getAdd(const GenoVector<N, T> & vector) const {
+			T * newV = new T[N];
+			for (uint32 i = 0; i < N; ++i)
+				newV[i] = v[i] + vector.v[i];
+			return GenoVector<N, T>(newV);
+		}
+
+		GenoVector<N, T> & add(const GenoVector<N, T> & vector) {
+			for (uint32 i = 0; i < N; ++i)
+				v[i] += vector.v[i];
+			return *this;
+		}
+
+		GenoVector<N, T> getSubtract(const GenoVector<N, T> & vector) const {
+			T * newV = new T[N];
+			for (uint32 i = 0; i < N; ++i)
+				newV[i] = v[i] - vector.v[i];
+			return GenoVector<N, T>(newV);
+		}
+
+		GenoVector<N, T> & subtract(const GenoVector<N, T> & vector) {
+			for (uint32 i = 0; i < N; ++i)
+				v[i] -= vector.v[i];
+			return *this;
+		}
+
+		GenoVector<N, T> getMultiply(const T & scalar) const {
+			T * newV = new T[N];
+			for (uint32 i = 0; i < N; ++i)
+				newV[i] = v[i] * scalar;
+			return GenoVector<N, T>(newV);
+		}
+
+		GenoVector<N, T> getMultiply(const GenoVector<N, T> & vector) const {
+			T * newV = new T[N];
+			for (uint32 i = 0; i < N; ++i)
+				newV[i] = v[i] * vector.v[i];
+			return GenoVector<N, T>(newV);
+		}
+
+		GenoVector<N, T> & multiply(const T & scalar) {
+			for (uint32 i = 0; i < N; ++i)
+				v[i] *= scalar;
+			return *this;
+		}
+
+		GenoVector<N, T> & multiply(const GenoVector<N, T> & vector) {
+			for (uint32 i = 0; i < N; ++i)
+				v[i] *= vector.v[i];
+			return *this;
+		}
+
+		GenoVector<N, T> getDivide(const T & scalar) const {
+			T * newV = new T[N];
+			for (uint32 i = 0; i < N; ++i)
+				newV[i] = v[i] / scalar;
+			return GenoVector<N, T>(newV);
+		}
+
+		GenoVector<N, T> getDivide(const GenoVector<N, T> & vector) const {
+			T * newV = new T[N];
+			for (uint32 i = 0; i < N; ++i)
+				newV[i] = v[i] / vector.v[i];
+			return GenoVector<N, T>(newV);
+		}
+
+		GenoVector<N, T> & divide(const T & scalar) {
+			for (uint32 i = 0; i < N; ++i)
+				v[i] /= scalar;
+			return *this;
+		}
+
+		GenoVector<N, T> & divide(const GenoVector<N, T> & vector) {
+			for (uint32 i = 0; i < N; ++i)
+				v[i] /= vector.v[i];
+			return *this;
+		}
+
 		T getLength() const {
 			T lengthSquared = 0;
 			for (uint32 i = 0; i < N; ++i)
@@ -214,7 +299,7 @@ class GenoVector {
 		}
 
 		T dot(const GenoVector<N, T> & vector) const {
-			T ret = T();
+			T ret;
 			for (uint32 i = 0; i < N; ++i)
 				ret += v[i] * vector.v[i];
 			return ret;
@@ -228,6 +313,45 @@ class GenoVector {
 			T scalar = dot(vector) / vector.getLengthSquared();
 			for (uint32 i = 0; i < N; ++i)
 				v[i] = scalar * vector.v[i];
+			return *this;
+		}
+
+		GenoVector<N, T> getTranslate(const GenoVector<N, T> & vector) const {
+			T * newV = new T[N];
+			for (uint32 i = 0; i < N; )
+				newV[i] = v[i] + vector.v[i];
+			return GenoVector<N, T>(newV);
+		}
+
+		GenoVector<N, T> & translate(const GenoVector<N, T> & vector) {
+			for (uint32 i = 0; i < N; ++i)
+				v[i] += vector.v[i];
+			return *this;
+		}
+
+		GenoVector<N, T> getScale(const T & scale) const {
+			T * newV = new T[N];
+			for (uint32 i = 0; i < N; ++i)
+				newV[i] = v[i] * scale;
+			return GenoVector<N, T>(newV);
+		}
+		
+		GenoVector<N, T> getScale(const GenoVector<N, T> & vector) const {
+			T * newV = new T[N];
+			for (uint32 i = 0; i < N; ++i)
+				newV[i] = v[i] * vector.v[i];
+			return GenoVector<N, T>(newV);
+		}
+
+		GenoVector<N, T> & scale(const T & scale) {
+			for (uint32 i = 0; i < N; ++i)
+				v[i] *= scale;
+			return *this;
+		}
+
+		GenoVector<N, T> & scale(const GenoVector<N, T> & vector) {
+			for (uint32 i = 0; i < N; ++i)
+				v[i] *= vector.v[i];
 			return *this;
 		}
 
