@@ -31,7 +31,9 @@
 
 int32 main(int32 argc, char ** argv) {
 
-	GenoVector2f vec;
+	GenoVector2f vec(1, 2);
+
+	vec = std::move(GenoVector2f(3, 6));
 
 	//////// DO NOT REMOVE BELOW ////////
 	std::cout << "Press enter to continue . . ." << std::endl;
