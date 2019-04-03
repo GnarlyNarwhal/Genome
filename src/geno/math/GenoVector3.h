@@ -34,13 +34,13 @@ class GenoVector;
 
 #endif // GNARLY_GENOME_VECTOR_FORWARD
 
-#ifndef GNARLY_GENOME_VECTOR3_FORWARD
-#define GNARLY_GENOME_VECTOR3_FORWARD
+#ifndef GNARLY_GENOME_VECTOR2_FORWARD
+#define GNARLY_GENOME_VECTOR2_FORWARD
 
 template <typename T>
-class GenoVector<3, T>;
+class GenoVector<2, T>;
 
-#endif // GNARLY_GENOME_VECTOR3_FORWARD
+#endif // GNARLY_GENOME_VECTOR2_FORWARD
 
 #ifndef GNARLY_GENOME_VECTOR4_FORWARD
 #define GNARLY_GENOME_VECTOR4_FORWARD
@@ -50,92 +50,100 @@ class GenoVector<4, T>;
 
 #endif // GNARLY_GENOME_VECTOR4_FORWARD
 
-#ifndef GNARLY_GENOME_VECTOR2
-#define GNARLY_GENOME_VECTOR2
+#ifndef GNARLY_GENOME_VECTOR3
+#define GNARLY_GENOME_VECTOR3
 
 #include <cmath>
 
 #include "GenoVector.h"
-#include "GenoVector3.h"
+#include "GenoVector2.h"
 #include "GenoVector4.h"
 
 template <typename T>
-class GenoVector<2, T> {
+class GenoVector<3, T> {
 	private:
 		GenoVector(T * v) noexcept :
 			v(v) {}
 	public:
 		T * v;
-		
+
 		GenoVector() :
-			v(new T[2]()) {}
+			v(new T[3]()) {}
 		
 		explicit GenoVector(T value) :
-			v(new T[2] { value, value }) {}
+			v(new T[3] { value, value, value }) {}
 
-		GenoVector(T x, T y) :
-			v(new T[2] { x, y }) {}
+		GenoVector(T x, T y, T z) :
+			v(new T[3] { x, y, z }) {}
 
-		GenoVector(const GenoVector<2, T> & vector) :
-			v(new T[2] {
+		GenoVector(const GenoVector<3, T> & vector) :
+			v(new T[3] {
 				vector.v[0],
-				vector.v[1]
+				vector.v[1],
+				vector.v[2]
 			}) {}
 
-		GenoVector(GenoVector<2, T> && vector) noexcept :
+		GenoVector(GenoVector<3, T> && vector) :
 			v(vector.v) {
 			vector.v = 0;
 		}
 
-		GenoVector<2, T> & operator=(const GenoVector<2, T> & vector) {
+		GenoVector<3, T> & operator=(const GenoVector<3, T> & vector) {
 			v[0] = vector.v[0];
 			v[1] = vector.v[1];
+			v[2] = vector.v[2];
 			return *this;
 		}
 
-		GenoVector<2, T> & operator=(GenoVector<2, T> && vector) noexcept {
-			delete[] v;
+		GenoVector<3, T> & operator=(GenoVector<3, T> && vector) {
+			delete [] v;
 			v = vector.v;
 			vector.v = 0;
 			return *this;
 		}
 
-		GenoVector<2, T> & operator+=(const GenoVector<2, T> & vector) {
+		GenoVector<3, T> & operator+=(const GenoVector<3, T> & vector) {
 			v[0] += vector.v[0];
 			v[1] += vector.v[1];
+			v[2] += vector.v[2];
 			return *this;
 		}
 
-		GenoVector<2, T> & operator-=(const GenoVector<2, T> & vector) {
+		GenoVector<3, T> & operator-=(const GenoVector<3, T> & vector) {
 			v[0] -= vector.v[0];
 			v[1] -= vector.v[1];
+			v[2] -= vector.v[2];
 			return *this;
 		}
 
-		GenoVector<2, T> & operator*=(T scalar) {
+		GenoVector<3, T> & operator*=(T scalar) {
 			v[0] *= scalar;
 			v[1] *= scalar;
+			v[2] *= scalar;
 			return *this;
 		}
 
-		GenoVector<2, T> & operator*=(const GenoVector<2, T> & vector) {
+		GenoVector<3, T> & operator*=(const GenoVector<3, T> & vector) {
 			v[0] *= vector.v[0];
 			v[1] *= vector.v[1];
+			v[2] *= vector.v[2];
 			return *this;
 		}
 
-		GenoVector<2, T> & operator/=(T scalar) {
+		GenoVector<3, T> & operator/=(T scalar) {
 			v[0] /= scalar;
 			v[1] /= scalar;
+			v[2] /= scalar;
 			return *this;
 		}
 
-		GenoVector<2, T> & operator/=(const GenoVector<2, T> & vector) {
+		GenoVector<3, T> & operator/=(const GenoVector<3, T> & vector) {
 			v[0] /= vector.v[0];
 			v[1] /= vector.v[1];
+			v[2] /= vector.v[2];
 			return *this;
 		}
-		
+
 		T & operator[](uint32 index) noexcept {
 			return v[index];
 		}
@@ -147,14 +155,16 @@ class GenoVector<2, T> {
 		double getLength() const {
 			return sqrt(
 				v[0] * v[0] +
-				v[1] * v[1]
+				v[1] * v[1] +
+				v[2] * v[2]
 			);
 		}
 
 		T getLengthSquared() const {
 			return (
 				v[0] * v[0] +
-				v[1] * v[1]
+				v[1] * v[1] +
+				v[2] * v[2]
 			);
 		}
 
@@ -163,110 +173,110 @@ class GenoVector<2, T> {
 		}
 };
 
-template <typename FT>
-GenoVector<2, FT> operator-(const GenoVector<2, FT> & vector) {
+template <typename T>
+GenoVector<3, T> operator-(const GenoVector<3, T> & vector) {
 	return {
 		-vector.v[0],
-		-vector.v[1]
+		-vector.v[1],
+		-vector.v[2]
 	};
 }
 
-template <typename FT>
-GenoVector<2, FT> operator+(const GenoVector<2, FT> & left, const GenoVector<2, FT> & right) {
+template <typename T>
+GenoVector<3, T> operator+(const GenoVector<3, T> & left, const GenoVector<3, T> & right) {
 	return {
 		left.v[0] + right.v[0],
-		left.v[1] + right.v[1]
+		left.v[1] + right.v[1],
+		left.v[2] + right.v[2]
 	};
 }
 
-template <typename FT>
-GenoVector<2, FT> operator-(const GenoVector<2, FT> & left, const GenoVector<2, FT> & right) {
+template <typename T>
+GenoVector<3, T> operator-(const GenoVector<3, T> & left, const GenoVector<3, T> & right) {
 	return {
 		left.v[0] - right.v[0],
-		left.v[1] - right.v[1]
+		left.v[1] - right.v[1],
+		left.v[2] - right.v[2]
 	};
 }
 
-template <typename FT>
-GenoVector<2, FT> operator*(FT left, const GenoVector<2, FT> & right) {
+template <typename T>
+GenoVector<3, T> operator*(T left, const GenoVector<3, T> & right) {
 	return {
 		left * right.v[0],
-		left * right.v[1]
+		left * right.v[1],
+		left * right.v[2]
 	};
 }
 
-template <typename FT>
-GenoVector<2, FT> operator*(const GenoVector<2, FT> & left, FT right) {
+template <typename T>
+GenoVector<3, T> operator*(const GenoVector<3, T> & left, T right) {
 	return {
 		left.v[0] * right,
-		left.v[1] * right
+		left.v[1] * right,
+		left.v[2] * right
 	};
 }
 
-template <typename FT>
-GenoVector<2, FT> operator*(const GenoVector<2, FT> & left, const GenoVector<2, FT> & right) {
+template <typename T>
+GenoVector<3, T> operator*(const GenoVector<3, T> & left, const GenoVector<3, T> & right) {
 	return {
 		left.v[0] * right.v[0],
-		left.v[1] * right.v[1]
+		left.v[1] * right.v[1],
+		left.v[2] * right.v[2]
 	};
 }
 
-template <typename FT>
-GenoVector<2, FT> operator/(const GenoVector<2, FT> & left, FT right) {
+template <typename T>
+GenoVector<3, T> operator/(const GenoVector<3, T> & left, T right) {
 	return {
 		left.v[0] / right,
-		left.v[1] / right
+		left.v[1] / right,
+		left.v[2] / right
 	};
 }
 
-template <typename FT>
-GenoVector<2, FT> operator/(const GenoVector<2, FT> & left, const GenoVector<2, FT> & right) {
+template <typename T>
+GenoVector<3, T> operator/(const GenoVector<3, T> & left, const GenoVector<3, T> & right) {
 	return {
 		left.v[0] / right.v[0],
-		left.v[1] / right.v[1]
+		left.v[1] / right.v[1],
+		left.v[2] / right.v[2]
 	};
 }
 
-template <typename FT>
-GenoVector<3, FT> operator|(FT left, const GenoVector<2, FT> & right) {
+template <typename T>
+GenoVector<4, T> operator|(T left, const GenoVector<3, T> & right) {
 	return {
 		left,
 		right.v[0],
-		right.v[1]
-	};
+		right.v[1],
+		right.v[2]
+	}
 }
 
-template <typename FT>
-GenoVector<3, FT> operator|(const GenoVector<2, FT> & left, FT right) {
+template <typename T>
+GenoVector<4, T> operator|(const GenoVector<3, T> & left, T right) {
 	return {
 		left.v[0],
 		left.v[1],
+		left.v[2],
 		right
-	};
+	}
 }
 
-template <typename FT>
-GenoVector<4, FT> operator|(const GenoVector<2, FT> & left, const GenoVector<2, FT> & right) {
-	return {
-		left.v[0],
-		left.v[1],
-		right.v[0],
-		right.v[1]
-	};
-}
+template <typename T> using GenoVector3 = GenoVector<3, T>;
 
-template <typename T> using GenoVector2 = GenoVector<2, T>;
+using GenoVector3b  = GenoVector<3,  int8 >;
+using GenoVector3nb = GenoVector<3, uint8 >;
+using GenoVector3s  = GenoVector<3,  int16>;
+using GenoVector3us = GenoVector<3, uint16>;
+using GenoVector3i  = GenoVector<3,  int32>;
+using GenoVector3ui = GenoVector<3, uint32>;
+using GenoVector3l  = GenoVector<3,  int64>;
+using GenoVector3ul = GenoVector<3, uint64>;
+using GenoVector3f  = GenoVector<3, float >;
+using GenoVector3d  = GenoVector<3, double>;
 
-using GenoVector2b  = GenoVector<2,  int8 >;
-using GenoVector2nb = GenoVector<2, uint8 >;
-using GenoVector2s  = GenoVector<2,  int16>;
-using GenoVector2us = GenoVector<2, uint16>;
-using GenoVector2i  = GenoVector<2,  int32>;
-using GenoVector2ui = GenoVector<2, uint32>;
-using GenoVector2l  = GenoVector<2,  int64>;
-using GenoVector2ul = GenoVector<2, uint64>;
-using GenoVector2f  = GenoVector<2, float >;
-using GenoVector2d  = GenoVector<2, double>;
-
-#define GNARLY_GENOME_VECTOR2_FORWARD
-#endif // GNARLY_GENOME_VECTOR2
+#define GNARLY_GENOME_VECTOR3_FORWARD
+#endif // GNARLY_GENOME_VECTOR3

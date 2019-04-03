@@ -27,6 +27,6 @@
 #ifndef GNARLY_GENOME_MACROS
 #define GNARLY_GENOME_MACROS
 
-#define GENO_STATIC_ARRAY_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
+#define GENO_ARRAY_SIZE(arr) (sizeof(arr) / sizeof(arr[0]))
 
 #endif // GNARLY_GENOME_MACROS

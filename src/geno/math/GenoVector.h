@@ -38,13 +38,19 @@ class GenoVector {
 	static_assert(N > 0, "Vector dimensions must be greater than 0!");
 
 	private:
-		GenoVector(T * v) :
+		GenoVector(T * v) noexcept :
 			v(v) {}
 	public:
 		T * v;
 
 		GenoVector() :
-			v(new T[N] ()) {}
+			v(new T[N]()) {}
+		
+		explicit GenoVector(T value) :
+			v(new T[N]) {
+			for (uint32 i = 0; i < N; ++i)
+				v[i] = value;
+		}
 
 		GenoVector(std::initializer_list<T> list) :
 			v(new T[N]) {
@@ -134,11 +140,11 @@ class GenoVector {
 			return v[index];
 		}
 
-		T operator[](uint32 index) const noexcept {
+		const T & operator[](uint32 index) const noexcept {
 			return v[index];
 		}
 		
-		T getLength() const {
+		double getLength() const {
 			T lengthSquared = 0;
 			for (uint32 i = 0; i < N; ++i)
 				lengthSquared += v[i] * v[i];
