@@ -99,7 +99,7 @@ class GenoVector {
 			return *this;
 		}
 
-		GenoVector<N, T> & operator*=(const T & scalar) {
+		GenoVector<N, T> & operator*=(T scalar) {
 			for (uint32 i = 0; i < N; ++i)
 				v[i] *= scalar;
 			return *this;
@@ -111,7 +111,7 @@ class GenoVector {
 			return *this;
 		}
 
-		GenoVector<N, T> & operator/=(const T & scalar) {
+		GenoVector<N, T> & operator/=(T scalar) {
 			for (uint32 i = 0; i < N; ++i)
 				v[i] /= scalar;
 			return *this;
@@ -121,6 +121,14 @@ class GenoVector {
 			for (uint32 i = 0; i < N; ++i)
 				v[i] -= vector.v[i];
 			return *this;
+		}
+
+		T & operator[](uint32 index) noexcept {
+			return v[index];
+		}
+
+		T operator[](uint32 index) const noexcept {
+			return v[index];
 		}
 		
 		T getLength() const {
@@ -140,7 +148,116 @@ class GenoVector {
 		virtual ~GenoVector() noexcept {
 			delete [] v;
 		}
+
+		template <uint32 FN, typename FT> friend GenoVector<FN, FT> operator-(const GenoVector<FN, FT> & vector);
+		template <uint32 FN, typename FT> friend GenoVector<FN, FT> operator+(const GenoVector<FN, FT> & left, const GenoVector<FN, FT> & right);
+		template <uint32 FN, typename FT> friend GenoVector<FN, FT> operator-(const GenoVector<FN, FT> & left, const GenoVector<FN, FT> & right);
+		template <uint32 FN, typename FT> friend GenoVector<FN, FT> operator*(const GenoVector<FN, FT> & left, FT right);
+		template <uint32 FN, typename FT> friend GenoVector<FN, FT> operator*(FT left, const GenoVector<FN, FT> & right);
+		template <uint32 FN, typename FT> friend GenoVector<FN, FT> operator*(const GenoVector<FN, FT> & left, const GenoVector<FN, FT> & right);
+		template <uint32 FN, typename FT> friend GenoVector<FN, FT> operator/(const GenoVector<FN, FT> & left, FT right);
+		template <uint32 FN, typename FT> friend GenoVector<FN, FT> operator/(const GenoVector<FN, FT> & left, const GenoVector<FN, FT> & right);
+		template <uint32 FN, typename FT> friend GenoVector<FN + 1, FT> operator|(const GenoVector<FN, FT> & left, FT right);
+		template <uint32 FN, typename FT> friend GenoVector<FN + 1, FT> operator|(FT left, const GenoVector<FN, FT> & right);
+		template <uint32 FN, uint32 FN2, typename FT> friend GenoVector<FN + FN2, FT> operator|(const GenoVector<FN, FT> & left, const GenoVector<FN2, FT> & right);
 };
+
+template <uint32 N, typename T>
+GenoVector<N, T> operator-(const GenoVector<N, T> & vector) {
+	T * newV = new T[N];
+	for (uint32 i = 0; i < N; ++i)
+		newV[i] = -vector.v[i];
+	return GenoVector<N, T>(newV);
+}
+
+template <uint32 N, typename T>
+GenoVector<N, T> operator+(const GenoVector<N, T> & left, const GenoVector<N, T> & right) {
+	T * newV = new T[N];
+	for (uint32 i = 0; i < N; ++i)
+		newV[i] = left.v[i] + right.v[i];
+	return GenoVector<N, T>(newV);
+}
+
+template <uint32 N, typename T>
+GenoVector<N, T> operator-(const GenoVector<N, T> & left, const GenoVector<N, T> & right) {
+	T * newV = new T[N];
+	for (uint32 i = 0; i < N; ++i)
+		newV[i] = left.v[i] - right.v[i];
+	return GenoVector<N, T>(newV);
+}
+
+template <uint32 N, typename T>
+GenoVector<N, T> operator*(const GenoVector<N, T> & left, T right) {
+	T * newV = new T[N];
+	for (uint32 i = 0; i < N; ++i)
+		newV[i] = left.v[i] * right;
+	return GenoVector<N, T>(newV);
+}
+
+template <uint32 N, typename T>
+GenoVector<N, T> operator*(T left, const GenoVector<N, T> & right) {
+	T * newV = new T[N];
+	for (uint32 i = 0; i < N; ++i)
+		newV[i] = left * right.v[i];
+	return GenoVector<N, T>(newV);
+}
+
+template <uint32 N, typename T>
+GenoVector<N, T> operator/(const GenoVector<N, T> & left, T right) {
+	T * newV = new T[N];
+	for (uint32 i = 0; i < N; ++i)
+		newV[i] = left.v[i] / right;
+	return GenoVector<N, T>(newV);
+}
+
+template <uint32 N, typename T>
+GenoVector<N, T> operator/(const GenoVector<N, T> & left, const GenoVector<N, T> & right) {
+	T * newV = new T[N];
+	for (uint32 i = 0; i < N; ++i)
+		newV[i] = left.v[i] / right.v[i];
+	return GenoVector<N, T>(newV);
+}
+
+template <uint32 N, typename T>
+GenoVector<N + 1, T> operator|(const GenoVector<N, T> & left, T right) {
+	T * newV = new T[N + 1];
+	for (uint32 i = 0; i < N + 1; ++i)
+		newV[i] = left.v[i];
+	newV[N] = right;
+	return GenoVector<N + 1, T>(newV);
+}
+
+template <uint32 N, typename T>
+GenoVector<N + 1, T> operator|(T left, const GenoVector<N, T> & right) {
+	T * newV = new T[N + 1];
+	newV[0] = left;
+	for (uint32 i = 0; i < N + 1; ++i)
+		newV[i + 1] = right.v[i];
+	return GenoVector<N + 1, T>(newV);
+}
+
+template <uint32 N, uint32 N2, typename T>
+GenoVector<N + N2, T> operator|(const GenoVector<N, T> & left, const GenoVector<N2, T> & right) {
+	T * newV = new T[N + N2];
+	for (uint32 i = 0; i < N + N2; ++i) {
+		if (i < N)
+			newV[i] = left.v[i];
+		else
+			newV[i] = right.v[i - N];
+	}
+	return GenoVector<N + N2, T>(newV);	
+}
+
+template <uint32 N, typename T>
+std::ostream & operator<<(std::ostream & stream, const GenoVector<N, T> & vector) {
+	stream << '<';
+	for (uint32 i = 0; i < N; ++i) {
+		stream << vector.v[i];
+		if (i < N - 1)
+			stream << ", ";
+	}
+	return stream << '>';
+}
 
 template <uint32 N> using GenoVectorNb  = GenoVector<N,  int8 >;
 template <uint32 N> using GenoVectorNub = GenoVector<N, uint8 >;

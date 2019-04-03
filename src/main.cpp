@@ -27,13 +27,14 @@
 #include <iostream>
 
 #include "geno/GenoInts.h"
-#include "geno/math/GenoVector2.h"
+#include "geno/math/GenoVector.h"
 
 int32 main(int32 argc, char ** argv) {
 
-	GenoVector2f vec(1, 2);
+	GenoVectorNf<3> vec1 = { 1, 2, 3 };
+	GenoVectorNf<2> vec2 = { 1, 2 };
 
-	vec = std::move(GenoVector2f(3, 6));
+	std::cout << (2.0f | vec1 | vec2 | 1.0f) << std::endl;
 
 	//////// DO NOT REMOVE BELOW ////////
 	std::cout << "Press enter to continue . . ." << std::endl;
