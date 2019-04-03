@@ -37,7 +37,7 @@ class GenoVector {
 
 	static_assert(N > 0, "Vector dimensions must be greater than 0!");
 
-	protected:
+	private:
 		GenoVector(T * v) :
 			v(v) {}
 	public:

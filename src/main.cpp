@@ -27,12 +27,12 @@
 #include <iostream>
 
 #include "geno/GenoInts.h"
-#include "geno/math/GenoVector.h"
+#include "geno/math/GenoVector2.h"
 
 int32 main(int32 argc, char ** argv) {
 
-	GenoVectorNf<3> vec1 = { 1, 2, 3 };
-	GenoVectorNf<3> vec2 = { 1, 2, 3 };
+	GenoVector2f vec1 = { 1, 2 };
+	GenoVector2f vec2 = { 1, 2 };
 
 	std::cout << (-vec1) << std::endl;
 
