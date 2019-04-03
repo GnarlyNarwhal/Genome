@@ -54,6 +54,13 @@ class GenoVector {
 			while (++iterator < list.end() && ++vector < VECTOR_END)
 				*vector = *iterator;
 		}
+
+		template <typename T2>
+		GenoVector(const GenoVector<N, T2> & vector) :
+			v(new T[N]) {
+			for (uint32 i = 0; i < N; ++i)
+				v[i] = (T) vector.v[i];
+		}
 		
 		GenoVector(const GenoVector<N, T> & vector) :
 			v(new T[N]) {
@@ -107,7 +114,7 @@ class GenoVector {
 
 		GenoVector<N, T> & operator*=(const GenoVector<N, T> & vector) {
 			for (uint32 i = 0; i < N; ++i)
-				v[i] += vector.v[i];
+				v[i] *= vector.v[i];
 			return *this;
 		}
 
@@ -119,7 +126,7 @@ class GenoVector {
 
 		GenoVector<N, T> & operator/=(const GenoVector<N, T> & vector) {
 			for (uint32 i = 0; i < N; ++i)
-				v[i] -= vector.v[i];
+				v[i] /= vector.v[i];
 			return *this;
 		}
 
@@ -203,6 +210,14 @@ GenoVector<N, T> operator*(T left, const GenoVector<N, T> & right) {
 }
 
 template <uint32 N, typename T>
+GenoVector<N, T> operator*(const GenoVector<N, T> & left, const GenoVector<N, T> & right) {
+	T * newV = new T[N];
+	for (uint32 i = 0; i < N; ++i)
+		newV[i] = left.v[i] * right.v[i];
+	return GenoVector<N, T>(newV);
+}
+
+template <uint32 N, typename T>
 GenoVector<N, T> operator/(const GenoVector<N, T> & left, T right) {
 	T * newV = new T[N];
 	for (uint32 i = 0; i < N; ++i)
@@ -269,6 +284,17 @@ template <uint32 N> using GenoVectorNl  = GenoVector<N,  int64>;
 template <uint32 N> using GenoVectorNul = GenoVector<N, uint64>;
 template <uint32 N> using GenoVectorNf  = GenoVector<N, float >;
 template <uint32 N> using GenoVectorNd  = GenoVector<N, double>;
+
+GenoVectorNb <1> operator "" _gvb (uint64 x)      { return { (int8)   x }; }
+GenoVectorNub<1> operator "" _gvub(uint64 x)      { return { (uint8)  x }; }
+GenoVectorNs <1> operator "" _gvs (uint64 x)      { return { (int16)  x }; }
+GenoVectorNus<1> operator "" _gvus(uint64 x)      { return { (uint16) x }; }
+GenoVectorNi <1> operator "" _gvi (uint64 x)      { return { (int32)  x }; }
+GenoVectorNui<1> operator "" _gvui(uint64 x)      { return { (uint32) x }; }
+GenoVectorNl <1> operator "" _gvl (uint64 x)      { return { (int64)  x }; }
+GenoVectorNul<1> operator "" _gvul(uint64 x)      { return { (uint64) x }; }
+GenoVectorNf <1> operator "" _gvf (long double x) { return { (float)  x }; }
+GenoVectorNd <1> operator "" _gvd (long double x) { return { (double) x }; }
 
 #define GNARLY_GENOME_VECTOR_FORWARD
 #endif // GNARLY_GENOME_VECTOR

@@ -32,9 +32,9 @@
 int32 main(int32 argc, char ** argv) {
 
 	GenoVectorNf<3> vec1 = { 1, 2, 3 };
-	GenoVectorNf<2> vec2 = { 1, 2 };
+	GenoVectorNf<3> vec2 = { 1, 2, 3 };
 
-	std::cout << (2.0f | vec1 | vec2 | 1.0f) << std::endl;
+	std::cout << (-vec1) << std::endl;
 
 	//////// DO NOT REMOVE BELOW ////////
 	std::cout << "Press enter to continue . . ." << std::endl;
