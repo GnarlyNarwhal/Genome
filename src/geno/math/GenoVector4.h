@@ -53,6 +53,7 @@ class GenoVector<3, T>;
 #ifndef GNARLY_GENOME_VECTOR4
 #define GNARLY_GENOME_VECTOR4
 
+#include <ostream>
 #include <cmath>
 
 #include "GenoVector.h"
@@ -260,6 +261,11 @@ GenoVector<4, T> operator/(const GenoVector<4, T> & left, const GenoVector<4, T>
 		left.v[2] / right.v[2],
 		left.v[3] / right.v[3]
 	};
+}
+
+template <typename T>
+std::ostream & operator<<(std::ostream & stream, const GenoVector<4, T> & vector) {
+	return stream << '<' << vector.v[0] << ", " << vector.v[1] << ", " << vector.v[2] << ", " << vector.v[3] << '>';
 }
 
 template <typename T> using GenoVector4 = GenoVector<4, T>;
