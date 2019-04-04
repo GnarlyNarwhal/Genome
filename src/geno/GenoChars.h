@@ -27,8 +27,8 @@
 #ifndef GNARLY_GENOME_CHARS
 #define GNARLY_GENOME_CHARS
 
-typedef char  char8;
-typedef short char16;
-typedef int   char32;
+using char8  = char;
+using char16 = short;
+using char32 = int;
 
 #endif // GNARLY_GENOME_CHARS
