@@ -62,26 +62,28 @@ class GenoVector<4, T>;
 
 template <typename T>
 class GenoVector<3, T> {
-	private:
-		GenoVector(T * v) noexcept :
-			v(v) {}
-
-		T * steal() noexcept {
-			T * ret = v;
-			v = 0;
-			return ret;
-		}
 	public:
 		T * v;
 
 		GenoVector() :
 			v(new T[3]()) {}
 		
+		GenoVector(T * v) noexcept :
+			v(v) {}
+		
 		explicit GenoVector(T value) :
 			v(new T[3] { value, value, value }) {}
 
 		GenoVector(T x, T y, T z) :
 			v(new T[3] { x, y, z }) {}
+
+		template <typename T2>
+		GenoVector(const GenoVector<3, T2> & vector) :
+			v(new T[3] {
+				(T) vector.v[0],
+				(T) vector.v[1],
+				(T) vector.v[2]
+			}) {}
 
 		GenoVector(const GenoVector<3, T> & vector) :
 			v(new T[3] {
@@ -187,6 +189,27 @@ class GenoVector<3, T> {
 			v[0] /= scalar;
 			v[1] /= scalar;
 			v[2] /= scalar;
+			return *this;
+		}
+
+		GenoVector<3, T> & translate(const GenoVector<3, T> & translate) {
+			v[0] += translate.v[0];
+			v[1] += translate.v[1];
+			v[2] += translate.v[2];
+			return *this;
+		}
+		
+		GenoVector<3, T> & scale(T scale) {
+			v[0] *= scale;
+			v[1] *= scale;
+			v[2] *= scale;
+			return *this;
+		}
+		
+		GenoVector<3, T> & scale(const GenoVector<3, T> & scale) {
+			v[0] *= scale.v[0];
+			v[1] *= scale.v[1];
+			v[2] *= scale.v[2];
 			return *this;
 		}
 
@@ -333,22 +356,73 @@ GenoVector<3, T> & project(const GenoVector<3, T> & vector, const GenoVector<3, 
 }
 
 template <typename T>
+GenoVector<3, T> translate(const GenoVector<3, T> & vector, const GenoVector<3, T> & translate) {
+	return {
+		vector.v[0]	+ translate.v[0],
+		vector.v[1] + translate.v[1],
+		vector.v[2] + translate.v[2]
+	};
+}
+
+template <typename T>
+GenoVector<3, T> & translate(const GenoVector<3, T> & vector, const GenoVector<3, T> & translate, GenoVector<3, T> & target) {
+	target.v[0] = vector.v[0] + translate.v[0];
+	target.v[1] = vector.v[1] + translate.v[1];
+	target.v[2] = vector.v[2] + translate.v[2];
+	return target;
+}
+
+template <typename T>
+GenoVector<3, T> scale(const GenoVector<3, T> & vector, T scale) {
+	return {
+		vector.v[0] * scale,
+		vector.v[1] * scale,
+		vector.v[2] * scale
+	};
+}
+
+template <typename T>
+GenoVector<3, T> & scale(const GenoVector<3, T> & vector, T scale, GenoVector<3, T> & target) {
+	target.v[0] = vector.v[0] * scale;
+	target.v[1] = vector.v[1] * scale;
+	target.v[2] = vector.v[2] * scale;
+	return target;
+}
+
+template <typename T>
+GenoVector<3, T> scale(const GenoVector<3, T> & vector, const GenoVector<3, T> & scale) {
+	return {
+		vector.v[0] * scale.v[0],
+		vector.v[1] * scale.v[1],
+		vector.v[2] * scale.v[2]
+	};
+}
+
+template <typename T>
+GenoVector<3, T> & scale(const GenoVector<3, T> & vector, const GenoVector<3, T> & scale, GenoVector<3, T> & target) {
+	target.v[0] = vector.v[0] * scale.v[0];
+	target.v[1] = vector.v[1] * scale.v[1];
+	target.v[2] = vector.v[2] * scale.v[2];
+	return target;
+}
+
+template <typename T>
 std::ostream & operator<<(std::ostream & stream, const GenoVector<3, T> & vector) {
 	return stream << '<' << vector.v[0] << ", " << vector.v[1] << ", " << vector.v[2] << '>';
 }
 
 template <typename T> using GenoVector3 = GenoVector<3, T>;
 
-using GenoVector3b  = GenoVector<3,  int8 >;
-using GenoVector3ub = GenoVector<3, uint8 >;
-using GenoVector3s  = GenoVector<3,  int16>;
-using GenoVector3us = GenoVector<3, uint16>;
-using GenoVector3i  = GenoVector<3,  int32>;
-using GenoVector3ui = GenoVector<3, uint32>;
-using GenoVector3l  = GenoVector<3,  int64>;
-using GenoVector3ul = GenoVector<3, uint64>;
-using GenoVector3f  = GenoVector<3, float >;
-using GenoVector3d  = GenoVector<3, double>;
+using GenoVector3b  = GenoVector3< int8 >;
+using GenoVector3ub = GenoVector3<uint8 >;
+using GenoVector3s  = GenoVector3< int16>;
+using GenoVector3us = GenoVector3<uint16>;
+using GenoVector3i  = GenoVector3< int32>;
+using GenoVector3ui = GenoVector3<uint32>;
+using GenoVector3l  = GenoVector3< int64>;
+using GenoVector3ul = GenoVector3<uint64>;
+using GenoVector3f  = GenoVector3<float >;
+using GenoVector3d  = GenoVector3<double>;
 
 #define GNARLY_GENOME_VECTOR3_FORWARD
 #endif // GNARLY_GENOME_VECTOR3

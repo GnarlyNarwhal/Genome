@@ -62,26 +62,27 @@ class GenoVector<4, T>;
 
 template <typename T>
 class GenoVector<2, T> {
-	private:
-		GenoVector(T * v) noexcept :
-			v(v) {}
-
-		T * steal() noexcept {
-			T * ret = v;
-			v = 0;
-			return ret;
-		}
 	public:
 		T * v;
 		
 		GenoVector() :
 			v(new T[2]()) {}
 		
+		GenoVector(T * v) noexcept :
+			v(v) {}
+
 		explicit GenoVector(T value) :
 			v(new T[2] { value, value }) {}
 
 		GenoVector(T x, T y) :
 			v(new T[2] { x, y }) {}
+
+		template <typename T2>
+		GenoVector(const GenoVector<2, T2> & vector) :
+			v(new T[2] {
+				(T) vector.v[0],
+				(T) vector.v[1]
+			}) {}
 
 		GenoVector(const GenoVector<2, T> & vector) :
 			v(new T[2] {
@@ -175,6 +176,24 @@ class GenoVector<2, T> {
 			T scalar = dot(*this, projection) / projection.getLengthSquared();
 			v[0] /= scalar;
 			v[1] /= scalar;
+			return *this;
+		}
+
+		GenoVector<2, T> & translate(const GenoVector<2, T> & translate) {
+			v[0] += translate.v[0];
+			v[1] += translate.v[1];
+			return *this;
+		}
+
+		GenoVector<2, T> & scale(T scale) {
+			v[0] *= scale;
+			v[1] *= scale;
+			return *this;
+		}
+
+		GenoVector<2, T> & scale(const GenoVector<2, T> & scale) {
+			v[0] *= scale.v[0];
+			v[1] *= scale.v[1];
 			return *this;
 		}
 
@@ -317,22 +336,67 @@ GenoVector<2, T> & project(const GenoVector<2, T> & vector, const GenoVector<2, 
 }
 
 template <typename T>
+GenoVector<2, T> translate(const GenoVector<2, T> & vector, const GenoVector<2, T> & translate) {
+	return {
+		vector.v[0]	+ translate.v[0],
+		vector.v[1] + translate.v[1]
+	};
+}
+
+template <typename T>
+GenoVector<2, T> & translate(const GenoVector<2, T> & vector, const GenoVector<2, T> & translate, GenoVector<2, T> & target) {
+	target.v[0] = vector.v[0] + translate.v[0];
+	target.v[1] = vector.v[1] + translate.v[1];
+	return target;
+}
+
+template <typename T>
+GenoVector<2, T> scale(const GenoVector<2, T> & vector, T scale) {
+	return {
+		vector.v[0] * scale,
+		vector.v[1] * scale
+	};
+}
+
+template <typename T>
+GenoVector<2, T> & scale(const GenoVector<2, T> & vector, T scale, GenoVector<2, T> & target) {
+	target.v[0] = vector.v[0] * scale;
+	target.v[1] = vector.v[1] * scale;
+	return target;
+}
+
+template <typename T>
+GenoVector<2, T> scale(const GenoVector<2, T> & vector, const GenoVector<2, T> & scale) {
+	return {
+		vector.v[0] * scale.v[0],
+		vector.v[1] * scale.v[1]
+	};
+}
+
+template <typename T>
+GenoVector<2, T> & scale(const GenoVector<2, T> & vector, const GenoVector<2, T> & scale, GenoVector<2, T> & target) {
+	target.v[0] = vector.v[0] * scale.v[0];
+	target.v[1] = vector.v[1] * scale.v[1];
+	return target;
+}
+
+template <typename T>
 std::ostream & operator<<(std::ostream & stream, const GenoVector<2, T> & vector) {
 	return stream << '<' << vector.v[0] << ", " << vector.v[1] << '>';
 }
 
 template <typename T> using GenoVector2 = GenoVector<2, T>;
 
-using GenoVector2b  = GenoVector<2,  int8 >;
-using GenoVector2ub = GenoVector<2, uint8 >;
-using GenoVector2s  = GenoVector<2,  int16>;
-using GenoVector2us = GenoVector<2, uint16>;
-using GenoVector2i  = GenoVector<2,  int32>;
-using GenoVector2ui = GenoVector<2, uint32>;
-using GenoVector2l  = GenoVector<2,  int64>;
-using GenoVector2ul = GenoVector<2, uint64>;
-using GenoVector2f  = GenoVector<2, float >;
-using GenoVector2d  = GenoVector<2, double>;
+using GenoVector2b  = GenoVector2< int8 >;
+using GenoVector2ub = GenoVector2<uint8 >;
+using GenoVector2s  = GenoVector2< int16>;
+using GenoVector2us = GenoVector2<uint16>;
+using GenoVector2i  = GenoVector2< int32>;
+using GenoVector2ui = GenoVector2<uint32>;
+using GenoVector2l  = GenoVector2< int64>;
+using GenoVector2ul = GenoVector2<uint64>;
+using GenoVector2f  = GenoVector2<float >;
+using GenoVector2d  = GenoVector2<double>;
 
 #define GNARLY_GENOME_VECTOR2_FORWARD
 #endif // GNARLY_GENOME_VECTOR2

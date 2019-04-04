@@ -62,26 +62,29 @@ class GenoVector<3, T>;
 
 template <typename T>
 class GenoVector<4, T> {
-	private:
-		GenoVector(T * v) noexcept :
-			v(v) {}
-
-		T * steal() noexcept {
-			T * ret = v;
-			v = 0;
-			return ret;
-		}
 	public:
 		T * v;
 
 		GenoVector() :
 			v(new T[4]()) {}
 
+		GenoVector(T * v) noexcept :
+			v(v) {}
+
 		explicit GenoVector(T value) :
 			v(new T[4] { value, value, value, value }) {}
 
 		GenoVector(T x, T y, T z, T w) :
 			v(new T[4] { x, y, z, w }) {}
+
+		template <typename T2>
+		GenoVector(const GenoVector<4, T2> & vector) :
+			v(new T[4] {
+				(T) vector.v[0],
+				(T) vector.v[1],
+				(T) vector.v[2],
+				(T) vector.v[3]
+			}) {}
 
 		GenoVector(const GenoVector<4, T> & vector) :
 			v(new T[4] {
@@ -199,6 +202,30 @@ class GenoVector<4, T> {
 			v[1] /= scalar;
 			v[2] /= scalar;
 			v[3] /= scalar;
+			return *this;
+		}
+
+		GenoVector<4, T> & translate(const GenoVector<4, T> & translate) {
+			v[0] += translate.v[0];
+			v[1] += translate.v[1];
+			v[2] += translate.v[2];
+			v[3] += translate.v[3];
+			return *this;
+		}
+		
+		GenoVector<4, T> & scale(T scale) {
+			v[0] *= scale;
+			v[1] *= scale;
+			v[2] *= scale;
+			v[3] *= scale;
+			return *this;
+		}
+		
+		GenoVector<4, T> & scale(const GenoVector<4, T> & scale) {
+			v[0] *= scale.v[0];
+			v[1] *= scale.v[1];
+			v[2] *= scale.v[2];
+			v[3] *= scale.v[3];
 			return *this;
 		}
 
@@ -338,22 +365,79 @@ GenoVector<4, T> & project(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template <typename T>
+GenoVector<4, T> translate(const GenoVector<4, T> & vector, const GenoVector<4, T> & translate) {
+	return {
+		vector.v[0]	+ translate.v[0],
+		vector.v[1] + translate.v[1],
+		vector.v[2] + translate.v[2],
+		vector.v[3] + translate.v[3]
+	};
+}
+
+template <typename T>
+GenoVector<4, T> & translate(const GenoVector<4, T> & vector, const GenoVector<4, T> & translate, GenoVector<4, T> & target) {
+	target.v[0] = vector.v[0] + translate.v[0];
+	target.v[1] = vector.v[1] + translate.v[1];
+	target.v[2] = vector.v[2] + translate.v[2];
+	target.v[3] = vector.v[3] + translate.v[3];
+	return target;
+}
+
+template <typename T>
+GenoVector<4, T> scale(const GenoVector<4, T> & vector, T scale) {
+	return {
+		vector.v[0] * scale,
+		vector.v[1] * scale,
+		vector.v[2] * scale,
+		vector.v[3] * scale
+	};
+}
+
+template <typename T>
+GenoVector<4, T> & scale(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
+	target.v[0] = vector.v[0] * scale;
+	target.v[1] = vector.v[1] * scale;
+	target.v[2] = vector.v[2] * scale;
+	target.v[3] = vector.v[3] * scale;
+	return target;
+}
+
+template <typename T>
+GenoVector<4, T> scale(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale) {
+	return {
+		vector.v[0] * scale.v[0],
+		vector.v[1] * scale.v[1],
+		vector.v[2] * scale.v[2],
+		vector.v[3] * scale.v[3]
+	};
+}
+
+template <typename T>
+GenoVector<4, T> & scale(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale, GenoVector<4, T> & target) {
+	target.v[0] = vector.v[0] * scale.v[0];
+	target.v[1] = vector.v[1] * scale.v[1];
+	target.v[2] = vector.v[2] * scale.v[2];
+	target.v[3] = vector.v[3] * scale.v[3];
+	return target;
+}
+
+template <typename T>
 std::ostream & operator<<(std::ostream & stream, const GenoVector<4, T> & vector) {
 	return stream << '<' << vector.v[0] << ", " << vector.v[1] << ", " << vector.v[2] << ", " << vector.v[3] << '>';
 }
 
 template <typename T> using GenoVector4 = GenoVector<4, T>;
 
-using GenoVector4b  = GenoVector<4,  int8 >;
-using GenoVector4ub = GenoVector<4, uint8 >;
-using GenoVector4s  = GenoVector<4,  int16>;
-using GenoVector4us = GenoVector<4, uint16>;
-using GenoVector4i  = GenoVector<4,  int32>;
-using GenoVector4ui = GenoVector<4, uint32>;
-using GenoVector4l  = GenoVector<4,  int64>;
-using GenoVector4ul = GenoVector<4, uint64>;
-using GenoVector4f  = GenoVector<4, float >;
-using GenoVector4d  = GenoVector<4, double>;
+using GenoVector4b  = GenoVector4< int8 >;
+using GenoVector4ub = GenoVector4<uint8 >;
+using GenoVector4s  = GenoVector4< int16>;
+using GenoVector4us = GenoVector4<uint16>;
+using GenoVector4i  = GenoVector4< int32>;
+using GenoVector4ui = GenoVector4<uint32>;
+using GenoVector4l  = GenoVector4< int64>;
+using GenoVector4ul = GenoVector4<uint64>;
+using GenoVector4f  = GenoVector4<float >;
+using GenoVector4d  = GenoVector4<double>;
 
 #define GNARLY_GENOME_VECTOR4_FORWARD
 #endif // GNARLY_GENOME_VECTOR4

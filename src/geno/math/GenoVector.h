@@ -38,20 +38,14 @@ class GenoVector {
 
 	static_assert(N > 0, "Vector dimensions must be greater than 0!");
 
-	private:
-		GenoVector(T * v) noexcept :
-			v(v) {}
-
-		T * steal() noexcept {
-			T * ret = v;
-			v = 0;
-			return ret;
-		}
 	public:
 		T * v;
 
 		GenoVector() :
 			v(new T[N]()) {}
+
+		GenoVector(T * v) noexcept :
+			v(v) {}
 		
 		explicit GenoVector(T value) :
 			v(new T[N]) {
@@ -178,23 +172,27 @@ class GenoVector {
 			return *this;
 		}
 
+		GenoVector<N, T> & translate(const GenoVector<N, T> & translate) {
+			for (uint32 i = 0; i < N; ++i)
+				v[i] += translate.v[i];
+			return *this;
+		}
+
+		GenoVector<N, T> & scale(T scale) {
+			for (uint32 i = 0; i < N; ++i)
+				v[i] *= scale;
+			return *this;
+		}
+
+		GenoVector<N, T> & scale(const GenoVector<N, T> & scale) {
+			for (uint32 i = 0; i < N; ++i)
+				v[i] *= scale.v[i];
+			return *this;
+		}
+
 		virtual ~GenoVector() noexcept {
 			delete [] v;
 		}
-
-		template <uint32 FN, typename FT> friend GenoVector<FN, FT> operator-(const GenoVector<FN, FT> & vector);
-		template <uint32 FN, typename FT> friend GenoVector<FN, FT> operator+(const GenoVector<FN, FT> & left, const GenoVector<FN, FT> & right);
-		template <uint32 FN, typename FT> friend GenoVector<FN, FT> operator-(const GenoVector<FN, FT> & left, const GenoVector<FN, FT> & right);
-		template <uint32 FN, typename FT> friend GenoVector<FN, FT> operator*(const GenoVector<FN, FT> & left, FT right);
-		template <uint32 FN, typename FT> friend GenoVector<FN, FT> operator*(FT left, const GenoVector<FN, FT> & right);
-		template <uint32 FN, typename FT> friend GenoVector<FN, FT> operator*(const GenoVector<FN, FT> & left, const GenoVector<FN, FT> & right);
-		template <uint32 FN, typename FT> friend GenoVector<FN, FT> operator/(const GenoVector<FN, FT> & left, FT right);
-		template <uint32 FN, typename FT> friend GenoVector<FN, FT> operator/(const GenoVector<FN, FT> & left, const GenoVector<FN, FT> & right);
-		template <uint32 FN, typename FT> friend GenoVector<FN + 1, FT> operator|(const GenoVector<FN, FT> & left, FT right);
-		template <uint32 FN, typename FT> friend GenoVector<FN + 1, FT> operator|(FT left, const GenoVector<FN, FT> & right);
-		template <uint32 FN, uint32 FN2, typename FT> friend GenoVector<FN + FN2, FT> operator|(const GenoVector<FN, FT> & left, const GenoVector<FN2, FT> & right);
-		template <uint32 FN, typename FT> friend GenoVector<FN, FT> negate(const GenoVector<FN, FT> & vector);
-		template <uint32 FN, typename FT> friend GenoVector<FN, FT> project(const GenoVector<FN, FT> & vector, const GenoVector<FN, FT> & projection);
 };
 
 template <uint32 N, typename T>
@@ -327,6 +325,54 @@ GenoVector<N, T> & project(const GenoVector<N, T> & vector, const GenoVector<N, 
 	T scalar = dot(vector, projection) / projection.getLengthSquared();
 	for (uint32 i = 0; i < N; ++i)
 		target.v[i] = scalar * projection.v[i];
+	return target;
+}
+
+template <uint32 N, typename T>
+GenoVector<N, T> & translate(const GenoVector<N, T> & vector, const GenoVector<N, T> & translate) {
+	T * newV = new T[N];
+	for (uint32 i = 0; i < N; ++i)
+		newV[i] = vector.v[i] + translate.v[i];
+	return GenoVector<N, T>(newV);
+}
+
+
+template <uint32 N, typename T>
+GenoVector<N, T> & translate(const GenoVector<N, T> & vector, const GenoVector<N, T> & translate, GenoVector<N, T> & target) {
+	for (uint32 i = 0; i < N; ++i)
+		target.v[i] = vector.v[i] + translate.v[i];
+	return target;
+}
+
+template <uint32 N, typename T>
+GenoVector<N, T> & scale(const GenoVector<N, T> & vector, T scale) {
+	T * newV = new T[N];
+	for (uint32 i = 0; i < N; ++i)
+		newV[i] = vector.v[i] * scale;
+	return GenoVector<N, T>(newV);
+}
+
+
+template <uint32 N, typename T>
+GenoVector<N, T> & scale(const GenoVector<N, T> & vector, T scale, GenoVector<N, T> & target) {
+	for (uint32 i = 0; i < N; ++i)
+		target.v[i] = vector.v[i] * scale;
+	return target;
+}
+
+template <uint32 N, typename T>
+GenoVector<N, T> & scale(const GenoVector<N, T> & vector, const GenoVector<N, T> & scale) {
+	T * newV = new T[N];
+	for (uint32 i = 0; i < N; ++i)
+		newV[i] = vector.v[i] * scale.v[i];
+	return GenoVector<N, T>(newV);
+}
+
+
+template <uint32 N, typename T>
+GenoVector<N, T> & scale(const GenoVector<N, T> & vector, const GenoVector<N, T> & scale, GenoVector<N, T> & target) {
+	for (uint32 i = 0; i < N; ++i)
+		target.v[i] = vector.v[i] * scale.v[i];
 	return target;
 }
 
