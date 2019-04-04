@@ -65,6 +65,12 @@ class GenoVector<2, T> {
 	private:
 		GenoVector(T * v) noexcept :
 			v(v) {}
+
+		T * steal() noexcept {
+			T * ret = v;
+			v = 0;
+			return ret;
+		}
 	public:
 		T * v;
 		
@@ -158,78 +164,91 @@ class GenoVector<2, T> {
 				v[1] * v[1]
 			);
 		}
+		
+		GenoVector<2, T> & negate() {
+			v[0] = -v[0];
+			v[1] = -v[1];
+			return *this;
+		}
+
+		GenoVector<2, T> & project(const GenoVector<2, T> & projection) {
+			T scalar = dot(*this, projection) / projection.getLengthSquared();
+			v[0] /= scalar;
+			v[1] /= scalar;
+			return *this;
+		}
 
 		virtual ~GenoVector() noexcept {
 			delete [] v;
 		}
 };
 
-template <typename FT>
-GenoVector<2, FT> operator-(const GenoVector<2, FT> & vector) {
+template <typename T>
+GenoVector<2, T> operator-(const GenoVector<2, T> & vector) {
 	return {
 		-vector.v[0],
 		-vector.v[1]
 	};
 }
 
-template <typename FT>
-GenoVector<2, FT> operator+(const GenoVector<2, FT> & left, const GenoVector<2, FT> & right) {
+template <typename T>
+GenoVector<2, T> operator+(const GenoVector<2, T> & left, const GenoVector<2, T> & right) {
 	return {
 		left.v[0] + right.v[0],
 		left.v[1] + right.v[1]
 	};
 }
 
-template <typename FT>
-GenoVector<2, FT> operator-(const GenoVector<2, FT> & left, const GenoVector<2, FT> & right) {
+template <typename T>
+GenoVector<2, T> operator-(const GenoVector<2, T> & left, const GenoVector<2, T> & right) {
 	return {
 		left.v[0] - right.v[0],
 		left.v[1] - right.v[1]
 	};
 }
 
-template <typename FT>
-GenoVector<2, FT> operator*(FT left, const GenoVector<2, FT> & right) {
+template <typename T>
+GenoVector<2, T> operator*(T left, const GenoVector<2, T> & right) {
 	return {
 		left * right.v[0],
 		left * right.v[1]
 	};
 }
 
-template <typename FT>
-GenoVector<2, FT> operator*(const GenoVector<2, FT> & left, FT right) {
+template <typename T>
+GenoVector<2, T> operator*(const GenoVector<2, T> & left, T right) {
 	return {
 		left.v[0] * right,
 		left.v[1] * right
 	};
 }
 
-template <typename FT>
-GenoVector<2, FT> operator*(const GenoVector<2, FT> & left, const GenoVector<2, FT> & right) {
+template <typename T>
+GenoVector<2, T> operator*(const GenoVector<2, T> & left, const GenoVector<2, T> & right) {
 	return {
 		left.v[0] * right.v[0],
 		left.v[1] * right.v[1]
 	};
 }
 
-template <typename FT>
-GenoVector<2, FT> operator/(const GenoVector<2, FT> & left, FT right) {
+template <typename T>
+GenoVector<2, T> operator/(const GenoVector<2, T> & left, T right) {
 	return {
 		left.v[0] / right,
 		left.v[1] / right
 	};
 }
 
-template <typename FT>
-GenoVector<2, FT> operator/(const GenoVector<2, FT> & left, const GenoVector<2, FT> & right) {
+template <typename T>
+GenoVector<2, T> operator/(const GenoVector<2, T> & left, const GenoVector<2, T> & right) {
 	return {
 		left.v[0] / right.v[0],
 		left.v[1] / right.v[1]
 	};
 }
 
-template <typename FT>
-GenoVector<3, FT> operator|(FT left, const GenoVector<2, FT> & right) {
+template <typename T>
+GenoVector<3, T> operator|(T left, const GenoVector<2, T> & right) {
 	return {
 		left,
 		right.v[0],
@@ -237,8 +256,8 @@ GenoVector<3, FT> operator|(FT left, const GenoVector<2, FT> & right) {
 	};
 }
 
-template <typename FT>
-GenoVector<3, FT> operator|(const GenoVector<2, FT> & left, FT right) {
+template <typename T>
+GenoVector<3, T> operator|(const GenoVector<2, T> & left, T right) {
 	return {
 		left.v[0],
 		left.v[1],
@@ -246,8 +265,8 @@ GenoVector<3, FT> operator|(const GenoVector<2, FT> & left, FT right) {
 	};
 }
 
-template <typename FT>
-GenoVector<4, FT> operator|(const GenoVector<2, FT> & left, const GenoVector<2, FT> & right) {
+template <typename T>
+GenoVector<4, T> operator|(const GenoVector<2, T> & left, const GenoVector<2, T> & right) {
 	std::cout << "asdf" << std::endl;
 	return {
 		left.v[0],
@@ -258,6 +277,46 @@ GenoVector<4, FT> operator|(const GenoVector<2, FT> & left, const GenoVector<2, 
 }
 
 template <typename T>
+GenoVector<2, T> negate(const GenoVector<2, T> & vector) {
+	return {
+		-vector.v[0],
+		-vector.v[1]
+	};
+}
+
+template <typename T>
+GenoVector<2, T> & negate(const GenoVector<2, T> & vector, GenoVector<2, T> & target) {
+	target.v[0] = -vector.v[0];
+	target.v[1] = -vector.v[1];
+	return target;
+}
+
+template <typename T>
+T dot(const GenoVector<2, T> & left, const GenoVector<2, T> & right) {
+	return (
+		left.v[0] * right.v[0] +
+		left.v[1] * right.v[1]
+	);
+}
+
+template <typename T>
+GenoVector<2, T> project(const GenoVector<2, T> & vector, const GenoVector<2, T> & projection) {
+	T scalar = dot(vector, projection) / projection.getLengthSquared();
+	return {
+		scalar * projection.v[0],
+		scalar * projection.v[1]
+	};
+}
+
+template <typename T>
+GenoVector<2, T> & project(const GenoVector<2, T> & vector, const GenoVector<2, T> & projection, GenoVector<2, T> & target) {
+	T scalar = dot(vector, projection) / projection.getLengthSquared();
+	target.v[0] = scalar * projection.v[0];
+	target.v[1] = scalar * projection.v[1];
+	return target;
+}
+
+template <typename T>
 std::ostream & operator<<(std::ostream & stream, const GenoVector<2, T> & vector) {
 	return stream << '<' << vector.v[0] << ", " << vector.v[1] << '>';
 }
@@ -265,7 +324,7 @@ std::ostream & operator<<(std::ostream & stream, const GenoVector<2, T> & vector
 template <typename T> using GenoVector2 = GenoVector<2, T>;
 
 using GenoVector2b  = GenoVector<2,  int8 >;
-using GenoVector2nb = GenoVector<2, uint8 >;
+using GenoVector2ub = GenoVector<2, uint8 >;
 using GenoVector2s  = GenoVector<2,  int16>;
 using GenoVector2us = GenoVector<2, uint16>;
 using GenoVector2i  = GenoVector<2,  int32>;

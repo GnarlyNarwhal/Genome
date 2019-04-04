@@ -65,6 +65,12 @@ class GenoVector<3, T> {
 	private:
 		GenoVector(T * v) noexcept :
 			v(v) {}
+
+		T * steal() noexcept {
+			T * ret = v;
+			v = 0;
+			return ret;
+		}
 	public:
 		T * v;
 
@@ -168,6 +174,21 @@ class GenoVector<3, T> {
 				v[2] * v[2]
 			);
 		}
+		
+		GenoVector<3, T> & negate() {
+			v[0] = -v[0];
+			v[1] = -v[1];
+			v[2] = -v[2];
+			return *this;
+		}
+
+		GenoVector<3, T> & project(const GenoVector<3, T> & projection) {
+			T scalar = dot(*this, projection) / projection.getLengthSquared();
+			v[0] /= scalar;
+			v[1] /= scalar;
+			v[2] /= scalar;
+			return *this;
+		}
 
 		virtual ~GenoVector() noexcept {
 			delete [] v;
@@ -267,6 +288,51 @@ GenoVector<4, T> operator|(const GenoVector<3, T> & left, T right) {
 }
 
 template <typename T>
+GenoVector<3, T> negate(const GenoVector<3, T> & vector) {
+	return {
+		-vector.v[0],
+		-vector.v[1],
+		-vector.v[2]
+	};
+}
+
+template <typename T>
+GenoVector<3, T> & negate(const GenoVector<3, T> & vector, GenoVector<3, T> & target) {
+	target.v[0] = -vector.v[0];
+	target.v[1] = -vector.v[1];
+	target.v[2] = -vector.v[2];
+	return target;
+}
+
+template <typename T>
+T dot(const GenoVector<3, T> & left, const GenoVector<3, T> & right) {
+	return (
+		left.v[0] * right.v[0] +
+		left.v[1] * right.v[1] +
+		left.v[2] * right.v[2]
+	);
+}
+
+template <typename T>
+GenoVector<3, T> project(const GenoVector<3, T> & vector, const GenoVector<3, T> & projection) {
+	T scalar = dot(vector, projection) / projection.getLengthSquared();
+	return {
+		scalar * projection.v[0],
+		scalar * projection.v[1],
+		scalar * projection.v[2]
+	};
+}
+
+template <typename T>
+GenoVector<3, T> & project(const GenoVector<3, T> & vector, const GenoVector<3, T> & projection, GenoVector<3, T> & target) {
+	T scalar = dot(vector, projection) / projection.getLengthSquared();
+	target.v[0] = scalar * projection.v[0];
+	target.v[1] = scalar * projection.v[1];
+	target.v[2] = scalar * projection.v[2];
+	return target;
+}
+
+template <typename T>
 std::ostream & operator<<(std::ostream & stream, const GenoVector<3, T> & vector) {
 	return stream << '<' << vector.v[0] << ", " << vector.v[1] << ", " << vector.v[2] << '>';
 }
@@ -274,7 +340,7 @@ std::ostream & operator<<(std::ostream & stream, const GenoVector<3, T> & vector
 template <typename T> using GenoVector3 = GenoVector<3, T>;
 
 using GenoVector3b  = GenoVector<3,  int8 >;
-using GenoVector3nb = GenoVector<3, uint8 >;
+using GenoVector3ub = GenoVector<3, uint8 >;
 using GenoVector3s  = GenoVector<3,  int16>;
 using GenoVector3us = GenoVector<3, uint16>;
 using GenoVector3i  = GenoVector<3,  int32>;

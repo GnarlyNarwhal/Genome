@@ -58,12 +58,19 @@ class GenoVector<3, T>;
 
 #include "GenoVector.h"
 #include "GenoVector2.h"
+#include "GenoVector3.h"
 
 template <typename T>
 class GenoVector<4, T> {
 	private:
 		GenoVector(T * v) noexcept :
 			v(v) {}
+
+		T * steal() noexcept {
+			T * ret = v;
+			v = 0;
+			return ret;
+		}
 	public:
 		T * v;
 
@@ -177,6 +184,23 @@ class GenoVector<4, T> {
 				v[3] * v[3]
 			);
 		}
+		
+		GenoVector<2, T> & negate() {
+			v[0] = -v[0];
+			v[1] = -v[1];
+			v[2] = -v[2];
+			v[3] = -v[3];
+			return *this;
+		}
+
+		GenoVector<4, T> & project(const GenoVector<4, T> & projection) {
+			T scalar = dot(*this, projection) / projection.getLengthSquared();
+			v[0] /= scalar;
+			v[1] /= scalar;
+			v[2] /= scalar;
+			v[3] /= scalar;
+			return *this;
+		}
 
 		virtual ~GenoVector() noexcept {
 			delete [] v;
@@ -261,6 +285,56 @@ GenoVector<4, T> operator/(const GenoVector<4, T> & left, const GenoVector<4, T>
 		left.v[2] / right.v[2],
 		left.v[3] / right.v[3]
 	};
+}
+
+template <typename T>
+GenoVector<4, T> negate(const GenoVector<4, T> & vector) {
+	return {
+		-vector.v[0],
+		-vector.v[1],
+		-vector.v[2],
+		-vector.v[3]
+	};
+}
+
+template <typename T>
+GenoVector<4, T> & negate(const GenoVector<4, T> & vector, GenoVector<4, T> & target) {
+	target.v[0] = -vector.v[0];
+	target.v[1] = -vector.v[1];
+	target.v[2] = -vector.v[2];
+	target.v[3] = -vector.v[3];
+	return target;
+}
+
+template <typename T>
+T dot(const GenoVector<4, T> & left, const GenoVector<4, T> & right) {
+	return (
+		left.v[0] * right.v[0] +
+		left.v[1] * right.v[1] +
+		left.v[2] * right.v[2] +
+		left.v[3] * right.v[3]
+	);
+}
+
+template <typename T>
+GenoVector<4, T> project(const GenoVector<4, T> & vector, const GenoVector<4, T> & projection) {
+	T scalar = dot(vector, projection) / projection.getLengthSquared();
+	return {
+		scalar * projection.v[0],
+		scalar * projection.v[1],
+		scalar * projection.v[2],
+		scalar * projection.v[3]
+	};
+}
+
+template <typename T>
+GenoVector<4, T> & project(const GenoVector<4, T> & vector, const GenoVector<4, T> & projection, GenoVector<4, T> & target) {
+	T scalar = dot(vector, projection) / projection.getLengthSquared();
+	target.v[0] = scalar * projection.v[0];
+	target.v[1] = scalar * projection.v[1];
+	target.v[2] = scalar * projection.v[2];
+	target.v[3] = scalar * projection.v[3];
+	return target;
 }
 
 template <typename T>
