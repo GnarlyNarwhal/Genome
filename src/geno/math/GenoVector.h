@@ -282,12 +282,11 @@ GenoVector<N + 1, T> operator|(T left, const GenoVector<N, T> & right) {
 template <uint32 N, uint32 N2, typename T>
 GenoVector<N + N2, T> operator|(const GenoVector<N, T> & left, const GenoVector<N2, T> & right) {
 	T * newV = new T[N + N2];
-	for (uint32 i = 0; i < N + N2; ++i) {
-		if (i < N)
-			newV[i] = left.v[i];
-		else
-			newV[i] = right.v[i - N];
-	}
+	T * vRight = newV + N;
+	for (uint32 i = 0; i < N; ++i)
+		newV[i] = left.v[i];
+	for (uint32 i = 0; i < N2; ++i)
+		vRight[i] = right.v[i];
 	return GenoVector<N + N2, T>(newV);	
 }
 
@@ -353,16 +352,29 @@ template <uint32 N> using GenoVectorNul = GenoVector<N, uint64>;
 template <uint32 N> using GenoVectorNf  = GenoVector<N, float >;
 template <uint32 N> using GenoVectorNd  = GenoVector<N, double>;
 
-GenoVectorNb <1> operator "" _gvb (uint64 x)      { return { ( int8 ) x }; }
-GenoVectorNub<1> operator "" _gvub(uint64 x)      { return { (uint8 ) x }; }
-GenoVectorNs <1> operator "" _gvs (uint64 x)      { return { ( int16) x }; }
-GenoVectorNus<1> operator "" _gvus(uint64 x)      { return { (uint16) x }; }
-GenoVectorNi <1> operator "" _gvi (uint64 x)      { return { ( int32) x }; }
-GenoVectorNui<1> operator "" _gvui(uint64 x)      { return { (uint32) x }; }
-GenoVectorNl <1> operator "" _gvl (uint64 x)      { return { ( int64) x }; }
-GenoVectorNul<1> operator "" _gvul(uint64 x)      { return { (uint64) x }; }
-GenoVectorNf <1> operator "" _gvf (long double x) { return { (float ) x }; }
-GenoVectorNd <1> operator "" _gvd (long double x) { return { (double) x }; }
+template <typename T> using GenoVector1 = GenoVector<1, T>;
+
+using GenoVector1b  = GenoVector1< int8 >;
+using GenoVector1ub = GenoVector1<uint8 >;
+using GenoVector1s  = GenoVector1< int16>;
+using GenoVector1us = GenoVector1<uint16>;
+using GenoVector1i  = GenoVector1< int32>;
+using GenoVector1ui = GenoVector1<uint32>;
+using GenoVector1l  = GenoVector1< int64>;
+using GenoVector1ul = GenoVector1<uint64>;
+using GenoVector1f  = GenoVector1<float >;
+using GenoVector1d  = GenoVector1<double>;
+
+GenoVector1b  operator "" _gvb (uint64 x)      { return { ( int8 ) x }; }
+GenoVector1ub operator "" _gvub(uint64 x)      { return { (uint8 ) x }; }
+GenoVector1s  operator "" _gvs (uint64 x)      { return { ( int16) x }; }
+GenoVector1us operator "" _gvus(uint64 x)      { return { (uint16) x }; }
+GenoVector1i  operator "" _gvi (uint64 x)      { return { ( int32) x }; }
+GenoVector1ui operator "" _gvui(uint64 x)      { return { (uint32) x }; }
+GenoVector1l  operator "" _gvl (uint64 x)      { return { ( int64) x }; }
+GenoVector1ul operator "" _gvul(uint64 x)      { return { (uint64) x }; }
+GenoVector1f  operator "" _gvf (long double x) { return { (float ) x }; }
+GenoVector1d  operator "" _gvd (long double x) { return { (double) x }; }
 
 #define GNARLY_GENOME_VECTOR_FORWARD
 #endif // GNARLY_GENOME_VECTOR
