@@ -179,6 +179,12 @@ class GenoVector<2, T> {
 			return *this;
 		}
 
+		GenoVector<2, T> & set(const GenoVector<2, T> & vector) {
+			v[0] = vector.v[0];
+			v[1] = vector.v[1];
+			return *this;
+		}
+
 		GenoVector<2, T> & translate(const GenoVector<2, T> & translate) {
 			v[0] += translate.v[0];
 			v[1] += translate.v[1];
@@ -194,6 +200,28 @@ class GenoVector<2, T> {
 		GenoVector<2, T> & scale(const GenoVector<2, T> & scale) {
 			v[0] *= scale.v[0];
 			v[1] *= scale.v[1];
+			return *this;
+		}
+
+		GenoVector<2, T> & setX(T x) {
+			v[0] = x;
+			return *this;
+		}
+
+		GenoVector<2, T> & setY(T y) {
+			v[1] = y;
+			return *this;
+		}
+
+		GenoVector<2, T> & setXY(T x, T y) {
+			v[0] = x;
+			v[1] = y;
+			return *this;
+		}
+
+		GenoVector<2, T> & setXY(const GenoVector<2, T> & vector) {
+			v[0] = vector.v[0];
+			v[1] = vector.v[1];
 			return *this;
 		}
 

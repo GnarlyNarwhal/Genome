@@ -192,6 +192,13 @@ class GenoVector<3, T> {
 			return *this;
 		}
 
+		GenoVector<3, T> & set(const GenoVector<3, T> & vector) {
+			v[0] = vector.v[0];
+			v[1] = vector.v[1];
+			v[2] = vector.v[2];
+			return *this;
+		}
+
 		GenoVector<3, T> & translate(const GenoVector<3, T> & translate) {
 			v[0] += translate.v[0];
 			v[1] += translate.v[1];
@@ -210,6 +217,71 @@ class GenoVector<3, T> {
 			v[0] *= scale.v[0];
 			v[1] *= scale.v[1];
 			v[2] *= scale.v[2];
+			return *this;
+		}
+
+		GenoVector<3, T> & setX(T x) {
+			v[0] = x;
+			return *this;
+		}
+
+		GenoVector<3, T> & setY(T y) {
+			v[1] = y;
+			return *this;
+		}
+
+		GenoVector<3, T> & setZ(T z) {
+			v[2] = z;
+			return *this;
+		}
+
+		GenoVector<3, T> & setXY(T x, T y) {
+			v[0] = x;
+			v[1] = y;
+			return *this;
+		}
+
+		GenoVector<3, T> & setXY(const GenoVector<2, T> & vector) {
+			v[0] = vector.v[0];
+			v[1] = vector.v[1];
+			return *this;
+		}
+
+		GenoVector<3, T> & setXZ(T x, T z) {
+			v[0] = x;
+			v[2] = z;
+			return *this;
+		}
+
+		GenoVector<3, T> & setXZ(const GenoVector<2, T> & vector) {
+			v[0] = vector.v[0];
+			v[2] = vector.v[1];
+			return *this;
+		}
+
+		GenoVector<3, T> & setYZ(T y, T z) {
+			v[1] = y;
+			v[2] = z;
+			return *this;
+		}
+
+		GenoVector<3, T> & setYZ(const GenoVector<2, T> & vector) {
+			v[1] = vector.v[0];
+			v[2] = vector.v[1];
+			return *this;
+		}
+
+		GenoVector<3, T> & setXYZ(T x, T y, T z) {
+			v[0] = x;
+			v[1] = y;
+			v[2] = z;
+			return *this;
+		}
+
+		GenoVector<3, T> & setXYZ(const GenoVector<3, T> & vector) {
+			v[0] = vector.v[0];
+			v[1] = vector.v[1];
+			v[2] = vector.v[2];
 			return *this;
 		}
 

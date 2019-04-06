@@ -172,6 +172,12 @@ class GenoVector {
 			return *this;
 		}
 
+		GenoVector<N, T> & set(const GenoVector<N, T> & vector) {
+			for (uint32 i = 0; i < N; ++i)
+				v[i] = vector.v[i];
+			return *this;
+		}
+
 		GenoVector<N, T> & translate(const GenoVector<N, T> & translate) {
 			for (uint32 i = 0; i < N; ++i)
 				v[i] += translate.v[i];
