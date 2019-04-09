@@ -60,9 +60,14 @@ class GenoVector<4, T>;
 #include "GenoVector2.h"
 #include "GenoVector4.h"
 
+namespace GenoVectorDimensions {
+	GenoVectorDimension<2> z;
+}
+
 template <typename T>
 class GenoVector<3, T> {
 	public:
+
 		T * v;
 
 		GenoVector() :
@@ -159,6 +164,20 @@ class GenoVector<3, T> {
 
 		const T & operator[](uint32 index) const noexcept {
 			return v[index];
+		}
+
+		template <uint32 N>
+		T & operator[](const GenoVectorDimensions::GenoVectorDimension<N> & dimension) noexcept {
+			static_assert(GenoVectorDimensions::GenoVectorDimension<N>::dimension != 3, "GenoVector<3, T> has no dimension w!");
+			static_assert(GenoVectorDimensions::GenoVectorDimension<N>::dimension  < 4, "GenoVector<3, T> has no dimension beyond z!");
+			return v[GenoVectorDimensions::GenoVectorDimension<N>::dimension];
+		}
+
+		template <uint32 N>
+		const T & operator[](const GenoVectorDimensions::GenoVectorDimension<N> & dimension) const noexcept {
+			static_assert(GenoVectorDimensions::GenoVectorDimension<N>::dimension != 3, "GenoVector<3, T> has no dimension w!");
+			static_assert(GenoVectorDimensions::GenoVectorDimension<N>::dimension  < 4, "GenoVector<3, T> has no dimension beyond z!");
+			return v[GenoVectorDimensions::GenoVectorDimension<N>::dimension];
 		}
 
 		double getLength() const {
@@ -283,6 +302,162 @@ class GenoVector<3, T> {
 			v[1] = vector.v[1];
 			v[2] = vector.v[2];
 			return *this;
+		}
+
+		T getX() const {
+			return v[0];
+		}
+
+		T getY() const {
+			return v[1];
+		}
+
+		T getZ() const {
+			return v[2];
+		}
+
+		GenoVector<2, T> getXX() const {
+			return { v[0], v[0] };
+		}
+
+		GenoVector<2, T> getXY() const {
+			return { v[0], v[1] };
+		}
+
+		GenoVector<2, T> getXZ() const {
+			return { v[0], v[2] };
+		}
+
+		GenoVector<2, T> getYX() const {
+			return { v[1], v[0] };
+		}
+
+		GenoVector<2, T> getYY() const {
+			return { v[1], v[1] };
+		}
+
+		GenoVector<2, T> getYZ() const {
+			return { v[1], v[2] };
+		}
+
+		GenoVector<2, T> getZX() const {
+			return { v[2], v[0] };
+		}
+
+		GenoVector<2, T> getZY() const {
+			return { v[2], v[1] };
+		}
+
+		GenoVector<2, T> getZZ() const {
+			return { v[2], v[2] };
+		}
+
+		GenoVector<3, T> getXXX() const {
+			return { v[0], v[0], v[0] };
+		}
+
+		GenoVector<3, T> getXXY() const {
+			return { v[0], v[0], v[1] };
+		}
+
+		GenoVector<3, T> getXXZ() const {
+			return { v[0], v[0], v[2] };
+		}
+
+		GenoVector<3, T> getXYX() const {
+			return { v[0], v[1], v[0] };
+		}
+
+		GenoVector<3, T> getXYY() const {
+			return { v[0], v[1], v[1] };
+		}
+
+		GenoVector<3, T> getXYZ() const {
+			return { v[0], v[1], v[2] };
+		}
+
+		GenoVector<3, T> getXZX() const {
+			return { v[0], v[2], v[0] };
+		}
+
+		GenoVector<3, T> getXZY() const {
+			return { v[0], v[2], v[1] };
+		}
+
+		GenoVector<3, T> getXZZ() const {
+			return { v[0], v[2], v[2] };
+		}
+
+		GenoVector<3, T> getYXX() const {
+			return { v[1], v[0], v[0] };
+		}
+
+		GenoVector<3, T> getYXY() const {
+			return { v[1], v[0], v[1] };
+		}
+
+		GenoVector<3, T> getYXZ() const {
+			return { v[1], v[0], v[2] };
+		}
+
+		GenoVector<3, T> getYYX() const {
+			return { v[1], v[1], v[0] };
+		}
+
+		GenoVector<3, T> getYYY() const {
+			return { v[1], v[1], v[1] };
+		}
+
+		GenoVector<3, T> getYYZ() const {
+			return { v[1], v[1], v[2] };
+		}
+
+		GenoVector<3, T> getYZX() const {
+			return { v[1], v[2], v[0] };
+		}
+
+		GenoVector<3, T> getYZY() const {
+			return { v[1], v[2], v[1] };
+		}
+
+		GenoVector<3, T> getYZZ() const {
+			return { v[1], v[2], v[2] };
+		}
+
+		GenoVector<3, T> getZXX() const {
+			return { v[2], v[0], v[0] };
+		}
+
+		GenoVector<3, T> getZXY() const {
+			return { v[2], v[0], v[1] };
+		}
+
+		GenoVector<3, T> getZXZ() const {
+			return { v[2], v[0], v[2] };
+		}
+
+		GenoVector<3, T> getZYX() const {
+			return { v[2], v[1], v[0] };
+		}
+
+		GenoVector<3, T> getZYY() const {
+			return { v[2], v[1], v[1] };
+		}
+
+		GenoVector<3, T> getZYZ() const {
+			return { v[2], v[1], v[2] };
+		}
+
+		GenoVector<3, T> getZZX() const {
+			return { v[2], v[2], v[0] };
+		}
+
+		GenoVector<3, T> getZZY() const {
+			return { v[2], v[2], v[1] };
+		}
+
+		GenoVector<3, T> getZZZ() const {
+			return { v[2], v[2], v[2] };
 		}
 
 		virtual ~GenoVector() noexcept {
@@ -476,6 +651,113 @@ GenoVector<3, T> & scale(const GenoVector<3, T> & vector, const GenoVector<3, T>
 	target.v[1] = vector.v[1] * scale.v[1];
 	target.v[2] = vector.v[2] * scale.v[2];
 	return target;
+}
+template <typename T>
+GenoVector<3, T> setX(const GenoVector<3, T> vector, T x) {
+	return {
+		x,
+		vector.v[1],
+		vector.v[2],
+	};
+}
+
+template <typename T>
+GenoVector<3, T> setX(const GenoVector<3, T> vector, const GenoVector<1, T> set) {
+	return {
+		   set.v[0],
+		vector.v[1],
+		vector.v[2],
+	};
+}
+
+template <typename T>
+GenoVector<3, T> setY(const GenoVector<3, T> vector, T y) {
+	return {
+		vector.v[0],
+		y,
+		vector.v[2],
+	};
+}
+
+template <typename T>
+GenoVector<3, T> setY(const GenoVector<3, T> vector, const GenoVector<1, T> set) {
+	return {
+		vector.v[0],
+		   set.v[0],
+		vector.v[2],
+	};
+}
+
+template <typename T>
+GenoVector<3, T> setZ(const GenoVector<3, T> vector, T z) {
+	return {
+		vector.v[0],
+		vector.v[1],
+		z,
+	};
+}
+
+template <typename T>
+GenoVector<3, T> setZ(const GenoVector<3, T> vector, const GenoVector<1, T> set) {
+	return {
+		vector.v[0],
+		vector.v[1],
+		   set.v[0],
+	};
+}
+
+template <typename T>
+GenoVector<3, T> setXY(const GenoVector<3, T> vector, T x, T y) {
+	return {
+		x,
+		y,
+		vector.v[2],
+	};
+}
+
+template <typename T>
+GenoVector<3, T> setXY(const GenoVector<3, T> vector, const GenoVector<2, T> set) {
+	return {
+		   set.v[0],
+		   set.v[1],
+		vector.v[2],
+	};
+}
+
+template <typename T>
+GenoVector<3, T> setXZ(const GenoVector<3, T> vector, T x, T z) {
+	return {
+		x,
+		vector.v[1],
+		z,
+	};
+}
+
+template <typename T>
+GenoVector<3, T> setXZ(const GenoVector<3, T> vector, const GenoVector<2, T> set) {
+	return {
+		   set.v[0],
+		vector.v[1],
+		   set.v[1],
+	};
+}
+
+template <typename T>
+GenoVector<3, T> setYZ(const GenoVector<3, T> vector, T y, T z) {
+	return {
+		vector.v[0],
+		y,
+		z,
+	};
+}
+
+template <typename T>
+GenoVector<3, T> setYZ(const GenoVector<3, T> vector, const GenoVector<2, T> set) {
+	return {
+		vector.v[0],
+		   set.v[0],
+		   set.v[1],
+	};
 }
 
 template <typename T>

@@ -60,9 +60,15 @@ class GenoVector<4, T>;
 #include "GenoVector3.h"
 #include "GenoVector4.h"
 
+namespace GenoVectorDimensions {
+	GenoVectorDimension<0> x;
+	GenoVectorDimension<1> y;
+}
+
 template <typename T>
 class GenoVector<2, T> {
 	public:
+
 		T * v;
 		
 		GenoVector() :
@@ -152,6 +158,22 @@ class GenoVector<2, T> {
 			return v[index];
 		}
 
+		template <uint32 N>
+		T & operator[](const GenoVectorDimensions::GenoVectorDimension<N> & dimension) noexcept {
+			static_assert(GenoVectorDimensions::GenoVectorDimension<N>::dimension != 2, "GenoVector<2, T> has no dimension z!");
+			static_assert(GenoVectorDimensions::GenoVectorDimension<N>::dimension != 3, "GenoVector<2, T> has no dimension w!");
+			static_assert(GenoVectorDimensions::GenoVectorDimension<N>::dimension  < 4, "GenoVector<2, T> has no dimension beyond y!");
+			return v[GenoVectorDimensions::GenoVectorDimension<N>::dimension];
+		}
+
+		template <uint32 N>
+		const T & operator[](const GenoVectorDimensions::GenoVectorDimension<N> & dimension) const noexcept {
+			static_assert(GenoVectorDimensions::GenoVectorDimension<N>::dimension != 2, "GenoVector<2, T> has no dimension z!");
+			static_assert(GenoVectorDimensions::GenoVectorDimension<N>::dimension != 3, "GenoVector<2, T> has no dimension w!");
+			static_assert(GenoVectorDimensions::GenoVectorDimension<N>::dimension  < 4, "GenoVector<2, T> has no dimension beyond y!");
+			return v[GenoVectorDimensions::GenoVectorDimension<N>::dimension];
+		}
+
 		double getLength() const {
 			return sqrt(
 				v[0] * v[0] +
@@ -223,6 +245,30 @@ class GenoVector<2, T> {
 			v[0] = vector.v[0];
 			v[1] = vector.v[1];
 			return *this;
+		}
+
+		T getX() const {
+			return v[0];
+		}
+
+		T getY() const {
+			return v[1];
+		}
+
+		GenoVector<2, T> getXX() const {
+			return { v[0], v[0] };
+		}
+
+		GenoVector<2, T> getXY() const {
+			return { v[0], v[1] };
+		}
+
+		GenoVector<2, T> getYX() const {
+			return { v[1], v[0] };
+		}
+
+		GenoVector<2, T> getYY() const {
+			return { v[1], v[1] };
 		}
 
 		virtual ~GenoVector() noexcept {
@@ -406,6 +452,38 @@ GenoVector<2, T> & scale(const GenoVector<2, T> & vector, const GenoVector<2, T>
 	target.v[0] = vector.v[0] * scale.v[0];
 	target.v[1] = vector.v[1] * scale.v[1];
 	return target;
+}
+
+template <typename T>
+GenoVector<2, T> setX(const GenoVector<2, T> vector, T x) {
+	return {
+		x,
+		vector.v[1],
+	};
+}
+
+template <typename T>
+GenoVector<2, T> setX(const GenoVector<2, T> vector, const GenoVector<1, T> set) {
+	return {
+		   set.v[0],
+		vector.v[1],
+	};
+}
+
+template <typename T>
+GenoVector<2, T> setY(const GenoVector<2, T> vector, T y) {
+	return {
+		vector.v[0],
+		y,
+	};
+}
+
+template <typename T>
+GenoVector<2, T> setY(const GenoVector<2, T> vector, const GenoVector<1, T> set) {
+	return {
+		vector.v[0],
+		   set.v[0],
+	};
 }
 
 template <typename T>
