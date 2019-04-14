@@ -253,6 +253,62 @@ class GenoVector<2, T> {
 			return *this;
 		}
 
+		GenoVector<2, T> & translateX(T translateX) {
+			v[0] += translateX;
+		}
+
+		GenoVector<2, T> & translateY(T translateY) {
+			v[1] += translateY;
+		}
+
+		GenoVector<2, T> & translateXY(T translateX, T translateY) {
+			v[0] += translateX;
+			v[1] += translateY;
+		}
+
+		GenoVector<2, T> & translateXY(const GenoVector<2, T> & translate) {
+			v[0] += translate.v[0];
+			v[1] += translate.v[1];
+		}
+
+		GenoVector<2, T> & translateYX(const GenoVector<2, T> & translate) {
+			v[1] += translate.v[0];
+			v[0] += translate.v[1];
+		}
+
+		GenoVector<2, T> & scaleX(T scaleX) {
+			v[0] *= scaleX;
+		}
+
+		GenoVector<2, T> & scaleY(T scaleY) {
+			v[1] *= scaleY;
+		}
+
+		GenoVector<2, T> & scaleXY(T scale) {
+			v[0] *= scale;
+			v[1] *= scale;
+		}
+
+		GenoVector<2, T> & scaleXY(T scaleX, T scaleY) {
+			v[0] *= scaleX;
+			v[1] *= scaleY;
+		}
+
+		GenoVector<2, T> & scaleXY(const GenoVector<2, T> & scale) {
+			v[0] *= scale.v[0];
+			v[1] *= scale.v[1];
+		}
+
+		GenoVector<2, T> & scaleYX(T scale) {
+			v[1] *= scale;
+			v[0] *= scale;
+		}
+
+		GenoVector<2, T> & scaleYX(const GenoVector<2, T> & scale) {
+			v[1] *= scale.v[0];
+			v[0] *= scale.v[1];
+		}
+
 		T getX() const {
 			return v[0];
 		}
@@ -556,6 +612,7 @@ GenoVector<2, T> & scale(const GenoVector<2, T> & vector, const GenoVector<2, T>
 	return target;
 }
 
+template<typename T>
 GenoVector<2, T> setX(const GenoVector<2, T> & vector, T x) {
 	return {
 		x,
@@ -563,6 +620,7 @@ GenoVector<2, T> setX(const GenoVector<2, T> & vector, T x) {
 	};
 }
 
+template<typename T>
 GenoVector<2, T> setY(const GenoVector<2, T> & vector, T y) {
 	return {
 		vector.v[0],
@@ -570,14 +628,198 @@ GenoVector<2, T> setY(const GenoVector<2, T> & vector, T y) {
 	};
 }
 
-GenoVector<2, T> setX(const GenoVector<2, T> & vector, T x, const GenoVector<2, T> & target) {
+template<typename T>
+GenoVector<2, T> setX(const GenoVector<2, T> & vector, T x, GenoVector<2, T> & target) {
 	target.v[0] = x;
 	target.v[1] = vector.v[1];
+	return target;
 }
 
-GenoVector<2, T> setY(const GenoVector<2, T> & vector, T y, const GenoVector<2, T> & target) {
+template<typename T>
+GenoVector<2, T> setY(const GenoVector<2, T> & vector, T y, GenoVector<2, T> & target) {
 	target.v[0] = vector.v[0];
 	target.v[1] = y;
+	return target;
+}
+
+template<typename T>
+GenoVector<2, T> translateX(const GenoVector<2, T> & vector, T translateX) {
+	return {
+		vector.v[0] + translateX,
+		vector.v[1]
+	};
+}
+
+template<typename T>
+GenoVector<2, T> translateY(const GenoVector<2, T> & vector, T translateY) {
+	return {
+		vector.v[0],
+		vector.v[1] + translateY
+	};
+}
+
+template<typename T>
+GenoVector<2, T> translateXY(const GenoVector<2, T> & vector, T translateX, T translateY) {
+	return {
+		vector.v[0] + translateX,
+		vector.v[1] + translateY
+	};
+}
+
+template<typename T>
+GenoVector<2, T> translateXY(const GenoVector<2, T> & vector, const GenoVector<2, T> & translate) {
+	return {
+		vector.v[0] + translate.v[0],
+		vector.v[1] + translate.v[1]
+	};
+}
+
+template<typename T>
+GenoVector<2, T> translateYX(const GenoVector<2, T> & vector, const GenoVector<2, T> & translate) {
+	return {
+		vector.v[0] + translate.v[1],
+		vector.v[1] + translate.v[0]
+	};
+}
+
+template<typename T>
+GenoVector<2, T> translateX(const GenoVector<2, T> & vector, T translateX, GenoVector<2, T> & target) {
+	target.v[0] = vector.v[0] + translateX;
+	target.v[1] = vector.v[1];
+	return target;
+}
+
+template<typename T>
+GenoVector<2, T> translateY(const GenoVector<2, T> & vector, T translateY, GenoVector<2, T> & target) {
+	target.v[0] = vector.v[0];
+	target.v[1] = vector.v[1] + translateY;
+	return target;
+}
+
+template<typename T>
+GenoVector<2, T> translateXY(const GenoVector<2, T> & vector, T translateX, T translateY, GenoVector<2, T> & target) {
+	target.v[0] = vector.v[0] + translateX;
+	target.v[1] = vector.v[1] + translateY;
+	return target;
+}
+
+template<typename T>
+GenoVector<2, T> translateXY(const GenoVector<2, T> & vector, const GenoVector<2, T> & translate, GenoVector<2, T> & target) {
+	target.v[0] = vector.v[0] + translate.v[0];
+	target.v[1] = vector.v[1] + translate.v[1];
+	return target;
+}
+
+template<typename T>
+GenoVector<2, T> translateYX(const GenoVector<2, T> & vector, const GenoVector<2, T> & translate, GenoVector<2, T> & target) {
+	target.v[0] = vector.v[0] + translate.v[1];
+	target.v[1] = vector.v[1] + translate.v[0];
+	return target;
+}
+
+template<typename T>
+GenoVector<2, T> scaleX(const GenoVector<2, T> & vector, T scaleX) {
+	return {
+		vector.v[0] * scaleX,
+		vector.v[1]
+	};
+}
+
+template<typename T>
+GenoVector<2, T> scaleY(const GenoVector<2, T> & vector, T scaleY) {
+	return {
+		vector.v[0],
+		vector.v[1] * scaleY
+	};
+}
+
+template<typename T>
+GenoVector<2, T> scaleXY(const GenoVector<2, T> & vector, T scale) {
+	return {
+		vector.v[0] * scale,
+		vector.v[1] * scale
+	};
+}
+
+template<typename T>
+GenoVector<2, T> scaleXY(const GenoVector<2, T> & vector, T scaleX, T scaleY) {
+	return {
+		vector.v[0] * scaleX,
+		vector.v[1] * scaleY
+	};
+}
+
+template<typename T>
+GenoVector<2, T> scaleXY(const GenoVector<2, T> & vector, const GenoVector<2, T> & scale) {
+	return {
+		vector.v[0] * scale.v[0],
+		vector.v[1] * scale.v[1]
+	};
+}
+
+template<typename T>
+GenoVector<2, T> scaleYX(const GenoVector<2, T> & vector, T scale) {
+	return {
+		vector.v[0] * scale,
+		vector.v[1] * scale
+	};
+}
+
+template<typename T>
+GenoVector<2, T> scaleYX(const GenoVector<2, T> & vector, const GenoVector<2, T> & scale) {
+	return {
+		vector.v[0] * scale.v[1],
+		vector.v[1] * scale.v[0]
+	};
+}
+
+template<typename T>
+GenoVector<2, T> scaleX(const GenoVector<2, T> & vector, T scaleX, const GenoVector<2, T> & target) {
+	target.v[0] = vector.v[0] * scaleX;
+	target.v[1] = vector.v[1];
+	return target;
+}
+
+template<typename T>
+GenoVector<2, T> scaleY(const GenoVector<2, T> & vector, T scaleY, const GenoVector<2, T> & target) {
+	target.v[0] = vector.v[0];
+	target.v[1] = vector.v[1] * scaleY;
+	return target;
+}
+
+template<typename T>
+GenoVector<2, T> scaleXY(const GenoVector<2, T> & vector, T scale, GenoVector<2, T> & target) {
+	target.v[0] = vector.v[0] * scale;
+	target.v[1] = vector.v[1] * scale;
+	return target;
+}
+
+template<typename T>
+GenoVector<2, T> scaleXY(const GenoVector<2, T> & vector, T scaleX, T scaleY, const GenoVector<2, T> & target) {
+	target.v[0] = vector.v[0] * scaleX;
+	target.v[1] = vector.v[1] * scaleY;
+	return target;
+}
+
+template<typename T>
+GenoVector<2, T> scaleXY(const GenoVector<2, T> & vector, const GenoVector<2, T> & scale, GenoVector<2, T> & target) {
+	target.v[0] = vector.v[0] * scale.v[0];
+	target.v[1] = vector.v[1] * scale.v[1];
+	return target;
+}
+
+template<typename T>
+GenoVector<2, T> scaleYX(const GenoVector<2, T> & vector, T scale, GenoVector<2, T> & target) {
+	target.v[0] = vector.v[0] * scale;
+	target.v[1] = vector.v[1] * scale;
+	return target;
+}
+
+template<typename T>
+GenoVector<2, T> scaleYX(const GenoVector<2, T> & vector, const GenoVector<2, T> & scale, GenoVector<2, T> & target) {
+	target.v[0] = vector.v[0] * scale.v[1];
+	target.v[1] = vector.v[1] * scale.v[0];
+	return target;
 }
 
 template <typename T>
