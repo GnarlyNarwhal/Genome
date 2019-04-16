@@ -234,6 +234,16 @@ class GenoVector<2, T> {
 			return *this;
 		}
 
+		GenoVector<2, T> & shearX(T angle) {
+			v[0] -= v[1] * tan(angle);
+			return *this;
+		}
+
+		GenoVector<2, T> & shearY(T angle) {
+			v[1] += v[0] * tan(angle);
+			return *this;
+		}
+
 		GenoVector<2, T> & set(const GenoVector<2, T> & set) {
 			v[0] = set.v[0];
 			v[1] = set.v[1];
@@ -570,7 +580,7 @@ GenoVector<2, T> setLength(const GenoVector<2, T> & vector, T length) {
 }
 
 template <typename T>
-GenoVector<2, T> & setLength(const GenoVector<2, T> & vector, T length, const GenoVector<2, T> & target) {
+GenoVector<2, T> & setLength(const GenoVector<2, T> & vector, T length, GenoVector<2, T> & target) {
 	T scalar = length / vector.getLength();
 	target.v[0] = vector.v[0] * scalar;
 	target.v[1] = vector.v[1] * scalar;
@@ -587,7 +597,7 @@ GenoVector<2, T> normalize(const GenoVector<2, T> & vector) {
 }
 
 template <typename T>
-GenoVector<2, T> & normalize(const GenoVector<2, T> & vector, const GenoVector<2, T> & target) {
+GenoVector<2, T> & normalize(const GenoVector<2, T> & vector, GenoVector<2, T> & target) {
 	T scalar = 1 / vector.getLength();
 	target.v[0] = vector.v[0] * scalar;
 	target.v[1] = vector.v[1] * scalar;
@@ -604,7 +614,7 @@ GenoVector<2, T> setAngle(const GenoVector<2, T> & vector, T angle) {
 }
 
 template <typename T>
-GenoVector<2, T> & setAngle(const GenoVector<2, T> & vector, T angle, const GenoVector<2, T> & target) {
+GenoVector<2, T> & setAngle(const GenoVector<2, T> & vector, T angle, GenoVector<2, T> & target) {
 	T length = getLength();
 	target.v[0] = cos(angle) * length;
 	target.v[1] = sin(angle) * length;
@@ -648,6 +658,36 @@ GenoVector<2, T> & project(const GenoVector<2, T> & vector, const GenoVector<2, 
 	T scalar = dot(vector, projection) / projection.getLengthSquared();
 	target.v[0] = scalar * projection.v[0];
 	target.v[1] = scalar * projection.v[1];
+	return target;
+}
+
+template <typename T>
+GenoVector<2, T> shearX(const GenoVector<2, T> & vector, T angle) {
+	return {
+		vector.v[0] - vector.v[1] * tan(angle),
+		vector.v[1]
+	};
+}
+
+template <typename T>
+GenoVector<2, T> & shearX(const GenoVector<2, T> & vector, T angle, GenoVector<2, T> & target) {
+	target.v[0] = vector.v[0] - vector.v[1] * tan(angle);
+	target.v[1] = vector.v[1];
+	return target;
+}
+
+template <typename T>
+GenoVector<2, T> shearY(const GenoVector<2, T> & vector, T angle) {
+	return {
+		vector.v[0],
+		vector.v[1] + vector.v[0] * tan(angle)
+	};
+}
+
+template <typename T>
+GenoVector<2, T> & shearY(const GenoVector<2, T> & vector, T angle, GenoVector<2, T> & target) {
+	target.v[0] = vector.v[0];
+	target.v[1] = vector.v[1] + vector.v[0] * tan(angle);
 	return target;
 }
 
@@ -858,14 +898,14 @@ GenoVector<2, T> scaleYX(const GenoVector<2, T> & vector, const GenoVector<2, T>
 }
 
 template<typename T>
-GenoVector<2, T> scaleX(const GenoVector<2, T> & vector, T scaleX, const GenoVector<2, T> & target) {
+GenoVector<2, T> scaleX(const GenoVector<2, T> & vector, T scaleX, GenoVector<2, T> & target) {
 	target.v[0] = vector.v[0] * scaleX;
 	target.v[1] = vector.v[1];
 	return target;
 }
 
 template<typename T>
-GenoVector<2, T> scaleY(const GenoVector<2, T> & vector, T scaleY, const GenoVector<2, T> & target) {
+GenoVector<2, T> scaleY(const GenoVector<2, T> & vector, T scaleY, GenoVector<2, T> & target) {
 	target.v[0] = vector.v[0];
 	target.v[1] = vector.v[1] * scaleY;
 	return target;
@@ -879,7 +919,7 @@ GenoVector<2, T> scaleXY(const GenoVector<2, T> & vector, T scale, GenoVector<2,
 }
 
 template<typename T>
-GenoVector<2, T> scaleXY(const GenoVector<2, T> & vector, T scaleX, T scaleY, const GenoVector<2, T> & target) {
+GenoVector<2, T> scaleXY(const GenoVector<2, T> & vector, T scaleX, T scaleY, GenoVector<2, T> & target) {
 	target.v[0] = vector.v[0] * scaleX;
 	target.v[1] = vector.v[1] * scaleY;
 	return target;

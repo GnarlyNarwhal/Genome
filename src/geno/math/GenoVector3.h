@@ -1242,7 +1242,7 @@ GenoVector<3, T> setLength(const GenoVector<3, T> & vector, T length) {
 }
 
 template <typename T>
-GenoVector<3, T> & setLength(const GenoVector<3, T> & vector, T length, const GenoVector<3, T> & target) {
+GenoVector<3, T> & setLength(const GenoVector<3, T> & vector, T length, GenoVector<3, T> & target) {
 	T scalar = length / vector.getLength();
 	target.v[0] = vector.v[0] * scalar;
 	target.v[1] = vector.v[1] * scalar;
@@ -1261,7 +1261,7 @@ GenoVector<3, T> normalize(const GenoVector<3, T> & vector) {
 }
 
 template <typename T>
-GenoVector<3, T> & normalize(const GenoVector<3, T> & vector, const GenoVector<3, T> & target) {
+GenoVector<3, T> & normalize(const GenoVector<3, T> & vector, GenoVector<3, T> & target) {
 	T scalar = 1 / vector.getLength();
 	target.v[0] = vector.v[0] * scalar;
 	target.v[1] = vector.v[1] * scalar;
@@ -1324,7 +1324,7 @@ GenoVector<3, T> cross(const GenoVector<3, T> & vector, const GenoVector<3, T> &
 }
 
 template <typename T>
-GenoVector<3, T> & cross(const GenoVector<3, T> & vector, const GenoVector<3, T> & cross, const GenoVector<3, T> & target) {
+GenoVector<3, T> & cross(const GenoVector<3, T> & vector, const GenoVector<3, T> & cross, GenoVector<3, T> & target) {
 	target.v[0] = vector.v[1] * cross.v[2] - vector.v[2] * cross.v[1];
 	target.v[1] = vector.v[2] * cross.v[0] - vector.v[0] * cross.v[2];
 	target.v[2] = vector.v[0] * cross.v[1] - vector.v[1] * cross.v[0];
@@ -2194,7 +2194,7 @@ GenoVector<3, T> scaleZYX(const GenoVector<3, T> & vector, const GenoVector<3, T
 }
 
 template<typename T>
-GenoVector<3, T> scaleX(const GenoVector<3, T> & vector, T scaleX, const GenoVector<3, T> & target) {
+GenoVector<3, T> scaleX(const GenoVector<3, T> & vector, T scaleX, GenoVector<3, T> & target) {
 	target.v[0] = vector.v[0] * scaleX;
 	target.v[1] = vector.v[1];
 	target.v[2] = vector.v[2];
@@ -2202,7 +2202,7 @@ GenoVector<3, T> scaleX(const GenoVector<3, T> & vector, T scaleX, const GenoVec
 }
 
 template<typename T>
-GenoVector<3, T> scaleY(const GenoVector<3, T> & vector, T scaleY, const GenoVector<3, T> & target) {
+GenoVector<3, T> scaleY(const GenoVector<3, T> & vector, T scaleY, GenoVector<3, T> & target) {
 	target.v[0] = vector.v[0];
 	target.v[1] = vector.v[1] * scaleY;
 	target.v[2] = vector.v[2];
@@ -2210,7 +2210,7 @@ GenoVector<3, T> scaleY(const GenoVector<3, T> & vector, T scaleY, const GenoVec
 }
 
 template<typename T>
-GenoVector<3, T> scaleZ(const GenoVector<3, T> & vector, T scaleZ, const GenoVector<3, T> & target) {
+GenoVector<3, T> scaleZ(const GenoVector<3, T> & vector, T scaleZ, GenoVector<3, T> & target) {
 	target.v[0] = vector.v[0];
 	target.v[1] = vector.v[1];
 	target.v[2] = vector.v[2] * scaleZ;
@@ -2226,7 +2226,7 @@ GenoVector<3, T> scaleXY(const GenoVector<3, T> & vector, T scale, GenoVector<3,
 }
 
 template<typename T>
-GenoVector<3, T> scaleXY(const GenoVector<3, T> & vector, T scaleX, T scaleY, const GenoVector<3, T> & target) {
+GenoVector<3, T> scaleXY(const GenoVector<3, T> & vector, T scaleX, T scaleY, GenoVector<3, T> & target) {
 	target.v[0] = vector.v[0] * scaleX;
 	target.v[1] = vector.v[1] * scaleY;
 	target.v[2] = vector.v[2];
@@ -2250,7 +2250,7 @@ GenoVector<3, T> scaleXZ(const GenoVector<3, T> & vector, T scale, GenoVector<3,
 }
 
 template<typename T>
-GenoVector<3, T> scaleXZ(const GenoVector<3, T> & vector, T scaleX, T scaleZ, const GenoVector<3, T> & target) {
+GenoVector<3, T> scaleXZ(const GenoVector<3, T> & vector, T scaleX, T scaleZ, GenoVector<3, T> & target) {
 	target.v[0] = vector.v[0] * scaleX;
 	target.v[1] = vector.v[1];
 	target.v[2] = vector.v[2] * scaleZ;
@@ -2290,7 +2290,7 @@ GenoVector<3, T> scaleYZ(const GenoVector<3, T> & vector, T scale, GenoVector<3,
 }
 
 template<typename T>
-GenoVector<3, T> scaleYZ(const GenoVector<3, T> & vector, T scaleY, T scaleZ, const GenoVector<3, T> & target) {
+GenoVector<3, T> scaleYZ(const GenoVector<3, T> & vector, T scaleY, T scaleZ, GenoVector<3, T> & target) {
 	target.v[0] = vector.v[0];
 	target.v[1] = vector.v[1] * scaleY;
 	target.v[2] = vector.v[2] * scaleZ;
@@ -2346,7 +2346,7 @@ GenoVector<3, T> scaleXYZ(const GenoVector<3, T> & vector, T scale, GenoVector<3
 }
 
 template<typename T>
-GenoVector<3, T> scaleXYZ(const GenoVector<3, T> & vector, T scaleX, T scaleY, T scaleZ, const GenoVector<3, T> & target) {
+GenoVector<3, T> scaleXYZ(const GenoVector<3, T> & vector, T scaleX, T scaleY, T scaleZ, GenoVector<3, T> & target) {
 	target.v[0] = vector.v[0] * scaleX;
 	target.v[1] = vector.v[1] * scaleY;
 	target.v[2] = vector.v[2] * scaleZ;
