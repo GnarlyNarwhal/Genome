@@ -66,15 +66,23 @@ namespace GenoVectorDimensions {
 
 template <typename T>
 class GenoVector<4, T> {
-	public:
+	private:
+		bool owner = true;
 
+		void clean() {
+			if (owner)
+				delete [] v;
+		}
+
+	public:
 		T * v;
 
 		GenoVector() :
 			v(new T[4]()) {}
 
-		GenoVector(T * v) noexcept :
-			v(v) {}
+		GenoVector(T * v, bool owner = true) noexcept :
+			v(v),
+			owner(owner) {}
 
 		explicit GenoVector(T value) :
 			v(new T[4] { value, value, value, value }) {}
@@ -113,7 +121,7 @@ class GenoVector<4, T> {
 		}
 
 		GenoVector<4, T> & operator=(GenoVector<4, T> && vector) {
-			delete [] v;
+			clean();
 			v = vector.v;
 			vector.v = 0;
 			return *this;
@@ -204,6 +212,24 @@ class GenoVector<4, T> {
 				v[3] * v[3]
 			);
 		}
+
+		GenoVector<4, T> & setLength(T length) {
+			T scalar = length / getLength();
+			v[0] *= scalar;
+			v[1] *= scalar;
+			v[2] *= scalar;
+			v[3] *= scalar;
+			return *this;
+		}
+
+		GenoVector<4, T> & normalize() {
+			T scalar = 1 / getLength();
+			v[0] *= scalar;
+			v[1] *= scalar;
+			v[2] *= scalar;
+			v[3] *= scalar;
+			return *this;
+		}
 		
 		GenoVector<2, T> & negate() {
 			v[0] = -v[0];
@@ -222,11 +248,11 @@ class GenoVector<4, T> {
 			return *this;
 		}
 
-		GenoVector<4, T> & set(const GenoVector<4, T> & vector) {
-			v[0] = vector.v[0];
-			v[1] = vector.v[1];
-			v[2] = vector.v[2];
-			v[3] = vector.v[3];
+		GenoVector<4, T> & set(const GenoVector<4, T> & set) {
+			v[0] = set.v[0];
+			v[1] = set.v[1];
+			v[2] = set.v[2];
+			v[3] = set.v[3];
 			return *this;
 		}
 
@@ -3409,7 +3435,7 @@ class GenoVector<4, T> {
 		}
 
 		virtual ~GenoVector() noexcept {
-			delete [] v;
+			clean();
 		}
 };
 
@@ -3491,6 +3517,48 @@ GenoVector<4, T> operator/(const GenoVector<4, T> & left, const GenoVector<4, T>
 		left.v[2] / right.v[2],
 		left.v[3] / right.v[3]
 	};
+}
+
+template <typename T>
+GenoVector<4, T> setLength(const GenoVector<4, T> & vector, T length) {
+	T scalar = length / vector.getLength();
+	return {
+		vector.v[0] * scalar,
+		vector.v[1] * scalar,
+		vector.v[2] * scalar,
+		vector.v[3] * scalar
+	};
+}
+
+template <typename T>
+GenoVector<4, T> & setLength(const GenoVector<4, T> & vector, T length, const GenoVector<4, T> & target) {
+	T scalar = length / vector.getLength();
+	target.v[0] = vector.v[0] * scalar;
+	target.v[1] = vector.v[1] * scalar;
+	target.v[2] = vector.v[2] * scalar;
+	target.v[3] = vector.v[3] * scalar;
+	return target;
+}
+
+template <typename T>
+GenoVector<4, T> normalize(const GenoVector<4, T> & vector) {
+	T scalar = 1 / vector.getLength();
+	return {
+		vector.v[0] * scalar,
+		vector.v[1] * scalar,
+		vector.v[2] * scalar,
+		vector.v[3] * scalar
+	};
+}
+
+template <typename T>
+GenoVector<4, T> & normalize(const GenoVector<4, T> & vector, const GenoVector<4, T> & target) {
+	T scalar = 1 / vector.getLength();
+	target.v[0] = vector.v[0] * scalar;
+	target.v[1] = vector.v[1] * scalar;
+	target.v[2] = vector.v[2] * scalar;
+	target.v[3] = vector.v[3] * scalar;
+	return target;
 }
 
 template <typename T>

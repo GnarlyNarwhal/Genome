@@ -45,14 +45,23 @@ class GenoVector {
 
 	static_assert(N > 0, "Vector dimensions must be greater than 0!");
 
+	private:
+		bool owner = true;
+
+		void clean() {
+			if (owner)
+				delete [] v;
+		}
+
 	public:
 		T * v;
 
 		GenoVector() :
 			v(new T[N]()) {}
 
-		GenoVector(T * v) noexcept :
-			v(v) {}
+		GenoVector(T * v, bool owner = true) noexcept :
+			v(v),
+			owner(owner) {}
 		
 		explicit GenoVector(T value) :
 			v(new T[N]) {
@@ -102,7 +111,7 @@ class GenoVector {
 		}
 		
 		GenoVector<N, T> & operator=(GenoVector<N, T> && vector) noexcept {
-			delete [] v;
+			clean();
 			v = vector.v;
 			vector.v = 0;
 			return *this;
@@ -166,6 +175,20 @@ class GenoVector {
 			return lengthSquared;
 		}
 
+		GenoVector<N, T> & setLength(T length) {
+			T scalar = length / getLength();
+			for (uint32 i = 0; i < N; ++i)
+				v[i] *= scalar;
+			return *this;
+		}
+
+		GenoVector<N, T> & normalize() {
+			T scalar = 1 / getLength();
+			for (uint32 i = 0; i < N; ++i)
+				v[i] *= scalar;
+			return *this;
+		}
+
 		GenoVector<N, T> & negate() {
 			for (uint32 i = 0; i < N; ++i)
 				v[i] = -v[i];
@@ -179,9 +202,9 @@ class GenoVector {
 			return *this;
 		}
 
-		GenoVector<N, T> & set(const GenoVector<N, T> & vector) {
+		GenoVector<N, T> & set(const GenoVector<N, T> & set) {
 			for (uint32 i = 0; i < N; ++i)
-				v[i] = vector.v[i];
+				v[i] = set.v[i];
 			return *this;
 		}
 
@@ -204,7 +227,7 @@ class GenoVector {
 		}
 
 		virtual ~GenoVector() noexcept {
-			delete [] v;
+			clean();
 		}
 };
 
@@ -299,6 +322,40 @@ GenoVector<N + N2, T> operator|(const GenoVector<N, T> & left, const GenoVector<
 	for (uint32 i = 0; i < N2; ++i)
 		vRight[i] = right.v[i];
 	return GenoVector<N + N2, T>(newV);	
+}
+
+template <uint32 N, typename T>
+GenoVector<N, T> setLength(const GenoVector<N, T> & vector, T length) {
+	T scalar = length / vector.getLength();
+	T newV = new T[N];
+	for (uint32 i = 0; i < N; ++i)
+		newV[i] = vector.v[i] * scalar;
+	return GenoVector<N, T>(newV);
+}
+
+template <uint32 N, typename T>
+GenoVector<N, T> & setLength(const GenoVector<N, T> & vector, T length, const GenoVector<N, T> & target) {
+	T scalar = length / vector.getLength();
+	for (uint32 i = 0; i < N; ++i)
+		target.v[i] = vector.v[i] * scalar;
+	return target;
+}
+
+template <uint32 N, typename T>
+GenoVector<N, T> normalize(const GenoVector<N, T> & vector) {
+	T scalar = 1 / vector.getLength();
+	T newV = new T[N];
+	for (uint32 i = 0; i < N; ++i)
+		newV[i] = vector.v[i] * scalar;
+	return GenoVector<N, T>(newV);
+}
+
+template <uint32 N, typename T>
+GenoVector<N, T> & normalize(const GenoVector<N, T> & vector, const GenoVector<N, T> & target) {
+	T scalar = 1 / vector.getLength();
+	for (uint32 i = 0; i < N; ++i)
+		target.v[i] = vector.v[i] * scalar;
+	return target;
 }
 
 template <uint32 N, typename T>
@@ -423,17 +480,6 @@ using GenoVector1l  = GenoVector1< int64>;
 using GenoVector1ul = GenoVector1<uint64>;
 using GenoVector1f  = GenoVector1<float >;
 using GenoVector1d  = GenoVector1<double>;
-
-GenoVector1b  operator "" _gvb (uint64 x)      { return { ( int8 ) x }; }
-GenoVector1ub operator "" _gvub(uint64 x)      { return { (uint8 ) x }; }
-GenoVector1s  operator "" _gvs (uint64 x)      { return { ( int16) x }; }
-GenoVector1us operator "" _gvus(uint64 x)      { return { (uint16) x }; }
-GenoVector1i  operator "" _gvi (uint64 x)      { return { ( int32) x }; }
-GenoVector1ui operator "" _gvui(uint64 x)      { return { (uint32) x }; }
-GenoVector1l  operator "" _gvl (uint64 x)      { return { ( int64) x }; }
-GenoVector1ul operator "" _gvul(uint64 x)      { return { (uint64) x }; }
-GenoVector1f  operator "" _gvf (long double x) { return { (float ) x }; }
-GenoVector1d  operator "" _gvd (long double x) { return { (double) x }; }
 
 #define GNARLY_GENOME_VECTOR_FORWARD
 #endif // GNARLY_GENOME_VECTOR

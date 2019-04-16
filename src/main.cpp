@@ -29,13 +29,9 @@
 #include "geno/GenoInts.h"
 #include "geno/math/GenoVector2.h"
 
-using namespace GenoVectorDimensions;
-
 int32 main(int32 argc, char ** argv) {
 
-	auto vec = GenoVector2f{ 3, 6 };
 
-	vec[z] = 1;
 
 	//////// DO NOT REMOVE BELOW ////////
 	std::cout << "Press enter to continue . . ." << std::endl;

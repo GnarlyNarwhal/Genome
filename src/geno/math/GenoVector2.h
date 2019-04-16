@@ -67,15 +67,23 @@ namespace GenoVectorDimensions {
 
 template <typename T>
 class GenoVector<2, T> {
-	public:
+	private:
+		bool owner = true;
 
+		void clean() {
+			if (owner)
+				delete [] v;
+		}
+
+	public:
 		T * v;
 		
 		GenoVector() :
 			v(new T[2]()) {}
-		
-		GenoVector(T * v) noexcept :
-			v(v) {}
+
+		GenoVector(T * v, bool owner = true) noexcept :
+			v(v),
+			owner(owner) {}
 
 		explicit GenoVector(T value) :
 			v(new T[2] { value, value }) {}
@@ -108,7 +116,7 @@ class GenoVector<2, T> {
 		}
 
 		GenoVector<2, T> & operator=(GenoVector<2, T> && vector) noexcept {
-			delete[] v;
+			clean();
 			v = vector.v;
 			vector.v = 0;
 			return *this;
@@ -187,7 +195,32 @@ class GenoVector<2, T> {
 				v[1] * v[1]
 			);
 		}
+
+		GenoVector<2, T> & setLength(T length) {
+			T scalar = length / getLength();
+			v[0] *= scalar;
+			v[1] *= scalar;
+			return *this;
+		}
+
+		GenoVector<2, T> & normalize() {
+			T scalar = 1 / getLength();
+			v[0] *= scalar;
+			v[1] *= scalar;
+			return *this;
+		}
+
+		T getAngle() const {
+			return atan2(v[1], v[0]);
+		}
 		
+		GenoVector<2, T> & setAngle(T angle) {
+			T length = getLength();
+			v[0] = cos(angle) * length;
+			v[1] = sin(angle) * length;
+			return *this;
+		}
+
 		GenoVector<2, T> & negate() {
 			v[0] = -v[0];
 			v[1] = -v[1];
@@ -201,9 +234,9 @@ class GenoVector<2, T> {
 			return *this;
 		}
 
-		GenoVector<2, T> & set(const GenoVector<2, T> & vector) {
-			v[0] = vector.v[0];
-			v[1] = vector.v[1];
+		GenoVector<2, T> & set(const GenoVector<2, T> & set) {
+			v[0] = set.v[0];
+			v[1] = set.v[1];
 			return *this;
 		}
 
@@ -430,7 +463,7 @@ class GenoVector<2, T> {
 		}
 
 		virtual ~GenoVector() noexcept {
-			delete [] v;
+			clean();
 		}
 };
 
@@ -525,6 +558,57 @@ GenoVector<4, T> operator|(const GenoVector<2, T> & left, const GenoVector<2, T>
 		right.v[0],
 		right.v[1]
 	};
+}
+
+template <typename T>
+GenoVector<2, T> setLength(const GenoVector<2, T> & vector, T length) {
+	T scalar = length / vector.getLength();
+	return {
+		vector.v[0] * scalar,
+		vector.v[1] * scalar
+	};
+}
+
+template <typename T>
+GenoVector<2, T> & setLength(const GenoVector<2, T> & vector, T length, const GenoVector<2, T> & target) {
+	T scalar = length / vector.getLength();
+	target.v[0] = vector.v[0] * scalar;
+	target.v[1] = vector.v[1] * scalar;
+	return target;
+}
+
+template <typename T>
+GenoVector<2, T> normalize(const GenoVector<2, T> & vector) {
+	T scalar = 1 / vector.getLength();
+	return {
+		vector.v[0] * scalar,
+		vector.v[1] * scalar
+	};
+}
+
+template <typename T>
+GenoVector<2, T> & normalize(const GenoVector<2, T> & vector, const GenoVector<2, T> & target) {
+	T scalar = 1 / vector.getLength();
+	target.v[0] = vector.v[0] * scalar;
+	target.v[1] = vector.v[1] * scalar;
+	return target;
+}
+
+template <typename T>
+GenoVector<2, T> setAngle(const GenoVector<2, T> & vector, T angle) {
+	T length = getLength();
+	return {
+		cos(angle) * length;
+		sin(angle) * length;
+	};
+}
+
+template <typename T>
+GenoVector<2, T> & setAngle(const GenoVector<2, T> & vector, T angle, const GenoVector<2, T> & target) {
+	T length = getLength();
+	target.v[0] = cos(angle) * length;
+	target.v[1] = sin(angle) * length;
+	return target;
 }
 
 template <typename T>
