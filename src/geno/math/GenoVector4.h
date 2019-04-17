@@ -214,7 +214,7 @@ class GenoVector<4, T> {
 		}
 
 		GenoVector<4, T> & setLength(T length) {
-			T scalar = length / getLength();
+			auto scalar = length / getLength();
 			v[0] *= scalar;
 			v[1] *= scalar;
 			v[2] *= scalar;
@@ -223,7 +223,7 @@ class GenoVector<4, T> {
 		}
 
 		GenoVector<4, T> & normalize() {
-			T scalar = 1 / getLength();
+			auto scalar = 1 / getLength();
 			v[0] *= scalar;
 			v[1] *= scalar;
 			v[2] *= scalar;
@@ -240,7 +240,7 @@ class GenoVector<4, T> {
 		}
 
 		GenoVector<4, T> & project(const GenoVector<4, T> & projection) {
-			T scalar = dot(*this, projection) / projection.getLengthSquared();
+			auto scalar = dot(*this, projection) / projection.getLengthSquared();
 			v[0] /= scalar;
 			v[1] /= scalar;
 			v[2] /= scalar;
@@ -3521,7 +3521,7 @@ GenoVector<4, T> operator/(const GenoVector<4, T> & left, const GenoVector<4, T>
 
 template <typename T>
 GenoVector<4, T> setLength(const GenoVector<4, T> & vector, T length) {
-	T scalar = length / vector.getLength();
+	auto scalar = length / vector.getLength();
 	return {
 		vector.v[0] * scalar,
 		vector.v[1] * scalar,
@@ -3532,7 +3532,7 @@ GenoVector<4, T> setLength(const GenoVector<4, T> & vector, T length) {
 
 template <typename T>
 GenoVector<4, T> & setLength(const GenoVector<4, T> & vector, T length, GenoVector<4, T> & target) {
-	T scalar = length / vector.getLength();
+	auto scalar = length / vector.getLength();
 	target.v[0] = vector.v[0] * scalar;
 	target.v[1] = vector.v[1] * scalar;
 	target.v[2] = vector.v[2] * scalar;
@@ -3542,7 +3542,7 @@ GenoVector<4, T> & setLength(const GenoVector<4, T> & vector, T length, GenoVect
 
 template <typename T>
 GenoVector<4, T> normalize(const GenoVector<4, T> & vector) {
-	T scalar = 1 / vector.getLength();
+	auto scalar = 1 / vector.getLength();
 	return {
 		vector.v[0] * scalar,
 		vector.v[1] * scalar,
@@ -3553,7 +3553,7 @@ GenoVector<4, T> normalize(const GenoVector<4, T> & vector) {
 
 template <typename T>
 GenoVector<4, T> & normalize(const GenoVector<4, T> & vector, GenoVector<4, T> & target) {
-	T scalar = 1 / vector.getLength();
+	auto scalar = 1 / vector.getLength();
 	target.v[0] = vector.v[0] * scalar;
 	target.v[1] = vector.v[1] * scalar;
 	target.v[2] = vector.v[2] * scalar;
@@ -3592,7 +3592,7 @@ T dot(const GenoVector<4, T> & left, const GenoVector<4, T> & right) {
 
 template <typename T>
 GenoVector<4, T> project(const GenoVector<4, T> & vector, const GenoVector<4, T> & projection) {
-	T scalar = dot(vector, projection) / projection.getLengthSquared();
+	auto scalar = dot(vector, projection) / projection.getLengthSquared();
 	return {
 		scalar * projection.v[0],
 		scalar * projection.v[1],
@@ -3603,7 +3603,7 @@ GenoVector<4, T> project(const GenoVector<4, T> & vector, const GenoVector<4, T>
 
 template <typename T>
 GenoVector<4, T> & project(const GenoVector<4, T> & vector, const GenoVector<4, T> & projection, GenoVector<4, T> & target) {
-	T scalar = dot(vector, projection) / projection.getLengthSquared();
+	auto scalar = dot(vector, projection) / projection.getLengthSquared();
 	target.v[0] = scalar * projection.v[0];
 	target.v[1] = scalar * projection.v[1];
 	target.v[2] = scalar * projection.v[2];

@@ -71,9 +71,9 @@ class GenoVector {
 
 		GenoVector(std::initializer_list<T> list) :
 			v(new T[N]) {
-			const T * VECTOR_END = v + N;
-			const T * iterator = list.begin() - 1;
-			T * vector = v - 1;
+			const auto VECTOR_END = v + N;
+			const auto iterator = list.begin() - 1;
+			auto vector = v - 1;
 			while (++iterator < list.end() && ++vector < VECTOR_END)
 				*vector = *iterator;
 		}
@@ -97,9 +97,9 @@ class GenoVector {
 		}
 
 		GenoVector<N, T> & operator=(std::initializer_list<T> list) {
-			const T * const VECTOR_END = v + N;
-			const T * iterator = list.begin() - 1;
-			T * vector = v - 1;
+			const auto VECTOR_END = v + N;
+			const auto iterator = list.begin() - 1;
+			auto vector = v - 1;
 			while (++iterator < list.end() && ++vector < VECTOR_END)
 				*vector = *iterator;
 		}
@@ -162,28 +162,28 @@ class GenoVector {
 		}
 		
 		double getLength() const {
-			T lengthSquared = 0;
+			auto lengthSquared = 0;
 			for (uint32 i = 0; i < N; ++i)
 				lengthSquared += v[i] * v[i];
 			return sqrt(lengthSquared);
 		}
 
 		T getLengthSquared() const {
-			T lengthSquared = T();
+			auto lengthSquared = 0;
 			for (uint32 i = 0; i < N; ++i)
 				lengthSquared += v[i] * v[i];
 			return lengthSquared;
 		}
 
 		GenoVector<N, T> & setLength(T length) {
-			T scalar = length / getLength();
+			auto scalar = length / getLength();
 			for (uint32 i = 0; i < N; ++i)
 				v[i] *= scalar;
 			return *this;
 		}
 
 		GenoVector<N, T> & normalize() {
-			T scalar = 1 / getLength();
+			auto scalar = 1 / getLength();
 			for (uint32 i = 0; i < N; ++i)
 				v[i] *= scalar;
 			return *this;
@@ -196,7 +196,7 @@ class GenoVector {
 		}
 
 		GenoVector<N, T> & project(const GenoVector<N, T> & projection) {
-			T scalar = dot(*this, projection) / projection.getLengthSquared();
+			auto scalar = dot(*this, projection) / projection.getLengthSquared();
 			for (uint32 i = 0; i < N; ++i)
 				v[i] = scalar * projection.v[i];
 			return *this;
@@ -233,7 +233,7 @@ class GenoVector {
 
 template <uint32 N, typename T>
 GenoVector<N, T> operator-(const GenoVector<N, T> & vector) {
-	T * newV = new T[N];
+	auto newV = new T[N];
 	for (uint32 i = 0; i < N; ++i)
 		newV[i] = -vector.v[i];
 	return GenoVector<N, T>(newV);
@@ -241,7 +241,7 @@ GenoVector<N, T> operator-(const GenoVector<N, T> & vector) {
 
 template <uint32 N, typename T>
 GenoVector<N, T> operator+(const GenoVector<N, T> & left, const GenoVector<N, T> & right) {
-	T * newV = new T[N];
+	auto newV = new T[N];
 	for (uint32 i = 0; i < N; ++i)
 		newV[i] = left.v[i] + right.v[i];
 	return GenoVector<N, T>(newV);
@@ -249,7 +249,7 @@ GenoVector<N, T> operator+(const GenoVector<N, T> & left, const GenoVector<N, T>
 
 template <uint32 N, typename T>
 GenoVector<N, T> operator-(const GenoVector<N, T> & left, const GenoVector<N, T> & right) {
-	T * newV = new T[N];
+	auto newV = new T[N];
 	for (uint32 i = 0; i < N; ++i)
 		newV[i] = left.v[i] - right.v[i];
 	return GenoVector<N, T>(newV);
@@ -257,7 +257,7 @@ GenoVector<N, T> operator-(const GenoVector<N, T> & left, const GenoVector<N, T>
 
 template <uint32 N, typename T>
 GenoVector<N, T> operator*(const GenoVector<N, T> & left, T right) {
-	T * newV = new T[N];
+	auto newV = new T[N];
 	for (uint32 i = 0; i < N; ++i)
 		newV[i] = left.v[i] * right;
 	return GenoVector<N, T>(newV);
@@ -265,7 +265,7 @@ GenoVector<N, T> operator*(const GenoVector<N, T> & left, T right) {
 
 template <uint32 N, typename T>
 GenoVector<N, T> operator*(T left, const GenoVector<N, T> & right) {
-	T * newV = new T[N];
+	auto newV = new T[N];
 	for (uint32 i = 0; i < N; ++i)
 		newV[i] = left * right.v[i];
 	return GenoVector<N, T>(newV);
@@ -273,7 +273,7 @@ GenoVector<N, T> operator*(T left, const GenoVector<N, T> & right) {
 
 template <uint32 N, typename T>
 GenoVector<N, T> operator*(const GenoVector<N, T> & left, const GenoVector<N, T> & right) {
-	T * newV = new T[N];
+	auto newV = new T[N];
 	for (uint32 i = 0; i < N; ++i)
 		newV[i] = left.v[i] * right.v[i];
 	return GenoVector<N, T>(newV);
@@ -281,7 +281,7 @@ GenoVector<N, T> operator*(const GenoVector<N, T> & left, const GenoVector<N, T>
 
 template <uint32 N, typename T>
 GenoVector<N, T> operator/(const GenoVector<N, T> & left, T right) {
-	T * newV = new T[N];
+	auto newV = new T[N];
 	for (uint32 i = 0; i < N; ++i)
 		newV[i] = left.v[i] / right;
 	return GenoVector<N, T>(newV);
@@ -289,7 +289,7 @@ GenoVector<N, T> operator/(const GenoVector<N, T> & left, T right) {
 
 template <uint32 N, typename T>
 GenoVector<N, T> operator/(const GenoVector<N, T> & left, const GenoVector<N, T> & right) {
-	T * newV = new T[N];
+	auto newV = new T[N];
 	for (uint32 i = 0; i < N; ++i)
 		newV[i] = left.v[i] / right.v[i];
 	return GenoVector<N, T>(newV);
@@ -297,7 +297,7 @@ GenoVector<N, T> operator/(const GenoVector<N, T> & left, const GenoVector<N, T>
 
 template <uint32 N, typename T>
 GenoVector<N + 1, T> operator|(const GenoVector<N, T> & left, T right) {
-	T * newV = new T[N + 1];
+	auto newV = new T[N + 1];
 	for (uint32 i = 0; i < N + 1; ++i)
 		newV[i] = left.v[i];
 	newV[N] = right;
@@ -306,7 +306,7 @@ GenoVector<N + 1, T> operator|(const GenoVector<N, T> & left, T right) {
 
 template <uint32 N, typename T>
 GenoVector<N + 1, T> operator|(T left, const GenoVector<N, T> & right) {
-	T * newV = new T[N + 1];
+	auto newV = new T[N + 1];
 	newV[0] = left;
 	for (uint32 i = 0; i < N + 1; ++i)
 		newV[i + 1] = right.v[i];
@@ -315,8 +315,8 @@ GenoVector<N + 1, T> operator|(T left, const GenoVector<N, T> & right) {
 
 template <uint32 N, uint32 N2, typename T>
 GenoVector<N + N2, T> operator|(const GenoVector<N, T> & left, const GenoVector<N2, T> & right) {
-	T * newV = new T[N + N2];
-	T * vRight = newV + N;
+	auto newV = new T[N + N2];
+	auto vRight = newV + N;
 	for (uint32 i = 0; i < N; ++i)
 		newV[i] = left.v[i];
 	for (uint32 i = 0; i < N2; ++i)
@@ -326,8 +326,8 @@ GenoVector<N + N2, T> operator|(const GenoVector<N, T> & left, const GenoVector<
 
 template <uint32 N, typename T>
 GenoVector<N, T> setLength(const GenoVector<N, T> & vector, T length) {
-	T scalar = length / vector.getLength();
-	T newV = new T[N];
+	auto scalar = length / vector.getLength();
+	auto newV = new T[N];
 	for (uint32 i = 0; i < N; ++i)
 		newV[i] = vector.v[i] * scalar;
 	return GenoVector<N, T>(newV);
@@ -335,7 +335,7 @@ GenoVector<N, T> setLength(const GenoVector<N, T> & vector, T length) {
 
 template <uint32 N, typename T>
 GenoVector<N, T> & setLength(const GenoVector<N, T> & vector, T length, const GenoVector<N, T> & target) {
-	T scalar = length / vector.getLength();
+	auto scalar = length / vector.getLength();
 	for (uint32 i = 0; i < N; ++i)
 		target.v[i] = vector.v[i] * scalar;
 	return target;
@@ -343,8 +343,8 @@ GenoVector<N, T> & setLength(const GenoVector<N, T> & vector, T length, const Ge
 
 template <uint32 N, typename T>
 GenoVector<N, T> normalize(const GenoVector<N, T> & vector) {
-	T scalar = 1 / vector.getLength();
-	T newV = new T[N];
+	auto scalar = 1 / vector.getLength();
+	auto newV = new T[N];
 	for (uint32 i = 0; i < N; ++i)
 		newV[i] = vector.v[i] * scalar;
 	return GenoVector<N, T>(newV);
@@ -352,7 +352,7 @@ GenoVector<N, T> normalize(const GenoVector<N, T> & vector) {
 
 template <uint32 N, typename T>
 GenoVector<N, T> & normalize(const GenoVector<N, T> & vector, const GenoVector<N, T> & target) {
-	T scalar = 1 / vector.getLength();
+	auto scalar = 1 / vector.getLength();
 	for (uint32 i = 0; i < N; ++i)
 		target.v[i] = vector.v[i] * scalar;
 	return target;
@@ -360,7 +360,7 @@ GenoVector<N, T> & normalize(const GenoVector<N, T> & vector, const GenoVector<N
 
 template <uint32 N, typename T>
 GenoVector<N, T> negate(const GenoVector<N, T> & vector) {
-	T * newV = new T[N];
+	auto newV = new T[N];
 	for (uint32 i = 0; i < N; ++i)
 		newV[i] = -vector.v[i];
 	return GenoVector<N, T>(newV);
@@ -375,7 +375,7 @@ GenoVector<N, T> & negate(const GenoVector<N, T> & vector, GenoVector<N, T> & ta
 
 template <uint32 N, typename T>
 T dot(const GenoVector<N, T> & left, const GenoVector<N, T> & right) {
-	T product = T();
+	auto product = T();
 	for (uint32 i = 0; i < N; ++i)
 		product += left.v[i] * right.v[i];
 	return product;
@@ -383,8 +383,8 @@ T dot(const GenoVector<N, T> & left, const GenoVector<N, T> & right) {
 
 template <uint32 N, typename T>
 GenoVector<N, T> project(const GenoVector<N, T> & vector, const GenoVector<N, T> & projection) {
-	T scalar = dot(vector, projection) / projection.getLengthSquared();
-	T * newV = new T[N];
+	auto scalar = dot(vector, projection) / projection.getLengthSquared();
+	auto newV = new T[N];
 	for (uint32 i = 0; i < N; ++i)
 		newV[i] = scalar * projection.v[i];
 	return GenoVector<N, T>(newV);
@@ -392,7 +392,7 @@ GenoVector<N, T> project(const GenoVector<N, T> & vector, const GenoVector<N, T>
 
 template <uint32 N, typename T>
 GenoVector<N, T> & project(const GenoVector<N, T> & vector, const GenoVector<N, T> & projection, GenoVector<N, T> & target) {
-	T scalar = dot(vector, projection) / projection.getLengthSquared();
+	auto scalar = dot(vector, projection) / projection.getLengthSquared();
 	for (uint32 i = 0; i < N; ++i)
 		target.v[i] = scalar * projection.v[i];
 	return target;
@@ -400,7 +400,7 @@ GenoVector<N, T> & project(const GenoVector<N, T> & vector, const GenoVector<N, 
 
 template <uint32 N, typename T>
 GenoVector<N, T> & translate(const GenoVector<N, T> & vector, const GenoVector<N, T> & translate) {
-	T * newV = new T[N];
+	auto newV = new T[N];
 	for (uint32 i = 0; i < N; ++i)
 		newV[i] = vector.v[i] + translate.v[i];
 	return GenoVector<N, T>(newV);
@@ -416,7 +416,7 @@ GenoVector<N, T> & translate(const GenoVector<N, T> & vector, const GenoVector<N
 
 template <uint32 N, typename T>
 GenoVector<N, T> & scale(const GenoVector<N, T> & vector, T scale) {
-	T * newV = new T[N];
+	auto newV = new T[N];
 	for (uint32 i = 0; i < N; ++i)
 		newV[i] = vector.v[i] * scale;
 	return GenoVector<N, T>(newV);
@@ -432,7 +432,7 @@ GenoVector<N, T> & scale(const GenoVector<N, T> & vector, T scale, GenoVector<N,
 
 template <uint32 N, typename T>
 GenoVector<N, T> & scale(const GenoVector<N, T> & vector, const GenoVector<N, T> & scale) {
-	T * newV = new T[N];
+	auto newV = new T[N];
 	for (uint32 i = 0; i < N; ++i)
 		newV[i] = vector.v[i] * scale.v[i];
 	return GenoVector<N, T>(newV);

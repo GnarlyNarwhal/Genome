@@ -197,14 +197,14 @@ class GenoVector<2, T> {
 		}
 
 		GenoVector<2, T> & setLength(T length) {
-			T scalar = length / getLength();
+			auto scalar = length / getLength();
 			v[0] *= scalar;
 			v[1] *= scalar;
 			return *this;
 		}
 
 		GenoVector<2, T> & normalize() {
-			T scalar = 1 / getLength();
+			auto scalar = 1 / getLength();
 			v[0] *= scalar;
 			v[1] *= scalar;
 			return *this;
@@ -215,7 +215,7 @@ class GenoVector<2, T> {
 		}
 		
 		GenoVector<2, T> & setAngle(T angle) {
-			T length = getLength();
+			auto length = getLength();
 			v[0] = cos(angle) * length;
 			v[1] = sin(angle) * length;
 			return *this;
@@ -228,9 +228,19 @@ class GenoVector<2, T> {
 		}
 
 		GenoVector<2, T> & project(const GenoVector<2, T> & projection) {
-			T scalar = dot(*this, projection) / projection.getLengthSquared();
+			auto scalar = dot(*this, projection) / projection.getLengthSquared();
 			v[0] /= scalar;
 			v[1] /= scalar;
+			return *this;
+		}
+
+		GenoVector<2, T> & shear(T axisAngle, T shearAngle) {
+			auto sinAxis = sin(axisAngle);
+			auto cosAxis = cos(axisAngle);
+			auto scalar  = v[0] * sinAxis - v[1] * cosAxis;
+			     scalar *= tan(shearAngle);
+			v[0] += scalar * cosAxis;
+			v[1] += scalar * sinAxis;
 			return *this;
 		}
 
@@ -561,7 +571,6 @@ GenoVector<3, T> operator|(const GenoVector<2, T> & left, T right) {
 
 template <typename T>
 GenoVector<4, T> operator|(const GenoVector<2, T> & left, const GenoVector<2, T> & right) {
-	std::cout << "asdf" << std::endl;
 	return {
 		left.v[0],
 		left.v[1],
@@ -572,7 +581,7 @@ GenoVector<4, T> operator|(const GenoVector<2, T> & left, const GenoVector<2, T>
 
 template <typename T>
 GenoVector<2, T> setLength(const GenoVector<2, T> & vector, T length) {
-	T scalar = length / vector.getLength();
+	auto scalar = length / vector.getLength();
 	return {
 		vector.v[0] * scalar,
 		vector.v[1] * scalar
@@ -581,7 +590,7 @@ GenoVector<2, T> setLength(const GenoVector<2, T> & vector, T length) {
 
 template <typename T>
 GenoVector<2, T> & setLength(const GenoVector<2, T> & vector, T length, GenoVector<2, T> & target) {
-	T scalar = length / vector.getLength();
+	auto scalar = length / vector.getLength();
 	target.v[0] = vector.v[0] * scalar;
 	target.v[1] = vector.v[1] * scalar;
 	return target;
@@ -589,7 +598,7 @@ GenoVector<2, T> & setLength(const GenoVector<2, T> & vector, T length, GenoVect
 
 template <typename T>
 GenoVector<2, T> normalize(const GenoVector<2, T> & vector) {
-	T scalar = 1 / vector.getLength();
+	auto scalar = 1 / vector.getLength();
 	return {
 		vector.v[0] * scalar,
 		vector.v[1] * scalar
@@ -598,7 +607,7 @@ GenoVector<2, T> normalize(const GenoVector<2, T> & vector) {
 
 template <typename T>
 GenoVector<2, T> & normalize(const GenoVector<2, T> & vector, GenoVector<2, T> & target) {
-	T scalar = 1 / vector.getLength();
+	auto scalar = 1 / vector.getLength();
 	target.v[0] = vector.v[0] * scalar;
 	target.v[1] = vector.v[1] * scalar;
 	return target;
@@ -606,7 +615,7 @@ GenoVector<2, T> & normalize(const GenoVector<2, T> & vector, GenoVector<2, T> &
 
 template <typename T>
 GenoVector<2, T> setAngle(const GenoVector<2, T> & vector, T angle) {
-	T length = getLength();
+	auto length = getLength();
 	return {
 		cos(angle) * length;
 		sin(angle) * length;
@@ -615,7 +624,7 @@ GenoVector<2, T> setAngle(const GenoVector<2, T> & vector, T angle) {
 
 template <typename T>
 GenoVector<2, T> & setAngle(const GenoVector<2, T> & vector, T angle, GenoVector<2, T> & target) {
-	T length = getLength();
+	auto length = getLength();
 	target.v[0] = cos(angle) * length;
 	target.v[1] = sin(angle) * length;
 	return target;
@@ -646,7 +655,7 @@ T dot(const GenoVector<2, T> & left, const GenoVector<2, T> & right) {
 
 template <typename T>
 GenoVector<2, T> project(const GenoVector<2, T> & vector, const GenoVector<2, T> & projection) {
-	T scalar = dot(vector, projection) / projection.getLengthSquared();
+	auto scalar = dot(vector, projection) / projection.getLengthSquared();
 	return {
 		scalar * projection.v[0],
 		scalar * projection.v[1]
@@ -655,9 +664,32 @@ GenoVector<2, T> project(const GenoVector<2, T> & vector, const GenoVector<2, T>
 
 template <typename T>
 GenoVector<2, T> & project(const GenoVector<2, T> & vector, const GenoVector<2, T> & projection, GenoVector<2, T> & target) {
-	T scalar = dot(vector, projection) / projection.getLengthSquared();
+	auto scalar = dot(vector, projection) / projection.getLengthSquared();
 	target.v[0] = scalar * projection.v[0];
 	target.v[1] = scalar * projection.v[1];
+	return target;
+}
+
+template <typename T>
+GenoVector<2, T> shear(const GenoVector<2, T> & vector, T axisAngle, T shearAngle) {
+	auto sinAxis = sin(axisAngle);
+	auto cosAxis = cos(axisAngle);
+	auto scalar  = vector.v[0] * sinAxis - vector.v[1] * cosAxis;
+	     scalar *= tan(shearAngle);
+	return {
+		vector.v[0] + scalar * cosAxis,
+		vector.v[1] + scalar * sinAxis,
+	};
+}
+
+template <typename T>
+GenoVector<2, T> & shear(const GenoVector<2, T> & vector, T axisAngle, T shearAngle, GenoVector<2, T> & target) {
+	auto sinAxis = sin(axisAngle);
+	auto cosAxis = cos(axisAngle);
+	auto scalar  = vector.v[0] * sinAxis - vector.v[1] * cosAxis;
+	     scalar *= tan(shearAngle);
+	target.v[0] = vector.v[0] + scalar * cosAxis;
+	target.v[1] = vector.v[1] + scalar * sinAxis;
 	return target;
 }
 
