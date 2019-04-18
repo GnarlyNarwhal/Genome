@@ -221,6 +221,15 @@ class GenoVector<2, T> {
 			return *this;
 		}
 
+		GenoVector<2, T> & rotate(T angle) {
+			auto   sine = sin(angle);
+			auto cosine = cos(angle);
+			auto x = v[0];
+			v[0] = v[0] * cosine - v[1] *   sine;
+			v[1] = x    *   sine - v[1] * cosine;
+			return *this;
+		}
+
 		GenoVector<2, T> & negate() {
 			v[0] = -v[0];
 			v[1] = -v[1];
@@ -631,6 +640,25 @@ GenoVector<2, T> & setAngle(const GenoVector<2, T> & vector, T angle, GenoVector
 }
 
 template <typename T>
+GenoVector<2, T> & rotate(const GenoVector<2, T> & vector, T angle) {
+	auto   sine = sin(angle);
+	auto cosine = cos(angle);
+	return {
+		vector.v[0] * cosine - vector.v[1] *   sine,
+		vector.v[0] *   sine + vector.v[1] * cosine
+	};
+}
+
+template <typename T>
+GenoVector<2, T> & rotate(const GenoVector<2, T> & vector, T angle, GenoVector<2, T> & target) {
+	auto   sine = sin(angle);
+	auto cosine = cos(angle);
+	target.v[0] = vector.v[0] * cosine - vector.v[1] *   sine;
+	target.v[1] = vector.v[0] *   sine + vector.v[1] * cosine;
+	return target;
+}
+
+template <typename T>
 GenoVector<2, T> negate(const GenoVector<2, T> & vector) {
 	return {
 		-vector.v[0],
@@ -688,8 +716,8 @@ GenoVector<2, T> & shear(const GenoVector<2, T> & vector, T axisAngle, T shearAn
 	auto cosAxis = cos(axisAngle);
 	auto scalar  = vector.v[0] * sinAxis - vector.v[1] * cosAxis;
 	     scalar *= tan(shearAngle);
-	target.v[0] = vector.v[0] + scalar * cosAxis;
-	target.v[1] = vector.v[1] + scalar * sinAxis;
+	target.v[0]  = vector.v[0] + scalar * cosAxis;
+	target.v[1]  = vector.v[1] + scalar * sinAxis;
 	return target;
 }
 
