@@ -624,16 +624,16 @@ GenoVector<2, T> & normalize(const GenoVector<2, T> & vector, GenoVector<2, T> &
 
 template <typename T>
 GenoVector<2, T> setAngle(const GenoVector<2, T> & vector, T angle) {
-	auto length = getLength();
+	auto length = vector.getLength();
 	return {
-		cos(angle) * length;
-		sin(angle) * length;
+		cos(angle) * length,
+		sin(angle) * length
 	};
 }
 
 template <typename T>
 GenoVector<2, T> & setAngle(const GenoVector<2, T> & vector, T angle, GenoVector<2, T> & target) {
-	auto length = getLength();
+	auto length = vector.getLength();
 	target.v[0] = cos(angle) * length;
 	target.v[1] = sin(angle) * length;
 	return target;

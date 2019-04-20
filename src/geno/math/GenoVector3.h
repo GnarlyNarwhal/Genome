@@ -489,6 +489,274 @@ class GenoVector<3, T> {
 			v[0] += translate.v[2];
 		}
 
+		GenoVector<3, T> & rotateX(T rotateX) {
+			auto sinX = sin(rotateX);
+			auto cosX = cos(rotateX);
+			auto y = v[1] * ( cosX ) + v[2] * (-sinX );
+			auto z = v[1] * ( sinX ) + v[2] * ( cosX );
+			v[1] = y;
+			v[2] = z;
+			return *this;
+		}
+
+		GenoVector<3, T> & rotateY(T rotateY) {
+			auto sinY = sin(rotateY);
+			auto cosY = cos(rotateY);
+			auto x = v[0] * ( cosY ) + v[2] * ( sinY );
+			auto z = v[0] * (-sinY ) + v[2] * ( cosY );
+			v[0] = x;
+			v[2] = z;
+			return *this;
+		}
+
+		GenoVector<3, T> & rotateZ(T rotateZ) {
+			auto sinZ = sin(rotateZ);
+			auto cosZ = cos(rotateZ);
+			auto x = v[0] * ( cosZ ) + v[1] * (-sinZ );
+			auto y = v[0] * ( sinZ ) + v[1] * ( cosZ );
+			v[0] = x;
+			v[1] = y;
+			return *this;
+		}
+
+		GenoVector<3, T> & rotateXY(T rotateX, T rotateY) {
+			auto sinX = sin(rotateX);
+			auto cosX = cos(rotateX);
+			auto sinY = sin(rotateY);
+			auto cosY = cos(rotateY);
+			auto x = v[0] * ( cosY ) + v[1] * ( sinY * sinX ) + v[2] * ( sinY * cosX );
+			auto y = v[1] * ( cosX ) + v[2] * (-sinX );
+			auto z = v[0] * (-sinY ) + v[1] * ( cosY * sinX ) + v[2] * ( cosY * cosX );
+			v[0] = x;
+			v[1] = y;
+			v[2] = z;
+			return *this;
+		}
+
+		GenoVector<3, T> & rotateXY(const GenoVector<2, T> & rotate) {
+			auto sinX = sin(rotate.v[0]);
+			auto cosX = cos(rotate.v[0]);
+			auto sinY = sin(rotate.v[1]);
+			auto cosY = cos(rotate.v[1]);
+			auto x = v[0] * ( cosY ) + v[1] * ( sinY * sinX ) + v[2] * ( sinY * cosX );
+			auto y = v[1] * ( cosX ) + v[2] * (-sinX );
+			auto z = v[0] * (-sinY ) + v[1] * ( cosY * sinX ) + v[2] * ( cosY * cosX );
+			v[0] = x;
+			v[1] = y;
+			v[2] = z;
+			return *this;
+		}
+
+		GenoVector<3, T> & rotateXZ(T rotateX, T rotateZ) {
+			auto sinX = sin(rotateX);
+			auto cosX = cos(rotateX);
+			auto sinZ = sin(rotateZ);
+			auto cosZ = cos(rotateZ);
+			auto x = v[0] * ( cosZ ) + v[1] * (-sinZ * cosX ) + v[2] * ( sinZ * sinX );
+			auto y = v[0] * ( sinZ ) + v[1] * ( cosZ * cosX ) + v[2] * (-cosZ * sinX );
+			auto z = v[1] * ( sinX ) + v[2] * ( cosX );
+			v[0] = x;
+			v[1] = y;
+			v[2] = z;
+			return *this;
+		}
+
+		GenoVector<3, T> & rotateXZ(const GenoVector<2, T> & rotate) {
+			auto sinX = sin(rotate.v[0]);
+			auto cosX = cos(rotate.v[0]);
+			auto sinZ = sin(rotate.v[1]);
+			auto cosZ = cos(rotate.v[1]);
+			auto x = v[0] * ( cosZ ) + v[1] * (-sinZ * cosX ) + v[2] * ( sinZ * sinX );
+			auto y = v[0] * ( sinZ ) + v[1] * ( cosZ * cosX ) + v[2] * (-cosZ * sinX );
+			auto z = v[1] * ( sinX ) + v[2] * ( cosX );
+			v[0] = x;
+			v[1] = y;
+			v[2] = z;
+			return *this;
+		}
+
+		GenoVector<3, T> & rotateYX(const GenoVector<2, T> & rotate) {
+			auto sinX = sin(rotate.v[1]);
+			auto cosX = cos(rotate.v[1]);
+			auto sinY = sin(rotate.v[0]);
+			auto cosY = cos(rotate.v[0]);
+			auto x = v[0] * ( cosY ) + v[2] * ( sinY );
+			auto y = v[0] * ( sinX * sinY ) + v[1] * ( cosX ) + v[2] * (-sinX * cosY );
+			auto z = v[0] * (-cosX * sinY ) + v[1] * ( sinX ) + v[2] * ( cosX * cosY );
+			v[0] = x;
+			v[1] = y;
+			v[2] = z;
+			return *this;
+		}
+
+		GenoVector<3, T> & rotateYZ(T rotateY, T rotateZ) {
+			auto sinY = sin(rotateY);
+			auto cosY = cos(rotateY);
+			auto sinZ = sin(rotateZ);
+			auto cosZ = cos(rotateZ);
+			auto x = v[0] * ( cosZ * cosY ) + v[1] * (-sinZ ) + v[2] * ( cosZ * sinY );
+			auto y = v[0] * ( sinZ * cosY ) + v[1] * ( cosZ ) + v[2] * ( sinZ * sinY );
+			auto z = v[0] * (-sinY ) + v[2] * ( cosY );
+			v[0] = x;
+			v[1] = y;
+			v[2] = z;
+			return *this;
+		}
+
+		GenoVector<3, T> & rotateYZ(const GenoVector<2, T> & rotate) {
+			auto sinY = sin(rotate.v[0]);
+			auto cosY = cos(rotate.v[0]);
+			auto sinZ = sin(rotate.v[1]);
+			auto cosZ = cos(rotate.v[1]);
+			auto x = v[0] * ( cosZ * cosY ) + v[1] * (-sinZ ) + v[2] * ( cosZ * sinY );
+			auto y = v[0] * ( sinZ * cosY ) + v[1] * ( cosZ ) + v[2] * ( sinZ * sinY );
+			auto z = v[0] * (-sinY ) + v[2] * ( cosY );
+			v[0] = x;
+			v[1] = y;
+			v[2] = z;
+			return *this;
+		}
+
+		GenoVector<3, T> & rotateZX(const GenoVector<2, T> & rotate) {
+			auto sinX = sin(rotate.v[1]);
+			auto cosX = cos(rotate.v[1]);
+			auto sinZ = sin(rotate.v[0]);
+			auto cosZ = cos(rotate.v[0]);
+			auto x = v[0] * ( cosZ ) + v[1] * (-sinZ );
+			auto y = v[0] * ( cosX * sinZ ) + v[1] * ( cosX * cosZ ) + v[2] * (-sinX );
+			auto z = v[0] * ( sinX * sinZ ) + v[1] * ( sinX * cosZ ) + v[2] * ( cosX );
+			v[0] = x;
+			v[1] = y;
+			v[2] = z;
+			return *this;
+		}
+
+		GenoVector<3, T> & rotateZY(const GenoVector<2, T> & rotate) {
+			auto sinY = sin(rotate.v[1]);
+			auto cosY = cos(rotate.v[1]);
+			auto sinZ = sin(rotate.v[0]);
+			auto cosZ = cos(rotate.v[0]);
+			auto x = v[0] * ( cosY * cosZ ) + v[1] * (-cosY * sinZ ) + v[2] * ( sinY );
+			auto y = v[0] * ( sinZ ) + v[1] * ( cosZ );
+			auto z = v[0] * (-sinY * cosZ ) + v[1] * ( sinY * sinZ ) + v[2] * ( cosY );
+			v[0] = x;
+			v[1] = y;
+			v[2] = z;
+			return *this;
+		}
+
+		GenoVector<3, T> & rotateXYZ(T rotateX, T rotateY, T rotateZ) {
+			auto sinX = sin(rotateX);
+			auto cosX = cos(rotateX);
+			auto sinY = sin(rotateY);
+			auto cosY = cos(rotateY);
+			auto sinZ = sin(rotateZ);
+			auto cosZ = cos(rotateZ);
+			auto x = v[0] * ( cosZ * cosY ) + v[1] * (-sinZ * cosX + cosZ * sinY * sinX ) + v[2] * ( sinZ * sinX + cosZ * sinY * cosX );
+			auto y = v[0] * ( sinZ * cosY ) + v[1] * ( cosZ * cosX + sinZ * sinY * sinX ) + v[2] * (-cosZ * sinX + sinZ * sinY * cosX );
+			auto z = v[0] * (-sinY ) + v[1] * ( cosY * sinX ) + v[2] * ( cosY * cosX );
+			v[0] = x;
+			v[1] = y;
+			v[2] = z;
+			return *this;
+		}
+
+		GenoVector<3, T> & rotateXYZ(const GenoVector<3, T> & rotate) {
+			auto sinX = sin(rotate.v[0]);
+			auto cosX = cos(rotate.v[0]);
+			auto sinY = sin(rotate.v[1]);
+			auto cosY = cos(rotate.v[1]);
+			auto sinZ = sin(rotate.v[2]);
+			auto cosZ = cos(rotate.v[2]);
+			auto x = v[0] * ( cosZ * cosY ) + v[1] * (-sinZ * cosX + cosZ * sinY * sinX ) + v[2] * ( sinZ * sinX + cosZ * sinY * cosX );
+			auto y = v[0] * ( sinZ * cosY ) + v[1] * ( cosZ * cosX + sinZ * sinY * sinX ) + v[2] * (-cosZ * sinX + sinZ * sinY * cosX );
+			auto z = v[0] * (-sinY ) + v[1] * ( cosY * sinX ) + v[2] * ( cosY * cosX );
+			v[0] = x;
+			v[1] = y;
+			v[2] = z;
+			return *this;
+		}
+
+		GenoVector<3, T> & rotateXZY(const GenoVector<3, T> & rotate) {
+			auto sinX = sin(rotate.v[0]);
+			auto cosX = cos(rotate.v[0]);
+			auto sinY = sin(rotate.v[2]);
+			auto cosY = cos(rotate.v[2]);
+			auto sinZ = sin(rotate.v[1]);
+			auto cosZ = cos(rotate.v[1]);
+			auto x = v[0] * ( cosY * cosZ ) + v[1] * (-cosY * sinZ * cosX + sinY * sinX ) + v[2] * ( cosY * sinZ * sinX + sinY * cosX );
+			auto y = v[0] * ( sinZ ) + v[1] * ( cosZ * cosX ) + v[2] * (-cosZ * sinX );
+			auto z = v[0] * (-sinY * cosZ ) + v[1] * ( sinY * sinZ * cosX + cosY * sinX ) + v[2] * (-sinY * sinZ * sinX + cosY * cosX );
+			v[0] = x;
+			v[1] = y;
+			v[2] = z;
+			return *this;
+		}
+
+		GenoVector<3, T> & rotateYXZ(const GenoVector<3, T> & rotate) {
+			auto sinX = sin(rotate.v[1]);
+			auto cosX = cos(rotate.v[1]);
+			auto sinY = sin(rotate.v[0]);
+			auto cosY = cos(rotate.v[0]);
+			auto sinZ = sin(rotate.v[2]);
+			auto cosZ = cos(rotate.v[2]);
+			auto x = v[0] * ( cosZ * cosY - sinZ * sinX * sinY ) + v[1] * (-sinZ * cosX ) + v[2] * ( cosZ * sinY + sinZ * sinX * cosY );
+			auto y = v[0] * ( sinZ * cosY + cosZ * sinX * sinY ) + v[1] * ( cosZ * cosX ) + v[2] * ( sinZ * sinY - cosZ * sinX * cosY );
+			auto z = v[0] * (-cosX * sinY ) + v[1] * ( sinX ) + v[2] * ( cosX * cosY );
+			v[0] = x;
+			v[1] = y;
+			v[2] = z;
+			return *this;
+		}
+
+		GenoVector<3, T> & rotateYZX(const GenoVector<3, T> & rotate) {
+			auto sinX = sin(rotate.v[2]);
+			auto cosX = cos(rotate.v[2]);
+			auto sinY = sin(rotate.v[0]);
+			auto cosY = cos(rotate.v[0]);
+			auto sinZ = sin(rotate.v[1]);
+			auto cosZ = cos(rotate.v[1]);
+			auto x = v[0] * ( cosZ * cosY ) + v[1] * (-sinZ ) + v[2] * ( cosZ * sinY );
+			auto y = v[0] * ( cosX * sinZ * cosY + sinX * sinY ) + v[1] * ( cosX * cosZ ) + v[2] * ( cosX * sinZ * sinY - sinX * cosY );
+			auto z = v[0] * ( sinX * sinZ * cosY - cosX * sinY ) + v[1] * ( sinX * cosZ ) + v[2] * ( sinX * sinZ * sinY + cosX * cosY );
+			v[0] = x;
+			v[1] = y;
+			v[2] = z;
+			return *this;
+		}
+
+		GenoVector<3, T> & rotateZXY(const GenoVector<3, T> & rotate) {
+			auto sinX = sin(rotate.v[1]);
+			auto cosX = cos(rotate.v[1]);
+			auto sinY = sin(rotate.v[2]);
+			auto cosY = cos(rotate.v[2]);
+			auto sinZ = sin(rotate.v[0]);
+			auto cosZ = cos(rotate.v[0]);
+			auto x = v[0] * ( cosY * cosZ + sinY * sinX * sinZ ) + v[1] * (-cosY * sinZ + sinY * sinX * cosZ ) + v[2] * ( sinY * cosX );
+			auto y = v[0] * ( cosX * sinZ ) + v[1] * ( cosX * cosZ ) + v[2] * (-sinX );
+			auto z = v[0] * (-sinY * cosZ + cosY * sinX * sinZ ) + v[1] * ( sinY * sinZ + cosY * sinX * cosZ ) + v[2] * ( cosY * cosX );
+			v[0] = x;
+			v[1] = y;
+			v[2] = z;
+			return *this;
+		}
+
+		GenoVector<3, T> & rotateZYX(const GenoVector<3, T> & rotate) {
+			auto sinX = sin(rotate.v[2]);
+			auto cosX = cos(rotate.v[2]);
+			auto sinY = sin(rotate.v[1]);
+			auto cosY = cos(rotate.v[1]);
+			auto sinZ = sin(rotate.v[0]);
+			auto cosZ = cos(rotate.v[0]);
+			auto x = v[0] * ( cosY * cosZ ) + v[1] * (-cosY * sinZ ) + v[2] * ( sinY );
+			auto y = v[0] * ( sinX * sinY * cosZ + cosX * sinZ ) + v[1] * (-sinX * sinY * sinZ + cosX * cosZ ) + v[2] * (-sinX * cosY );
+			auto z = v[0] * (-cosX * sinY * cosZ + sinX * sinZ ) + v[1] * ( cosX * sinY * sinZ + sinX * cosZ ) + v[2] * ( cosX * cosY );
+			v[0] = x;
+			v[1] = y;
+			v[2] = z;
+			return *this;
+		}
+
 		GenoVector<3, T> & scaleX(T scaleX) {
 			v[0] *= scaleX;
 		}
@@ -1317,9 +1585,9 @@ GenoVector<3, T> & project(const GenoVector<3, T> & vector, const GenoVector<3, 
 template <typename T>
 GenoVector<3, T> cross(const GenoVector<3, T> & vector, const GenoVector<3, T> & cross) {
 	return {
-		vector.v[1] * cross.v[2] - vector.v[2] * cross.v[1];
-		vector.v[2] * cross.v[0] - vector.v[0] * cross.v[2];
-		vector.v[0] * cross.v[1] - vector.v[1] * cross.v[0];
+		vector.v[1] * cross.v[2] - vector.v[2] * cross.v[1],
+		vector.v[2] * cross.v[0] - vector.v[0] * cross.v[2],
+		vector.v[0] * cross.v[1] - vector.v[1] * cross.v[0]
 	};
 }
 
@@ -1911,6 +2179,497 @@ GenoVector<3, T> translateZYX(const GenoVector<3, T> & vector, const GenoVector<
 	target.v[0] = vector.v[0] + translate.v[2];
 	target.v[1] = vector.v[1] + translate.v[1];
 	target.v[2] = vector.v[2] + translate.v[0];
+	return target;
+}
+
+template<typename T>
+GenoVector<3, T> & rotateX(const GenoVector<3, T> & vector, T rotateX) {
+	auto sinX = sin(rotateX);
+	auto cosX = cos(rotateX);
+	return {
+		vector.v[0],
+		vector.v[1] * ( cosX ) + vector.v[2] * (-sinX ),
+		vector.v[1] * ( sinX ) + vector.v[2] * ( cosX )
+	};
+}
+
+template<typename T>
+GenoVector<3, T> & rotateY(const GenoVector<3, T> & vector, T rotateY) {
+	auto sinY = sin(rotateY);
+	auto cosY = cos(rotateY);
+	return {
+		vector.v[0] * ( cosY ) + vector.v[2] * ( sinY ),
+		vector.v[1],
+		vector.v[0] * (-sinY ) + vector.v[2] * ( cosY )
+	};
+}
+
+template<typename T>
+GenoVector<3, T> & rotateZ(const GenoVector<3, T> & vector, T rotateZ) {
+	auto sinZ = sin(rotateZ);
+	auto cosZ = cos(rotateZ);
+	return {
+		vector.v[0] * ( cosZ ) + vector.v[1] * (-sinZ ),
+		vector.v[0] * ( sinZ ) + vector.v[1] * ( cosZ ),
+		vector.v[2]
+	};
+}
+
+template<typename T>
+GenoVector<3, T> & rotateXY(const GenoVector<3, T> & vector, T rotateX, T rotateY) {
+	auto sinX = sin(rotateX);
+	auto cosX = cos(rotateX);
+	auto sinY = sin(rotateY);
+	auto cosY = cos(rotateY);
+	return {
+		vector.v[0] * ( cosY ) + vector.v[1] * ( sinY * sinX ) + vector.v[2] * ( sinY * cosX ),
+		vector.v[1] * ( cosX ) + vector.v[2] * (-sinX ),
+		vector.v[0] * (-sinY ) + vector.v[1] * ( cosY * sinX ) + vector.v[2] * ( cosY * cosX )
+	};
+}
+
+template<typename T>
+GenoVector<3, T> & rotateXY(const GenoVector<3, T> & vector, const GenoVector<2, T> & rotate) {
+	auto sinX = sin(rotate.v[0]);
+	auto cosX = cos(rotate.v[0]);
+	auto sinY = sin(rotate.v[1]);
+	auto cosY = cos(rotate.v[1]);
+	return {
+		vector.v[0] * ( cosY ) + vector.v[1] * ( sinY * sinX ) + vector.v[2] * ( sinY * cosX ),
+		vector.v[1] * ( cosX ) + vector.v[2] * (-sinX ),
+		vector.v[0] * (-sinY ) + vector.v[1] * ( cosY * sinX ) + vector.v[2] * ( cosY * cosX )
+	};
+}
+
+template<typename T>
+GenoVector<3, T> & rotateXZ(const GenoVector<3, T> & vector, T rotateX, T rotateZ) {
+	auto sinX = sin(rotateX);
+	auto cosX = cos(rotateX);
+	auto sinZ = sin(rotateZ);
+	auto cosZ = cos(rotateZ);
+	return {
+		vector.v[0] * ( cosZ ) + vector.v[1] * (-sinZ * cosX ) + vector.v[2] * ( sinZ * sinX ),
+		vector.v[0] * ( sinZ ) + vector.v[1] * ( cosZ * cosX ) + vector.v[2] * (-cosZ * sinX ),
+		vector.v[1] * ( sinX ) + vector.v[2] * ( cosX )
+	};
+}
+
+template<typename T>
+GenoVector<3, T> & rotateXZ(const GenoVector<3, T> & vector, const GenoVector<2, T> & rotate) {
+	auto sinX = sin(rotate.v[0]);
+	auto cosX = cos(rotate.v[0]);
+	auto sinZ = sin(rotate.v[1]);
+	auto cosZ = cos(rotate.v[1]);
+	return {
+		vector.v[0] * ( cosZ ) + vector.v[1] * (-sinZ * cosX ) + vector.v[2] * ( sinZ * sinX ),
+		vector.v[0] * ( sinZ ) + vector.v[1] * ( cosZ * cosX ) + vector.v[2] * (-cosZ * sinX ),
+		vector.v[1] * ( sinX ) + vector.v[2] * ( cosX )
+	};
+}
+
+template<typename T>
+GenoVector<3, T> & rotateYX(const GenoVector<3, T> & vector, const GenoVector<2, T> & rotate) {
+	auto sinX = sin(rotate.v[1]);
+	auto cosX = cos(rotate.v[1]);
+	auto sinY = sin(rotate.v[0]);
+	auto cosY = cos(rotate.v[0]);
+	return {
+		vector.v[0] * ( cosY ) + vector.v[2] * ( sinY ),
+		vector.v[0] * ( sinX * sinY ) + vector.v[1] * ( cosX ) + vector.v[2] * (-sinX * cosY ),
+		vector.v[0] * (-cosX * sinY ) + vector.v[1] * ( sinX ) + vector.v[2] * ( cosX * cosY )
+	};
+}
+
+template<typename T>
+GenoVector<3, T> & rotateYZ(const GenoVector<3, T> & vector, T rotateY, T rotateZ) {
+	auto sinY = sin(rotateY);
+	auto cosY = cos(rotateY);
+	auto sinZ = sin(rotateZ);
+	auto cosZ = cos(rotateZ);
+	return {
+		vector.v[0] * ( cosZ * cosY ) + vector.v[1] * (-sinZ ) + vector.v[2] * ( cosZ * sinY ),
+		vector.v[0] * ( sinZ * cosY ) + vector.v[1] * ( cosZ ) + vector.v[2] * ( sinZ * sinY ),
+		vector.v[0] * (-sinY ) + vector.v[2] * ( cosY )
+	};
+}
+
+template<typename T>
+GenoVector<3, T> & rotateYZ(const GenoVector<3, T> & vector, const GenoVector<2, T> & rotate) {
+	auto sinY = sin(rotate.v[0]);
+	auto cosY = cos(rotate.v[0]);
+	auto sinZ = sin(rotate.v[1]);
+	auto cosZ = cos(rotate.v[1]);
+	return {
+		vector.v[0] * ( cosZ * cosY ) + vector.v[1] * (-sinZ ) + vector.v[2] * ( cosZ * sinY ),
+		vector.v[0] * ( sinZ * cosY ) + vector.v[1] * ( cosZ ) + vector.v[2] * ( sinZ * sinY ),
+		vector.v[0] * (-sinY ) + vector.v[2] * ( cosY )
+	};
+}
+
+template<typename T>
+GenoVector<3, T> & rotateZX(const GenoVector<3, T> & vector, const GenoVector<2, T> & rotate) {
+	auto sinX = sin(rotate.v[1]);
+	auto cosX = cos(rotate.v[1]);
+	auto sinZ = sin(rotate.v[0]);
+	auto cosZ = cos(rotate.v[0]);
+	return {
+		vector.v[0] * ( cosZ ) + vector.v[1] * (-sinZ ),
+		vector.v[0] * ( cosX * sinZ ) + vector.v[1] * ( cosX * cosZ ) + vector.v[2] * (-sinX ),
+		vector.v[0] * ( sinX * sinZ ) + vector.v[1] * ( sinX * cosZ ) + vector.v[2] * ( cosX )
+	};
+}
+
+template<typename T>
+GenoVector<3, T> & rotateZY(const GenoVector<3, T> & vector, const GenoVector<2, T> & rotate) {
+	auto sinY = sin(rotate.v[1]);
+	auto cosY = cos(rotate.v[1]);
+	auto sinZ = sin(rotate.v[0]);
+	auto cosZ = cos(rotate.v[0]);
+	return {
+		vector.v[0] * ( cosY * cosZ ) + vector.v[1] * (-cosY * sinZ ) + vector.v[2] * ( sinY ),
+		vector.v[0] * ( sinZ ) + vector.v[1] * ( cosZ ),
+		vector.v[0] * (-sinY * cosZ ) + vector.v[1] * ( sinY * sinZ ) + vector.v[2] * ( cosY )
+	};
+}
+
+template<typename T>
+GenoVector<3, T> & rotateXYZ(const GenoVector<3, T> & vector, T rotateX, T rotateY, T rotateZ) {
+	auto sinX = sin(rotateX);
+	auto cosX = cos(rotateX);
+	auto sinY = sin(rotateY);
+	auto cosY = cos(rotateY);
+	auto sinZ = sin(rotateZ);
+	auto cosZ = cos(rotateZ);
+	return {
+		vector.v[0] * ( cosZ * cosY ) + vector.v[1] * (-sinZ * cosX + cosZ * sinY * sinX ) + vector.v[2] * ( sinZ * sinX + cosZ * sinY * cosX ),
+		vector.v[0] * ( sinZ * cosY ) + vector.v[1] * ( cosZ * cosX + sinZ * sinY * sinX ) + vector.v[2] * (-cosZ * sinX + sinZ * sinY * cosX ),
+		vector.v[0] * (-sinY ) + vector.v[1] * ( cosY * sinX ) + vector.v[2] * ( cosY * cosX )
+	};
+}
+
+template<typename T>
+GenoVector<3, T> & rotateXYZ(const GenoVector<3, T> & vector, const GenoVector<3, T> & rotate) {
+	auto sinX = sin(rotate.v[0]);
+	auto cosX = cos(rotate.v[0]);
+	auto sinY = sin(rotate.v[1]);
+	auto cosY = cos(rotate.v[1]);
+	auto sinZ = sin(rotate.v[2]);
+	auto cosZ = cos(rotate.v[2]);
+	return {
+		vector.v[0] * ( cosZ * cosY ) + vector.v[1] * (-sinZ * cosX + cosZ * sinY * sinX ) + vector.v[2] * ( sinZ * sinX + cosZ * sinY * cosX ),
+		vector.v[0] * ( sinZ * cosY ) + vector.v[1] * ( cosZ * cosX + sinZ * sinY * sinX ) + vector.v[2] * (-cosZ * sinX + sinZ * sinY * cosX ),
+		vector.v[0] * (-sinY ) + vector.v[1] * ( cosY * sinX ) + vector.v[2] * ( cosY * cosX )
+	};
+}
+
+template<typename T>
+GenoVector<3, T> & rotateXZY(const GenoVector<3, T> & vector, const GenoVector<3, T> & rotate) {
+	auto sinX = sin(rotate.v[0]);
+	auto cosX = cos(rotate.v[0]);
+	auto sinY = sin(rotate.v[2]);
+	auto cosY = cos(rotate.v[2]);
+	auto sinZ = sin(rotate.v[1]);
+	auto cosZ = cos(rotate.v[1]);
+	return {
+		vector.v[0] * ( cosY * cosZ ) + vector.v[1] * (-cosY * sinZ * cosX + sinY * sinX ) + vector.v[2] * ( cosY * sinZ * sinX + sinY * cosX ),
+		vector.v[0] * ( sinZ ) + vector.v[1] * ( cosZ * cosX ) + vector.v[2] * (-cosZ * sinX ),
+		vector.v[0] * (-sinY * cosZ ) + vector.v[1] * ( sinY * sinZ * cosX + cosY * sinX ) + vector.v[2] * (-sinY * sinZ * sinX + cosY * cosX )
+	};
+}
+
+template<typename T>
+GenoVector<3, T> & rotateYXZ(const GenoVector<3, T> & vector, const GenoVector<3, T> & rotate) {
+	auto sinX = sin(rotate.v[1]);
+	auto cosX = cos(rotate.v[1]);
+	auto sinY = sin(rotate.v[0]);
+	auto cosY = cos(rotate.v[0]);
+	auto sinZ = sin(rotate.v[2]);
+	auto cosZ = cos(rotate.v[2]);
+	return {
+		vector.v[0] * ( cosZ * cosY - sinZ * sinX * sinY ) + vector.v[1] * (-sinZ * cosX ) + vector.v[2] * ( cosZ * sinY + sinZ * sinX * cosY ),
+		vector.v[0] * ( sinZ * cosY + cosZ * sinX * sinY ) + vector.v[1] * ( cosZ * cosX ) + vector.v[2] * ( sinZ * sinY - cosZ * sinX * cosY ),
+		vector.v[0] * (-cosX * sinY ) + vector.v[1] * ( sinX ) + vector.v[2] * ( cosX * cosY )
+	};
+}
+
+template<typename T>
+GenoVector<3, T> & rotateYZX(const GenoVector<3, T> & vector, const GenoVector<3, T> & rotate) {
+	auto sinX = sin(rotate.v[2]);
+	auto cosX = cos(rotate.v[2]);
+	auto sinY = sin(rotate.v[0]);
+	auto cosY = cos(rotate.v[0]);
+	auto sinZ = sin(rotate.v[1]);
+	auto cosZ = cos(rotate.v[1]);
+	return {
+		vector.v[0] * ( cosZ * cosY ) + vector.v[1] * (-sinZ ) + vector.v[2] * ( cosZ * sinY ),
+		vector.v[0] * ( cosX * sinZ * cosY + sinX * sinY ) + vector.v[1] * ( cosX * cosZ ) + vector.v[2] * ( cosX * sinZ * sinY - sinX * cosY ),
+		vector.v[0] * ( sinX * sinZ * cosY - cosX * sinY ) + vector.v[1] * ( sinX * cosZ ) + vector.v[2] * ( sinX * sinZ * sinY + cosX * cosY )
+	};
+}
+
+template<typename T>
+GenoVector<3, T> & rotateZXY(const GenoVector<3, T> & vector, const GenoVector<3, T> & rotate) {
+	auto sinX = sin(rotate.v[1]);
+	auto cosX = cos(rotate.v[1]);
+	auto sinY = sin(rotate.v[2]);
+	auto cosY = cos(rotate.v[2]);
+	auto sinZ = sin(rotate.v[0]);
+	auto cosZ = cos(rotate.v[0]);
+	return {
+		vector.v[0] * ( cosY * cosZ + sinY * sinX * sinZ ) + vector.v[1] * (-cosY * sinZ + sinY * sinX * cosZ ) + vector.v[2] * ( sinY * cosX ),
+		vector.v[0] * ( cosX * sinZ ) + vector.v[1] * ( cosX * cosZ ) + vector.v[2] * (-sinX ),
+		vector.v[0] * (-sinY * cosZ + cosY * sinX * sinZ ) + vector.v[1] * ( sinY * sinZ + cosY * sinX * cosZ ) + vector.v[2] * ( cosY * cosX )
+	};
+}
+
+template<typename T>
+GenoVector<3, T> & rotateZYX(const GenoVector<3, T> & vector, const GenoVector<3, T> & rotate) {
+	auto sinX = sin(rotate.v[2]);
+	auto cosX = cos(rotate.v[2]);
+	auto sinY = sin(rotate.v[1]);
+	auto cosY = cos(rotate.v[1]);
+	auto sinZ = sin(rotate.v[0]);
+	auto cosZ = cos(rotate.v[0]);
+	return {
+		vector.v[0] * ( cosY * cosZ ) + vector.v[1] * (-cosY * sinZ ) + vector.v[2] * ( sinY ),
+		vector.v[0] * ( sinX * sinY * cosZ + cosX * sinZ ) + vector.v[1] * (-sinX * sinY * sinZ + cosX * cosZ ) + vector.v[2] * (-sinX * cosY ),
+		vector.v[0] * (-cosX * sinY * cosZ + sinX * sinZ ) + vector.v[1] * ( cosX * sinY * sinZ + sinX * cosZ ) + vector.v[2] * ( cosX * cosY )
+	};
+}
+
+template<typename T>
+GenoVector<3, T> & rotateX(const GenoVector<3, T> & vector, T rotateX, GenoVector<3, T> & target) {
+	auto sinX = sin(rotateX);
+	auto cosX = cos(rotateX);
+	target.v[0] = vector.v[0];
+	target.v[1] = vector.v[1] * ( cosX ) + vector.v[2] * (-sinX );
+	target.v[2] = vector.v[1] * ( sinX ) + vector.v[2] * ( cosX );
+	return target;
+}
+
+template<typename T>
+GenoVector<3, T> & rotateY(const GenoVector<3, T> & vector, T rotateY, GenoVector<3, T> & target) {
+	auto sinY = sin(rotateY);
+	auto cosY = cos(rotateY);
+	target.v[0] = vector.v[0] * ( cosY ) + vector.v[2] * ( sinY );
+	target.v[1] = vector.v[1];
+	target.v[2] = vector.v[0] * (-sinY ) + vector.v[2] * ( cosY );
+	return target;
+}
+
+template<typename T>
+GenoVector<3, T> & rotateZ(const GenoVector<3, T> & vector, T rotateZ, GenoVector<3, T> & target) {
+	auto sinZ = sin(rotateZ);
+	auto cosZ = cos(rotateZ);
+	target.v[0] = vector.v[0] * ( cosZ ) + vector.v[1] * (-sinZ );
+	target.v[1] = vector.v[0] * ( sinZ ) + vector.v[1] * ( cosZ );
+	target.v[2] = vector.v[2];
+	return target;
+}
+
+template<typename T>
+GenoVector<3, T> & rotateXY(const GenoVector<3, T> & vector, T rotateX, T rotateY, GenoVector<3, T> & target) {
+	auto sinX = sin(rotateX);
+	auto cosX = cos(rotateX);
+	auto sinY = sin(rotateY);
+	auto cosY = cos(rotateY);
+	target.v[0] = vector.v[0] * ( cosY ) + vector.v[1] * ( sinY * sinX ) + vector.v[2] * ( sinY * cosX );
+	target.v[1] = vector.v[1] * ( cosX ) + vector.v[2] * (-sinX );
+	target.v[2] = vector.v[0] * (-sinY ) + vector.v[1] * ( cosY * sinX ) + vector.v[2] * ( cosY * cosX );
+	return target;
+}
+
+template<typename T>
+GenoVector<3, T> & rotateXY(const GenoVector<3, T> & vector, const GenoVector<2, T> & rotate, GenoVector<3, T> & target) {
+	auto sinX = sin(rotate.v[0]);
+	auto cosX = cos(rotate.v[0]);
+	auto sinY = sin(rotate.v[1]);
+	auto cosY = cos(rotate.v[1]);
+	target.v[0] = vector.v[0] * ( cosY ) + vector.v[1] * ( sinY * sinX ) + vector.v[2] * ( sinY * cosX );
+	target.v[1] = vector.v[1] * ( cosX ) + vector.v[2] * (-sinX );
+	target.v[2] = vector.v[0] * (-sinY ) + vector.v[1] * ( cosY * sinX ) + vector.v[2] * ( cosY * cosX );
+	return target;
+}
+
+template<typename T>
+GenoVector<3, T> & rotateXZ(const GenoVector<3, T> & vector, T rotateX, T rotateZ, GenoVector<3, T> & target) {
+	auto sinX = sin(rotateX);
+	auto cosX = cos(rotateX);
+	auto sinZ = sin(rotateZ);
+	auto cosZ = cos(rotateZ);
+	target.v[0] = vector.v[0] * ( cosZ ) + vector.v[1] * (-sinZ * cosX ) + vector.v[2] * ( sinZ * sinX );
+	target.v[1] = vector.v[0] * ( sinZ ) + vector.v[1] * ( cosZ * cosX ) + vector.v[2] * (-cosZ * sinX );
+	target.v[2] = vector.v[1] * ( sinX ) + vector.v[2] * ( cosX );
+	return target;
+}
+
+template<typename T>
+GenoVector<3, T> & rotateXZ(const GenoVector<3, T> & vector, const GenoVector<2, T> & rotate, GenoVector<3, T> & target) {
+	auto sinX = sin(rotate.v[0]);
+	auto cosX = cos(rotate.v[0]);
+	auto sinZ = sin(rotate.v[1]);
+	auto cosZ = cos(rotate.v[1]);
+	target.v[0] = vector.v[0] * ( cosZ ) + vector.v[1] * (-sinZ * cosX ) + vector.v[2] * ( sinZ * sinX );
+	target.v[1] = vector.v[0] * ( sinZ ) + vector.v[1] * ( cosZ * cosX ) + vector.v[2] * (-cosZ * sinX );
+	target.v[2] = vector.v[1] * ( sinX ) + vector.v[2] * ( cosX );
+	return target;
+}
+
+template<typename T>
+GenoVector<3, T> & rotateYX(const GenoVector<3, T> & vector, const GenoVector<2, T> & rotate, GenoVector<3, T> & target) {
+	auto sinX = sin(rotate.v[1]);
+	auto cosX = cos(rotate.v[1]);
+	auto sinY = sin(rotate.v[0]);
+	auto cosY = cos(rotate.v[0]);
+	target.v[0] = vector.v[0] * ( cosY ) + vector.v[2] * ( sinY );
+	target.v[1] = vector.v[0] * ( sinX * sinY ) + vector.v[1] * ( cosX ) + vector.v[2] * (-sinX * cosY );
+	target.v[2] = vector.v[0] * (-cosX * sinY ) + vector.v[1] * ( sinX ) + vector.v[2] * ( cosX * cosY );
+	return target;
+}
+
+template<typename T>
+GenoVector<3, T> & rotateYZ(const GenoVector<3, T> & vector, T rotateY, T rotateZ, GenoVector<3, T> & target) {
+	auto sinY = sin(rotateY);
+	auto cosY = cos(rotateY);
+	auto sinZ = sin(rotateZ);
+	auto cosZ = cos(rotateZ);
+	target.v[0] = vector.v[0] * ( cosZ * cosY ) + vector.v[1] * (-sinZ ) + vector.v[2] * ( cosZ * sinY );
+	target.v[1] = vector.v[0] * ( sinZ * cosY ) + vector.v[1] * ( cosZ ) + vector.v[2] * ( sinZ * sinY );
+	target.v[2] = vector.v[0] * (-sinY ) + vector.v[2] * ( cosY );
+	return target;
+}
+
+template<typename T>
+GenoVector<3, T> & rotateYZ(const GenoVector<3, T> & vector, const GenoVector<2, T> & rotate, GenoVector<3, T> & target) {
+	auto sinY = sin(rotate.v[0]);
+	auto cosY = cos(rotate.v[0]);
+	auto sinZ = sin(rotate.v[1]);
+	auto cosZ = cos(rotate.v[1]);
+	target.v[0] = vector.v[0] * ( cosZ * cosY ) + vector.v[1] * (-sinZ ) + vector.v[2] * ( cosZ * sinY );
+	target.v[1] = vector.v[0] * ( sinZ * cosY ) + vector.v[1] * ( cosZ ) + vector.v[2] * ( sinZ * sinY );
+	target.v[2] = vector.v[0] * (-sinY ) + vector.v[2] * ( cosY );
+	return target;
+}
+
+template<typename T>
+GenoVector<3, T> & rotateZX(const GenoVector<3, T> & vector, const GenoVector<2, T> & rotate, GenoVector<3, T> & target) {
+	auto sinX = sin(rotate.v[1]);
+	auto cosX = cos(rotate.v[1]);
+	auto sinZ = sin(rotate.v[0]);
+	auto cosZ = cos(rotate.v[0]);
+	target.v[0] = vector.v[0] * ( cosZ ) + vector.v[1] * (-sinZ );
+	target.v[1] = vector.v[0] * ( cosX * sinZ ) + vector.v[1] * ( cosX * cosZ ) + vector.v[2] * (-sinX );
+	target.v[2] = vector.v[0] * ( sinX * sinZ ) + vector.v[1] * ( sinX * cosZ ) + vector.v[2] * ( cosX );
+	return target;
+}
+
+template<typename T>
+GenoVector<3, T> & rotateZY(const GenoVector<3, T> & vector, const GenoVector<2, T> & rotate, GenoVector<3, T> & target) {
+	auto sinY = sin(rotate.v[1]);
+	auto cosY = cos(rotate.v[1]);
+	auto sinZ = sin(rotate.v[0]);
+	auto cosZ = cos(rotate.v[0]);
+	target.v[0] = vector.v[0] * ( cosY * cosZ ) + vector.v[1] * (-cosY * sinZ ) + vector.v[2] * ( sinY );
+	target.v[1] = vector.v[0] * ( sinZ ) + vector.v[1] * ( cosZ );
+	target.v[2] = vector.v[0] * (-sinY * cosZ ) + vector.v[1] * ( sinY * sinZ ) + vector.v[2] * ( cosY );
+	return target;
+}
+
+template<typename T>
+GenoVector<3, T> & rotateXYZ(const GenoVector<3, T> & vector, T rotateX, T rotateY, T rotateZ, GenoVector<3, T> & target) {
+	auto sinX = sin(rotateX);
+	auto cosX = cos(rotateX);
+	auto sinY = sin(rotateY);
+	auto cosY = cos(rotateY);
+	auto sinZ = sin(rotateZ);
+	auto cosZ = cos(rotateZ);
+	target.v[0] = vector.v[0] * ( cosZ * cosY ) + vector.v[1] * (-sinZ * cosX + cosZ * sinY * sinX ) + vector.v[2] * ( sinZ * sinX + cosZ * sinY * cosX );
+	target.v[1] = vector.v[0] * ( sinZ * cosY ) + vector.v[1] * ( cosZ * cosX + sinZ * sinY * sinX ) + vector.v[2] * (-cosZ * sinX + sinZ * sinY * cosX );
+	target.v[2] = vector.v[0] * (-sinY ) + vector.v[1] * ( cosY * sinX ) + vector.v[2] * ( cosY * cosX );
+	return target;
+}
+
+template<typename T>
+GenoVector<3, T> & rotateXYZ(const GenoVector<3, T> & vector, const GenoVector<3, T> & rotate, GenoVector<3, T> & target) {
+	auto sinX = sin(rotate.v[0]);
+	auto cosX = cos(rotate.v[0]);
+	auto sinY = sin(rotate.v[1]);
+	auto cosY = cos(rotate.v[1]);
+	auto sinZ = sin(rotate.v[2]);
+	auto cosZ = cos(rotate.v[2]);
+	target.v[0] = vector.v[0] * ( cosZ * cosY ) + vector.v[1] * (-sinZ * cosX + cosZ * sinY * sinX ) + vector.v[2] * ( sinZ * sinX + cosZ * sinY * cosX );
+	target.v[1] = vector.v[0] * ( sinZ * cosY ) + vector.v[1] * ( cosZ * cosX + sinZ * sinY * sinX ) + vector.v[2] * (-cosZ * sinX + sinZ * sinY * cosX );
+	target.v[2] = vector.v[0] * (-sinY ) + vector.v[1] * ( cosY * sinX ) + vector.v[2] * ( cosY * cosX );
+	return target;
+}
+
+template<typename T>
+GenoVector<3, T> & rotateXZY(const GenoVector<3, T> & vector, const GenoVector<3, T> & rotate, GenoVector<3, T> & target) {
+	auto sinX = sin(rotate.v[0]);
+	auto cosX = cos(rotate.v[0]);
+	auto sinY = sin(rotate.v[2]);
+	auto cosY = cos(rotate.v[2]);
+	auto sinZ = sin(rotate.v[1]);
+	auto cosZ = cos(rotate.v[1]);
+	target.v[0] = vector.v[0] * ( cosY * cosZ ) + vector.v[1] * (-cosY * sinZ * cosX + sinY * sinX ) + vector.v[2] * ( cosY * sinZ * sinX + sinY * cosX );
+	target.v[1] = vector.v[0] * ( sinZ ) + vector.v[1] * ( cosZ * cosX ) + vector.v[2] * (-cosZ * sinX );
+	target.v[2] = vector.v[0] * (-sinY * cosZ ) + vector.v[1] * ( sinY * sinZ * cosX + cosY * sinX ) + vector.v[2] * (-sinY * sinZ * sinX + cosY * cosX );
+	return target;
+}
+
+template<typename T>
+GenoVector<3, T> & rotateYXZ(const GenoVector<3, T> & vector, const GenoVector<3, T> & rotate, GenoVector<3, T> & target) {
+	auto sinX = sin(rotate.v[1]);
+	auto cosX = cos(rotate.v[1]);
+	auto sinY = sin(rotate.v[0]);
+	auto cosY = cos(rotate.v[0]);
+	auto sinZ = sin(rotate.v[2]);
+	auto cosZ = cos(rotate.v[2]);
+	target.v[0] = vector.v[0] * ( cosZ * cosY - sinZ * sinX * sinY ) + vector.v[1] * (-sinZ * cosX ) + vector.v[2] * ( cosZ * sinY + sinZ * sinX * cosY );
+	target.v[1] = vector.v[0] * ( sinZ * cosY + cosZ * sinX * sinY ) + vector.v[1] * ( cosZ * cosX ) + vector.v[2] * ( sinZ * sinY - cosZ * sinX * cosY );
+	target.v[2] = vector.v[0] * (-cosX * sinY ) + vector.v[1] * ( sinX ) + vector.v[2] * ( cosX * cosY );
+	return target;
+}
+
+template<typename T>
+GenoVector<3, T> & rotateYZX(const GenoVector<3, T> & vector, const GenoVector<3, T> & rotate, GenoVector<3, T> & target) {
+	auto sinX = sin(rotate.v[2]);
+	auto cosX = cos(rotate.v[2]);
+	auto sinY = sin(rotate.v[0]);
+	auto cosY = cos(rotate.v[0]);
+	auto sinZ = sin(rotate.v[1]);
+	auto cosZ = cos(rotate.v[1]);
+	target.v[0] = vector.v[0] * ( cosZ * cosY ) + vector.v[1] * (-sinZ ) + vector.v[2] * ( cosZ * sinY );
+	target.v[1] = vector.v[0] * ( cosX * sinZ * cosY + sinX * sinY ) + vector.v[1] * ( cosX * cosZ ) + vector.v[2] * ( cosX * sinZ * sinY - sinX * cosY );
+	target.v[2] = vector.v[0] * ( sinX * sinZ * cosY - cosX * sinY ) + vector.v[1] * ( sinX * cosZ ) + vector.v[2] * ( sinX * sinZ * sinY + cosX * cosY );
+	return target;
+}
+
+template<typename T>
+GenoVector<3, T> & rotateZXY(const GenoVector<3, T> & vector, const GenoVector<3, T> & rotate, GenoVector<3, T> & target) {
+	auto sinX = sin(rotate.v[1]);
+	auto cosX = cos(rotate.v[1]);
+	auto sinY = sin(rotate.v[2]);
+	auto cosY = cos(rotate.v[2]);
+	auto sinZ = sin(rotate.v[0]);
+	auto cosZ = cos(rotate.v[0]);
+	target.v[0] = vector.v[0] * ( cosY * cosZ + sinY * sinX * sinZ ) + vector.v[1] * (-cosY * sinZ + sinY * sinX * cosZ ) + vector.v[2] * ( sinY * cosX );
+	target.v[1] = vector.v[0] * ( cosX * sinZ ) + vector.v[1] * ( cosX * cosZ ) + vector.v[2] * (-sinX );
+	target.v[2] = vector.v[0] * (-sinY * cosZ + cosY * sinX * sinZ ) + vector.v[1] * ( sinY * sinZ + cosY * sinX * cosZ ) + vector.v[2] * ( cosY * cosX );
+	return target;
+}
+
+template<typename T>
+GenoVector<3, T> & rotateZYX(const GenoVector<3, T> & vector, const GenoVector<3, T> & rotate, GenoVector<3, T> & target) {
+	auto sinX = sin(rotate.v[2]);
+	auto cosX = cos(rotate.v[2]);
+	auto sinY = sin(rotate.v[1]);
+	auto cosY = cos(rotate.v[1]);
+	auto sinZ = sin(rotate.v[0]);
+	auto cosZ = cos(rotate.v[0]);
+	target.v[0] = vector.v[0] * ( cosY * cosZ ) + vector.v[1] * (-cosY * sinZ ) + vector.v[2] * ( sinY );
+	target.v[1] = vector.v[0] * ( sinX * sinY * cosZ + cosX * sinZ ) + vector.v[1] * (-sinX * sinY * sinZ + cosX * cosZ ) + vector.v[2] * (-sinX * cosY );
+	target.v[2] = vector.v[0] * (-cosX * sinY * cosZ + sinX * sinZ ) + vector.v[1] * ( cosX * sinY * sinZ + sinX * cosZ ) + vector.v[2] * ( cosX * cosY );
 	return target;
 }
 

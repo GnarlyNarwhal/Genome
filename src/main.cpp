@@ -25,13 +25,38 @@
  *******************************************************************************/
 
 #include <iostream>
+#include <chrono>
 
 #include "geno/GenoInts.h"
-#include "geno/math/GenoVector2.h"
+#include "geno/math/GenoVector3.h"
+
+#define PI 3.1415926535
 
 int32 main(int32 argc, char ** argv) {
 
+	GenoVector3f vec  = GenoVector3f{ 0, 0, 1 };
+	GenoVector3f vec2 = GenoVector3f{ 0, 0, 1 };
+	
+	/////// TIME TRIALS - LEAVE FOR FUTURE USE ///////
 
+	const uint32 NUM_ITERATIONS = 1000000;
+
+	auto begin1 = std::chrono::high_resolution_clock::now();
+
+	for (uint32 i = 0; i < NUM_ITERATIONS; ++i)
+		vec.rotateX(0).rotateY(PI / 2).rotateZ(7);
+
+	auto end1 = std::chrono::high_resolution_clock::now();
+
+	auto begin2 = std::chrono::high_resolution_clock::now();
+
+	for (uint32 i = 0; i < NUM_ITERATIONS; ++i)
+		vec2.rotateXYZ(0, PI / 2, 7);
+
+	auto end2 = std::chrono::high_resolution_clock::now();
+	
+	std::cout << std::chrono::duration_cast<std::chrono::microseconds>(end1 - begin1).count() << std::endl;
+	std::cout << std::chrono::duration_cast<std::chrono::microseconds>(end2 - begin2).count() << std::endl;
 
 	//////// DO NOT REMOVE BELOW ////////
 	std::cout << "Press enter to continue . . ." << std::endl;
