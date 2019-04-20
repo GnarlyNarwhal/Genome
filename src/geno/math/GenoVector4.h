@@ -108,8 +108,9 @@ class GenoVector<4, T> {
 			}) {}
 
 		GenoVector(GenoVector<4, T> && vector) :
+			owner(vector.owner),
 			v(vector.v) {
-			vector.v = 0;
+			vector.owner = false;
 		}
 
 		GenoVector<4, T> & operator=(const GenoVector<4, T> & vector) {
@@ -122,8 +123,9 @@ class GenoVector<4, T> {
 
 		GenoVector<4, T> & operator=(GenoVector<4, T> && vector) {
 			clean();
+			owner = vector.owner;
 			v = vector.v;
-			vector.v = 0;
+			vector.owner = false;
 			return *this;
 		}
 

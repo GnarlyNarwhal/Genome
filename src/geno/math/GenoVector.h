@@ -92,8 +92,9 @@ class GenoVector {
 		}
 		
 		GenoVector(GenoVector<N, T> && vector) noexcept :
+			owner(vector.owner),
 			v(vector.v) {
-			vector.v = 0;
+			vector.owner = false;
 		}
 
 		GenoVector<N, T> & operator=(std::initializer_list<T> list) {
@@ -112,8 +113,9 @@ class GenoVector {
 		
 		GenoVector<N, T> & operator=(GenoVector<N, T> && vector) noexcept {
 			clean();
+			owner = vector.owner;
 			v = vector.v;
-			vector.v = 0;
+			vector.owner = false;
 			return *this;
 		}
 

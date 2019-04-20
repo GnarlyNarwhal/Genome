@@ -105,8 +105,9 @@ class GenoVector<2, T> {
 			}) {}
 
 		GenoVector(GenoVector<2, T> && vector) noexcept :
+			owner(vector.owner),
 			v(vector.v) {
-			vector.v = 0;
+			vector.owner = false;
 		}
 
 		GenoVector<2, T> & operator=(const GenoVector<2, T> & vector) {
@@ -117,8 +118,9 @@ class GenoVector<2, T> {
 
 		GenoVector<2, T> & operator=(GenoVector<2, T> && vector) noexcept {
 			clean();
+			owner = vector.owner;
 			v = vector.v;
-			vector.v = 0;
+			vector.owner = false;
 			return *this;
 		}
 
