@@ -38,6 +38,7 @@ class GenoVector;
 #define GNARLY_GENOME_MATRIX
 
 #include <ostream>
+#include <initializer_list>
 
 #include "GenoVector.h"
 
@@ -51,7 +52,7 @@ class GenoMatrix {
 
 		void clean() {
 			if (owner)
-				delete [] v;
+				delete [] m;
 		}
 	public:
 		T * m;
@@ -62,6 +63,14 @@ class GenoMatrix {
 		GenoMatrix(T * m, bool owner = true) noexcept :
 			owner(owner),
 			m(m) {}
+		
+		GenoMatrix(std::initializer_list<T> list) :
+			m(new T[N * M]) {
+			auto min  = list.size() < N * M ? list.size() : N * M;
+			auto init = list.begin();
+			for (uint32 i = 0; i < min; ++i)
+				m[(i % M) * N + (i / M)] = init[i];
+		}
 
 		template <typename T2>
 		GenoMatrix(const GenoMatrix<N, M, T2> & matrix) :
@@ -77,8 +86,17 @@ class GenoMatrix {
 		}
 
 		GenoMatrix(GenoMatrix<N, M, T> && matrix) noexcept :
+			owner(matrix.owner),
 			m(matrix.m) {
-			matrix.m = 0;
+			matrix.owner = false;
+		}
+
+		GenoMatrix<N, M, T> & operator=(std::initializer_list<T> list) {
+			auto min  = list.size() < N * M ? list.size() : N * M;
+			auto init = list.begin();
+			for (uint32 i = 0; i < min; ++i)
+				m[(i % M) * N + (i / M)] = init[i];
+			return *this;
 		}
 
 		GenoMatrix<N, M, T> & operator=(const GenoMatrix<N, M, T> & matrix) {
@@ -89,7 +107,7 @@ class GenoMatrix {
 
 		GenoMatrix<N, M, T> & operator=(GenoMatrix<N, M, T> && matrix) {
 			clean();
-			owner = vector.owner;
+			owner = matrix.owner;
 			m = matrix.m;
 			matrix.owner = false;
 			return *this;

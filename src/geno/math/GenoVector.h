@@ -28,6 +28,7 @@
 #define GNARLY_GENOME_VECTOR
 
 #include <ostream>
+#include <initializer_list>
 
 #include "../GenoInts.h"
 
@@ -67,6 +68,14 @@ class GenoVector {
 				v[i] = value;
 		}
 
+		GenoVector(std::initializer_list<T> list) :
+			v(new T[N]) {
+			auto min  = list.size() < N ? list.size() : N;
+			auto init = list.begin();
+			for (uint32 i = 0; i < min; ++i)
+				v[i] = init[i];
+		}
+
 		template <typename T2>
 		GenoVector(const GenoVector<N, T2> & vector) :
 			v(new T[N]) {
@@ -84,6 +93,14 @@ class GenoVector {
 			owner(vector.owner),
 			v(vector.v) {
 			vector.owner = false;
+		}
+
+		GenoVector<N, T> & operator=(std::initializer_list<T> list) {
+			auto min  = list.size() < N ? list.size() : N;
+			auto init = list.begin();
+			for (uint32 i = 0; i < min; ++i)
+				v[i] = init[i];
+			return *this;
 		}
 
 		GenoVector<N, T> & operator=(const GenoVector<N, T> & vector) {
