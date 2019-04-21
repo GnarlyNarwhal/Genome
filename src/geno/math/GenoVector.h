@@ -28,8 +28,6 @@
 #define GNARLY_GENOME_VECTOR
 
 #include <ostream>
-#include <utility>
-#include <initializer_list>
 
 #include "../GenoInts.h"
 
@@ -69,15 +67,6 @@ class GenoVector {
 				v[i] = value;
 		}
 
-		GenoVector(std::initializer_list<T> list) :
-			v(new T[N]) {
-			const auto VECTOR_END = v + N;
-			const auto iterator = list.begin() - 1;
-			auto vector = v - 1;
-			while (++iterator < list.end() && ++vector < VECTOR_END)
-				*vector = *iterator;
-		}
-
 		template <typename T2>
 		GenoVector(const GenoVector<N, T2> & vector) :
 			v(new T[N]) {
@@ -95,14 +84,6 @@ class GenoVector {
 			owner(vector.owner),
 			v(vector.v) {
 			vector.owner = false;
-		}
-
-		GenoVector<N, T> & operator=(std::initializer_list<T> list) {
-			const auto VECTOR_END = v + N;
-			const auto iterator = list.begin() - 1;
-			auto vector = v - 1;
-			while (++iterator < list.end() && ++vector < VECTOR_END)
-				*vector = *iterator;
 		}
 
 		GenoVector<N, T> & operator=(const GenoVector<N, T> & vector) {
@@ -469,19 +450,6 @@ template <uint32 N> using GenoVectorNl  = GenoVector<N,  int64>;
 template <uint32 N> using GenoVectorNul = GenoVector<N, uint64>;
 template <uint32 N> using GenoVectorNf  = GenoVector<N, float >;
 template <uint32 N> using GenoVectorNd  = GenoVector<N, double>;
-
-template <typename T> using GenoVector1 = GenoVector<1, T>;
-
-using GenoVector1b  = GenoVector1< int8 >;
-using GenoVector1ub = GenoVector1<uint8 >;
-using GenoVector1s  = GenoVector1< int16>;
-using GenoVector1us = GenoVector1<uint16>;
-using GenoVector1i  = GenoVector1< int32>;
-using GenoVector1ui = GenoVector1<uint32>;
-using GenoVector1l  = GenoVector1< int64>;
-using GenoVector1ul = GenoVector1<uint64>;
-using GenoVector1f  = GenoVector1<float >;
-using GenoVector1d  = GenoVector1<double>;
 
 #define GNARLY_GENOME_VECTOR_FORWARD
 #endif // GNARLY_GENOME_VECTOR

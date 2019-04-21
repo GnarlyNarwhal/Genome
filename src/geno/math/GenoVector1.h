@@ -24,38 +24,33 @@
  *
  *******************************************************************************/
 
-#include <iostream>
-#include <chrono>
+#include "../GenoInts.h"
 
-#include "geno/GenoInts.h"
-#include "geno/math/GenoVector3.h"
+#ifndef GNARLY_GENOME_VECTOR_FORWARD
+#define GNARLY_GENOME_VECTOR_FORWARD
 
-#define PI 3.1415926535
+template <uint32 N, typename T>
+class GenoVector;
 
-int32 main(int32 argc, char ** argv) {
+#endif // GNARLY_GENOME_VECTOR_FORWARD
 
-	const auto vec  = GenoVector3f{ 0, 0, 1 };
+#ifndef GNARLY_GENOME_VECTOR1
+#define GNARLY_GENOME_VECTOR1
 
-	vec.v[0] = 1;
-	
-	std::cout << vec << std::endl;
-	
-	/////// TIME TRIALS - LEAVE FOR FUTURE USE ///////
-/*
-	const uint32 NUM_ITERATIONS = 1000000;
+#include "GenoVector.h"
 
-	auto begin1 = std::chrono::high_resolution_clock::now();
-	auto end1 = std::chrono::high_resolution_clock::now();
+template <typename T> using GenoVector1 = GenoVector<1, T>;
 
-	auto begin2 = std::chrono::high_resolution_clock::now();
-	auto end2 = std::chrono::high_resolution_clock::now();
-	
-	std::cout << std::chrono::duration_cast<std::chrono::microseconds>(end1 - begin1).count() << std::endl;
-	std::cout << std::chrono::duration_cast<std::chrono::microseconds>(end2 - begin2).count() << std::endl;
-*/
-	//////// DO NOT REMOVE BELOW ////////
-	std::cout << "Press enter to continue . . ." << std::endl;
-	std::cin.get();
+using GenoVector1b  = GenoVector1< int8 >;
+using GenoVector1ub = GenoVector1<uint8 >;
+using GenoVector1s  = GenoVector1< int16>;
+using GenoVector1us = GenoVector1<uint16>;
+using GenoVector1i  = GenoVector1< int32>;
+using GenoVector1ui = GenoVector1<uint32>;
+using GenoVector1l  = GenoVector1< int64>;
+using GenoVector1ul = GenoVector1<uint64>;
+using GenoVector1f  = GenoVector1<float >;
+using GenoVector1d  = GenoVector1<double>;
 
-	return 0;
-}
+#define GNARLY_GENOME_VECTOR1_FORWARD
+#endif // GNARLY_GENOME_VECTOR1
