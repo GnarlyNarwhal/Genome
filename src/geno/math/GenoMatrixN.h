@@ -57,6 +57,17 @@ class GenoMatrix<N, N, T> {
 	public:
 		T * m;
 
+		static GenoMatrix<N, N, T> makeIdentity() {
+			auto identity = new T[N * N];
+			for (uint32 i = 0; i < N * N; ++i) {
+				if (i % N == i / N)
+					identity[i] = 1;
+				else
+					identity[i] = 0;
+			}
+			return identity;
+		}
+
 		GenoMatrix() :
 			m(new T[N * N]()) {}
 
@@ -123,6 +134,16 @@ class GenoMatrix<N, N, T> {
 
 		GenoVector<N, T> operator[](uint32 index) const noexcept {
 			return GenoVector<N, T>(index * N, false);
+		}
+
+		GenoMatrix<N, N, T> & setIdentity() {
+			for (uint32 i = 0; i < N * N; ++i) {
+				if (i % N == i / N)
+					m[i] = 1;
+				else
+					m[i] = 0;
+			}
+			return *this;
 		}
 
 		~GenoMatrix() {

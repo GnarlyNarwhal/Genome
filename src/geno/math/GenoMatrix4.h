@@ -54,6 +54,34 @@ class GenoMatrix<4, 4, T> {
 	public:
 		T * m;
 
+		static GenoMatrix<4, 4, T> makeIdentity() {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeOrthographic(T left, T right, T bottom, T top, T near, T far) {
+			return new T[4 * 4] {
+				2 / (right - left), 0, 0, 0,
+				0, 2 / (top - bottom), 0, 0,
+				0, 0, 2 / (far  -  near), 0,
+				(left + right) / (left - right), (bottom + top) / (bottom - top), (near + far) / (near - far), 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makePerspective(T fovY, T aspectRatio, T near, T far) {
+			T vertical = 1 / tan(fovY / 2);
+			return new T[4 * 4] {
+				vertical / aspectRatio, 0, 0, 0,
+				0, vertical, 0, 0,
+				0, 0, (near + far) / (near - far), -1,
+				0, 0, (2 * far * near) / (near - far), 0
+			};
+		}
+
 		GenoMatrix() :
 			m(new T[4 * 4]()) {}
 
@@ -195,6 +223,111 @@ class GenoMatrix<4, 4, T> {
 			return GenoVector<4, T>(index * 4, false);
 		}
 
+		GenoMatrix<4, 4, T> & setIdentity() {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setOrthographic(T left, T right, T bottom, T top, T near, T far) {
+			m[0 ] = 2 / (right - left);
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 2 / (top - bottom);
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 2 / (far - near);
+			m[11] = 0;
+			m[12] = (left   + right) / (left   - right);
+			m[13] = (bottom +   top) / (bottom -   top);
+			m[14] = (near   +   far) / (near   -   far);
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setPerspective(T fovY, T aspectRatio, T near, T far) {
+			auto vertical = 1 / tan(fovY / 2);
+			m[0 ] = vertical / aspectRatio;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = vertical;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = (near + far) / (near - far);
+			m[11] = -1;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = (2 * far * near) / (near - far);
+			m[15] = 0;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & projectOrthographic(T left, T right, T bottom, T top, T near, T far) {
+			auto m0  = 2 / (right -   left);
+			auto m5  = 2 / (top   - bottom);
+			auto m10 = 2 / (far   -   near);
+			auto m12 = (left   + right) / (left   - right);
+			auto m13 = (bottom +   top) / (bottom -   top);
+			auto m14 = (near   +   far) / (near   -   far);
+			T newM[] = {
+				m[0 ] * m0,   m[1 ] * m0,   m[2 ] * m0,   m[3 ] * m0,
+				m[4 ] * m5,   m[5 ] * m5,   m[6 ] * m5,   m[7 ] * m5,
+				m[8 ] * m10,  m[9 ] * m10,  m[10] * m10,  m[11] * m10,
+				m[0 ] * m12 + m[4 ] * m13 + m[8 ] * m14 + m[12],
+				m[1 ] * m12 + m[5 ] * m13 + m[9 ] * m14 + m[13],
+				m[2 ] * m12 + m[6 ] * m13 + m[10] * m14 + m[14],
+				m[3 ] * m12 + m[7 ] * m13 + m[11] * m14 + m[15]
+			};
+			m[0] = newM[0]; m[4] = newM[4]; m[8 ] = newM[8 ]; m[12] = newM[12];
+			m[1] = newM[1]; m[5] = newM[5]; m[9 ] = newM[9 ]; m[13] = newM[13];
+			m[2] = newM[2]; m[6] = newM[6]; m[10] = newM[10]; m[14] = newM[14];
+			m[3] = newM[3]; m[7] = newM[7]; m[11] = newM[11]; m[15] = newM[15];
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & projectPerspective(T fovY, T aspectRatio, T near, T far) {
+			auto vertical = 1 / tan(fovY / 2);
+			auto m0  = vertical / aspectRatio;
+			auto m10 = (near + far) / (near - far);
+			auto m14 = (2 * far * near) / (near - far);
+			T newM[] = {
+				m[0 ] * m0,        m[1 ] * m0,        m[2 ] * m0,        m[3 ] * m0,
+				m[4 ] * vertical,  m[5 ] * vertical,  m[6 ] * vertical,  m[7 ] * vertical,
+				m[8 ] * m10 - m[12],
+				m[9 ] * m10 - m[13],
+				m[10] * m10 - m[14],
+				m[11] * m10 - m[15],
+				m[8 ] * m14, m[9 ] * m14, m[10] * m14, m[11] * m14
+			};
+			m[0] = newM[0]; m[4] = newM[4]; m[8 ] = newM[8 ]; m[12] = newM[12];
+			m[1] = newM[1]; m[5] = newM[5]; m[9 ] = newM[9 ]; m[13] = newM[13];
+			m[2] = newM[2]; m[6] = newM[6]; m[10] = newM[10]; m[14] = newM[14];
+			m[3] = newM[3]; m[7] = newM[7]; m[11] = newM[11]; m[15] = newM[15];
+			return *this;
+		}
+
 		~GenoMatrix() {
 			clean();
 		}
@@ -240,6 +373,112 @@ GenoMatrix<4, 4, T> operator*(const GenoMatrix<4, 4, T> & left, const GenoMatrix
 		left.m[2] * right.m[12] + left.m[6] * right.m[13] + left.m[10] * right.m[14] + left.m[14] * right.m[15],
 		left.m[3] * right.m[12] + left.m[7] * right.m[13] + left.m[11] * right.m[14] + left.m[15] * right.m[15]
 	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> projectOrthographic(const GenoMatrix<4, 4, T> & matrix, T left, T right, T bottom, T top, T near, T far) {
+	auto m0  = 2 / (right -   left);
+	auto m5  = 2 / (top   - bottom);
+	auto m10 = 2 / (far   -   near);
+	auto m12 = (left   + right) / (left   - right);
+	auto m13 = (bottom +   top) / (bottom -   top);
+	auto m14 = (near   +   far) / (near   -   far);
+	return new T[4 * 4] {
+		matrix.m[0 ] * m0,
+		matrix.m[1 ] * m0,
+		matrix.m[2 ] * m0,
+		matrix.m[3 ] * m0,
+		matrix.m[4 ] * m5,
+		matrix.m[5 ] * m5,
+		matrix.m[6 ] * m5,
+		matrix.m[7 ] * m5,
+		matrix.m[8 ] * m10,
+		matrix.m[9 ] * m10,
+		matrix.m[10] * m10,
+		matrix.m[11] * m10,
+		matrix.m[0 ] * m12 + matrix.m[4] * m13 + matrix.m[8 ] * m14 + matrix.m[12],
+		matrix.m[1 ] * m12 + matrix.m[5] * m13 + matrix.m[9 ] * m14 + matrix.m[13],
+		matrix.m[2 ] * m12 + matrix.m[6] * m13 + matrix.m[10] * m14 + matrix.m[14],
+		matrix.m[3 ] * m12 + matrix.m[7] * m13 + matrix.m[11] * m14 + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & projectOrthographic(const GenoMatrix<4, 4, T> & matrix, T left, T right, T bottom, T top, T near, T far, GenoMatrix<4, 4, T> & target) {
+	auto m0  = 2 / (right -   left);
+	auto m5  = 2 / (top   - bottom);
+	auto m10 = 2 / (far   -   near);
+	auto m12 = (left   + right) / (left   - right);
+	auto m13 = (bottom +   top) / (bottom -   top);
+	auto m14 = (near   +   far) / (near   -   far);
+	target.m[0 ] = matrix.m[0 ] * m0;
+	target.m[1 ] = matrix.m[1 ] * m0;
+	target.m[2 ] = matrix.m[2 ] * m0;
+	target.m[3 ] = matrix.m[3 ] * m0;
+	target.m[4 ] = matrix.m[4 ] * m5;
+	target.m[5 ] = matrix.m[5 ] * m5;
+	target.m[6 ] = matrix.m[6 ] * m5;
+	target.m[7 ] = matrix.m[7 ] * m5;
+	target.m[8 ] = matrix.m[8 ] * m10;
+	target.m[9 ] = matrix.m[9 ] * m10;
+	target.m[10] = matrix.m[10] * m10;
+	target.m[11] = matrix.m[11] * m10;
+	target.m[12] = matrix.m[0 ] * m12 + matrix.m[4] * m13 + matrix.m[8 ] * m14 + matrix.m[12];
+	target.m[13] = matrix.m[1 ] * m12 + matrix.m[5] * m13 + matrix.m[9 ] * m14 + matrix.m[13];
+	target.m[14] = matrix.m[2 ] * m12 + matrix.m[6] * m13 + matrix.m[10] * m14 + matrix.m[14];
+	target.m[15] = matrix.m[3 ] * m12 + matrix.m[7] * m13 + matrix.m[11] * m14 + matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> projectPerspective(const GenoMatrix<4, 4, T> & matrix, T fovY, T aspectRatio, T near, T far) {
+	auto vertical = 1 / tan(fovY / 2);
+	auto m0  = vertical / aspectRatio;
+	auto m10 = (near + far) / (near - far);
+	auto m14 = (2 * far * near) / (near - far);
+	return new T[4 * 4] {
+		matrix.m[0 ] * m0,
+		matrix.m[1 ] * m0,
+		matrix.m[2 ] * m0,
+		matrix.m[3 ] * m0,
+		matrix.m[4 ] * vertical,
+		matrix.m[5 ] * vertical,
+		matrix.m[6 ] * vertical,
+		matrix.m[7 ] * vertical,
+		matrix.m[8 ] * m10 - matrix.m[12],
+		matrix.m[9 ] * m10 - matrix.m[13],
+		matrix.m[10] * m10 - matrix.m[14],
+		matrix.m[11] * m10 - matrix.m[15],
+		matrix.m[8 ] * m14,
+		matrix.m[9 ] * m14,
+		matrix.m[10] * m14,
+		matrix.m[11] * m14
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & projectPerspective(const GenoMatrix<4, 4, T> & matrix, T fovY, T aspectRatio, T near, T far, GenoMatrix<4, 4, T> & target) {
+	auto vertical = 1 / tan(fovY / 2);
+	auto m0  = vertical / aspectRatio;
+	auto m10 = (near + far) / (near - far);
+	auto m14 = (2 * far * near) / (near - far);
+	target.m[0 ] = matrix.m[0 ] * m0;
+	target.m[1 ] = matrix.m[1 ] * m0;
+	target.m[2 ] = matrix.m[2 ] * m0;
+	target.m[3 ] = matrix.m[3 ] * m0;
+	target.m[4 ] = matrix.m[4 ] * vertical;
+	target.m[5 ] = matrix.m[5 ] * vertical;
+	target.m[6 ] = matrix.m[6 ] * vertical;
+	target.m[7 ] = matrix.m[7 ] * vertical;
+	target.m[8 ] = matrix.m[8 ] * m10 - matrix.m[12];
+	target.m[9 ] = matrix.m[9 ] * m10 - matrix.m[13];
+	target.m[10] = matrix.m[10] * m10 - matrix.m[14];
+	target.m[11] = matrix.m[11] * m10 - matrix.m[15];
+	target.m[12] = matrix.m[8 ] * m14;
+	target.m[13] = matrix.m[9 ] * m14;
+	target.m[14] = matrix.m[10] * m14;
+	target.m[15] = matrix.m[11] * m14;
+	return target;
 }
 
 template <typename T>

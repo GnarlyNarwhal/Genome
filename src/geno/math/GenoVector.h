@@ -102,10 +102,14 @@ class GenoVector {
 		}
 		
 		GenoVector<N, T> & operator=(GenoVector<N, T> && vector) noexcept {
-			clean();
-			owner = vector.owner;
-			v = vector.v;
-			vector.owner = false;
+			if (owner) {
+				clean();
+				owner = vector.owner;
+				v = vector.v;
+				vector.owner = false;
+			}
+			else for (uint32 i = 0; i < N; ++i)
+				v[i] = vector.v[i];
 			return *this;
 		}
 

@@ -119,10 +119,17 @@ class GenoVector<3, T> {
 		}
 
 		GenoVector<3, T> & operator=(GenoVector<3, T> && vector) {
-			clean();
-			owner = vector.owner;
-			v = vector.v;
-			vector.owner = false;
+			if (owner) {
+				clean();
+				owner = vector.owner;
+				v = vector.v;
+				vector.owner = false;
+			}
+			else {
+				v[0] = vector.v[0];
+				v[1] = vector.v[1];
+				v[2] = vector.v[2];
+			}
 			return *this;
 		}
 

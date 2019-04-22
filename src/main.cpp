@@ -32,36 +32,30 @@
 
 int32 main(int32 argc, char ** argv) {
 
-	auto left = GenoMatrix<4, 4, float>{
-		7, 6, 1, 7,
-		9, 2, 6, 4,
-		7, 6, 1, 7,
-		9, 2, 6, 4
-	};
-	auto right = GenoMatrix<4, 4, float>(new float[16] {
-		7, 6, 1, 7,
-		9, 2, 6, 4,
-		7, 6, 1, 7,
-		9, 2, 6, 4
-	});
 
 	/////// TIME TRIALS - LEAVE FOR FUTURE USE ///////
-
+/*
 	const uint32 NUM_ITERATIONS = 1000000;
 
+	auto mat = GenoMatrix4f::makeIdentity();
+
 	auto begin1 = std::chrono::high_resolution_clock::now();
+	
+	for (uint32 i = 0; i < NUM_ITERATIONS; ++i)
+		mat = GenoMatrix4f::makeOrthographic(1, 8, 7, 6, 4, 2) * GenoMatrix4f::makePerspective(7, 9, 6, 3);
+	
 	auto end1 = std::chrono::high_resolution_clock::now();
 
 	auto begin2 = std::chrono::high_resolution_clock::now();
 
 	for (uint32 i = 0; i < NUM_ITERATIONS; ++i)
-		auto yop = left * right;
+		mat.setOrthographic(1, 8, 7, 6, 4, 2).projectPerspective(7, 9, 6, 3);
 
 	auto end2 = std::chrono::high_resolution_clock::now();
 	
 	std::cout << std::chrono::duration_cast<std::chrono::microseconds>(end1 - begin1).count() << std::endl;
 	std::cout << std::chrono::duration_cast<std::chrono::microseconds>(end2 - begin2).count() << std::endl;
-
+*/
 	//////// DO NOT REMOVE BELOW ////////
 	std::cout << "Press enter to continue . . ." << std::endl;
 	std::cin.get();

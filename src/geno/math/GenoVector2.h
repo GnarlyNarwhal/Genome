@@ -117,10 +117,16 @@ class GenoVector<2, T> {
 		}
 
 		GenoVector<2, T> & operator=(GenoVector<2, T> && vector) noexcept {
-			clean();
-			owner = vector.owner;
-			v = vector.v;
-			vector.owner = false;
+			if (owner) {
+				clean();
+				owner = vector.owner;
+				v = vector.v;
+				vector.owner = false;
+			}
+			else {
+				v[0] = vector.v[0];
+				v[1] = vector.v[1];
+			}
 			return *this;
 		}
 
