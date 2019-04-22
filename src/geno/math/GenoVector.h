@@ -95,14 +95,6 @@ class GenoVector {
 			vector.owner = false;
 		}
 
-		GenoVector<N, T> & operator=(std::initializer_list<T> list) {
-			auto min  = list.size() < N ? list.size() : N;
-			auto init = list.begin();
-			for (uint32 i = 0; i < min; ++i)
-				v[i] = init[i];
-			return *this;
-		}
-
 		GenoVector<N, T> & operator=(const GenoVector<N, T> & vector) {
 			for (uint32 i = 0; i < N; ++i)
 				v[i] = vector.v[i];

@@ -39,11 +39,11 @@ class GenoMatrix;
 
 #include <ostream>
 
-#include "GenoVector.h"
+#include "GenoVector4.h"
+#include "GenoMatrixN.h"
 
 template <typename T>
 class GenoMatrix<4, 4, T> {
-
 	private:
 		bool owner = true;
 
@@ -75,14 +75,42 @@ class GenoMatrix<4, 4, T> {
 		template <typename T2>
 		GenoMatrix(const GenoMatrix<4, 4, T2> & matrix) :
 			m(new T[4 * 4]) {
-			for (uint32 i = 0; i < 4 * 4; ++i)
-				m[i] = (T) matrix.m[i];
+			m[0 ] = (T) matrix.m[0 ];
+			m[1 ] = (T) matrix.m[1 ];
+			m[2 ] = (T) matrix.m[2 ];
+			m[3 ] = (T) matrix.m[3 ];
+			m[4 ] = (T) matrix.m[4 ];
+			m[5 ] = (T) matrix.m[5 ];
+			m[6 ] = (T) matrix.m[6 ];
+			m[7 ] = (T) matrix.m[7 ];
+			m[8 ] = (T) matrix.m[8 ];
+			m[9 ] = (T) matrix.m[9 ];
+			m[10] = (T) matrix.m[10];
+			m[11] = (T) matrix.m[11];
+			m[12] = (T) matrix.m[12];
+			m[13] = (T) matrix.m[13];
+			m[14] = (T) matrix.m[14];
+			m[15] = (T) matrix.m[15];
 		}
 
 		GenoMatrix(const GenoMatrix<4, 4, T> & matrix) :
 			m(new T[4 * 4]) {
-			for (uint32 i = 0; i < 4 * 4; ++i)
-				m[i] = matrix.m[i];
+			m[0 ] = matrix.m[0 ];
+			m[1 ] = matrix.m[1 ];
+			m[2 ] = matrix.m[2 ];
+			m[3 ] = matrix.m[3 ];
+			m[4 ] = matrix.m[4 ];
+			m[5 ] = matrix.m[5 ];
+			m[6 ] = matrix.m[6 ];
+			m[7 ] = matrix.m[7 ];
+			m[8 ] = matrix.m[8 ];
+			m[9 ] = matrix.m[9 ];
+			m[10] = matrix.m[10];
+			m[11] = matrix.m[11];
+			m[12] = matrix.m[12];
+			m[13] = matrix.m[13];
+			m[14] = matrix.m[14];
+			m[15] = matrix.m[15];
 		}
 
 		GenoMatrix(GenoMatrix<4, 4, T> && matrix) noexcept :
@@ -92,8 +120,22 @@ class GenoMatrix<4, 4, T> {
 		}
 
 		GenoMatrix<4, 4, T> & operator=(const GenoMatrix<4, 4, T> & matrix) {
-			for (uint32 i = 0; i < 4 * 4; ++i)
-				m[i] = matrix.m[i];
+			m[0 ] = matrix.m[0 ];
+			m[1 ] = matrix.m[1 ];
+			m[2 ] = matrix.m[2 ];
+			m[3 ] = matrix.m[3 ];
+			m[4 ] = matrix.m[4 ];
+			m[5 ] = matrix.m[5 ];
+			m[6 ] = matrix.m[6 ];
+			m[7 ] = matrix.m[7 ];
+			m[8 ] = matrix.m[8 ];
+			m[9 ] = matrix.m[9 ];
+			m[10] = matrix.m[10];
+			m[11] = matrix.m[11];
+			m[12] = matrix.m[12];
+			m[13] = matrix.m[13];
+			m[14] = matrix.m[14];
+			m[15] = matrix.m[15];
 			return *this;
 		}
 
@@ -161,43 +203,51 @@ class GenoMatrix<4, 4, T> {
 template <typename T>
 GenoMatrix<4, 4, T> operator+(const GenoMatrix<4, 4, T> & left, const GenoMatrix<4, 4, T> & right) {
 	return new T[4 * 4] {
-		left[0 ] + right[0 ], left[1 ] + right[1 ], left[2 ] + right[2 ], left[3 ] + right[3 ],
-		left[4 ] + right[4 ], left[5 ] + right[5 ], left[6 ] + right[6 ], left[7 ] + right[7 ],
-		left[8 ] + right[8 ], left[9 ] + right[9 ], left[10] + right[10], left[11] + right[11],
-		left[12] + right[12], left[13] + right[13], left[14] + right[14], left[15] + right[15]
+		left.m[0 ] + right.m[0 ], left.m[1 ] + right.m[1 ], left.m[2 ] + right.m[2 ], left.m[3 ] + right.m[3 ],
+		left.m[4 ] + right.m[4 ], left.m[5 ] + right.m[5 ], left.m[6 ] + right.m[6 ], left.m[7 ] + right.m[7 ],
+		left.m[8 ] + right.m[8 ], left.m[9 ] + right.m[9 ], left.m[10] + right.m[10], left.m[11] + right.m[11],
+		left.m[12] + right.m[12], left.m[13] + right.m[13], left.m[14] + right.m[14], left.m[15] + right.m[15]
 	};
 }
 
 template <typename T>
 GenoMatrix<4, 4, T> operator-(const GenoMatrix<4, 4, T> & left, const GenoMatrix<4, 4, T> & right) {
 	return new T[4 * 4] {
-		left[0 ] - right[0 ], left[1 ] - right[1 ], left[2 ] - right[2 ], left[3 ] - right[3 ],
-		left[4 ] - right[4 ], left[5 ] - right[5 ], left[6 ] - right[6 ], left[7 ] - right[7 ],
-		left[8 ] - right[8 ], left[9 ] - right[9 ], left[10] - right[10], left[11] - right[11],
-		left[12] - right[12], left[13] - right[13], left[14] - right[14], left[15] - right[15]
+		left.m[0 ] - right.m[0 ], left.m[1 ] - right.m[1 ], left.m[2 ] - right.m[2 ], left.m[3 ] - right.m[3 ],
+		left.m[4 ] - right.m[4 ], left.m[5 ] - right.m[5 ], left.m[6 ] - right.m[6 ], left.m[7 ] - right.m[7 ],
+		left.m[8 ] - right.m[8 ], left.m[9 ] - right.m[9 ], left.m[10] - right.m[10], left.m[11] - right.m[11],
+		left.m[12] - right.m[12], left.m[13] - right.m[13], left.m[14] - right.m[14], left.m[15] - right.m[15]
 	};
 }
 
 template <typename T>
 GenoMatrix<4, 4, T> operator*(const GenoMatrix<4, 4, T> & left, const GenoMatrix<4, 4, T> & right) {
 	return new T[4 * 4] {
-		left[0] * right[0 ] + left[4] * right[1 ] + left[8 ] * right[2 ] + left[12] * right[3 ],
-		left[1] * right[0 ] + left[5] * right[1 ] + left[9 ] * right[2 ] + left[13] * right[3 ],
-		left[2] * right[0 ] + left[6] * right[1 ] + left[10] * right[2 ] + left[14] * right[3 ],
-		left[3] * right[0 ] + left[7] * right[1 ] + left[11] * right[2 ] + left[15] * right[3 ],
-		left[0] * right[4 ] + left[4] * right[5 ] + left[8 ] * right[6 ] + left[12] * right[7 ],
-		left[1] * right[4 ] + left[5] * right[5 ] + left[9 ] * right[6 ] + left[13] * right[7 ],
-		left[2] * right[4 ] + left[6] * right[5 ] + left[10] * right[6 ] + left[14] * right[7 ],
-		left[3] * right[4 ] + left[7] * right[5 ] + left[11] * right[6 ] + left[15] * right[7 ],
-		left[0] * right[8 ] + left[4] * right[9 ] + left[8 ] * right[10] + left[12] * right[11],
-		left[1] * right[8 ] + left[5] * right[9 ] + left[9 ] * right[10] + left[13] * right[11],
-		left[2] * right[8 ] + left[6] * right[9 ] + left[10] * right[10] + left[14] * right[11],
-		left[3] * right[8 ] + left[7] * right[9 ] + left[11] * right[10] + left[15] * right[11],
-		left[0] * right[12] + left[4] * right[13] + left[8 ] * right[14] + left[12] * right[15],
-		left[1] * right[12] + left[5] * right[13] + left[9 ] * right[14] + left[13] * right[15],
-		left[2] * right[12] + left[6] * right[13] + left[10] * right[14] + left[14] * right[15],
-		left[3] * right[12] + left[7] * right[13] + left[11] * right[14] + left[15] * right[15]
+		left.m[0] * right.m[0 ] + left.m[4] * right.m[1 ] + left.m[8 ] * right.m[2 ] + left.m[12] * right.m[3 ],
+		left.m[1] * right.m[0 ] + left.m[5] * right.m[1 ] + left.m[9 ] * right.m[2 ] + left.m[13] * right.m[3 ],
+		left.m[2] * right.m[0 ] + left.m[6] * right.m[1 ] + left.m[10] * right.m[2 ] + left.m[14] * right.m[3 ],
+		left.m[3] * right.m[0 ] + left.m[7] * right.m[1 ] + left.m[11] * right.m[2 ] + left.m[15] * right.m[3 ],
+		left.m[0] * right.m[4 ] + left.m[4] * right.m[5 ] + left.m[8 ] * right.m[6 ] + left.m[12] * right.m[7 ],
+		left.m[1] * right.m[4 ] + left.m[5] * right.m[5 ] + left.m[9 ] * right.m[6 ] + left.m[13] * right.m[7 ],
+		left.m[2] * right.m[4 ] + left.m[6] * right.m[5 ] + left.m[10] * right.m[6 ] + left.m[14] * right.m[7 ],
+		left.m[3] * right.m[4 ] + left.m[7] * right.m[5 ] + left.m[11] * right.m[6 ] + left.m[15] * right.m[7 ],
+		left.m[0] * right.m[8 ] + left.m[4] * right.m[9 ] + left.m[8 ] * right.m[10] + left.m[12] * right.m[11],
+		left.m[1] * right.m[8 ] + left.m[5] * right.m[9 ] + left.m[9 ] * right.m[10] + left.m[13] * right.m[11],
+		left.m[2] * right.m[8 ] + left.m[6] * right.m[9 ] + left.m[10] * right.m[10] + left.m[14] * right.m[11],
+		left.m[3] * right.m[8 ] + left.m[7] * right.m[9 ] + left.m[11] * right.m[10] + left.m[15] * right.m[11],
+		left.m[0] * right.m[12] + left.m[4] * right.m[13] + left.m[8 ] * right.m[14] + left.m[12] * right.m[15],
+		left.m[1] * right.m[12] + left.m[5] * right.m[13] + left.m[9 ] * right.m[14] + left.m[13] * right.m[15],
+		left.m[2] * right.m[12] + left.m[6] * right.m[13] + left.m[10] * right.m[14] + left.m[14] * right.m[15],
+		left.m[3] * right.m[12] + left.m[7] * right.m[13] + left.m[11] * right.m[14] + left.m[15] * right.m[15]
 	};
+}
+
+template <typename T>
+std::ostream & operator<<(std::ostream & stream, const GenoMatrix<4, 4, T> & matrix) {
+	return stream << '[' << matrix.m[0] << ", " << matrix.m[4] << ", " << matrix.m[8 ] << ", " << matrix.m[12] << "]\n"
+		             "[" << matrix.m[1] << ", " << matrix.m[5] << ", " << matrix.m[9 ] << ", " << matrix.m[13] << "]\n"
+		             "[" << matrix.m[2] << ", " << matrix.m[6] << ", " << matrix.m[10] << ", " << matrix.m[14] << "]\n"
+		             "[" << matrix.m[3] << ", " << matrix.m[7] << ", " << matrix.m[11] << ", " << matrix.m[15] << "]\n";
 }
 
 using GenoMatrix4b  = GenoMatrix<4, 4,  int8 >;

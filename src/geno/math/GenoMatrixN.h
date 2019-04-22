@@ -40,6 +40,7 @@ class GenoMatrix;
 #include <ostream>
 
 #include "GenoVector.h"
+#include "GenoMatrix.h"
 
 template <uint32 N, typename T>
 class GenoMatrix<N, N, T> {
@@ -88,14 +89,6 @@ class GenoMatrix<N, N, T> {
 			owner(matrix.owner),
 			m(matrix.m) {
 			matrix.owner = false;
-		}
-
-		GenoMatrix<N, N, T> & operator=(std::initializer_list<T> list) {
-			auto min  = list.size() < N * N ? list.size() : N * N;
-			auto init = list.begin();
-			for (uint32 i = 0; i < min; ++i)
-				m[(i % N) * N + (i / N)] = init[i];
-			return *this;
 		}
 
 		GenoMatrix<N, N, T> & operator=(const GenoMatrix<N, N, T> & matrix) {

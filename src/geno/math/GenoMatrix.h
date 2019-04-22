@@ -91,14 +91,6 @@ class GenoMatrix {
 			matrix.owner = false;
 		}
 
-		GenoMatrix<N, M, T> & operator=(std::initializer_list<T> list) {
-			auto min  = list.size() < N * M ? list.size() : N * M;
-			auto init = list.begin();
-			for (uint32 i = 0; i < min; ++i)
-				m[(i % M) * N + (i / M)] = init[i];
-			return *this;
-		}
-
 		GenoMatrix<N, M, T> & operator=(const GenoMatrix<N, M, T> & matrix) {
 			for (uint32 i = 0; i < N * M; ++i)
 				m[i] = matrix.m[i];
@@ -136,18 +128,18 @@ class GenoMatrix {
 
 template <uint32 N, uint32 M, typename T>
 GenoMatrix<N, M, T> operator+(const GenoMatrix<N, M, T> & left, const GenoMatrix<N, M, T> & right) {
-	auto product = new T[N * M];
+	auto sum = new T[N * M];
 	for (uint32 i = 0; i < N * M; ++i)
-		product[i] = left.m[i] + right.m[i];
-	return GenoMatrix<N, M, T>(product);
+		sum[i] = left.m[i] + right.m[i];
+	return sum;
 }
 
 template <uint32 N, uint32 M, typename T>
 GenoMatrix<N, M, T> operator-(const GenoMatrix<N, M, T> & left, const GenoMatrix<N, M, T> & right) {
-	auto product = new T[N * M];
+	auto difference = new T[N * M];
 	for (uint32 i = 0; i < N * M; ++i)
-		product[i] = left.m[i] - right.m[i];
-	return GenoMatrix<N, M, T>(product);
+		difference[i] = left.m[i] - right.m[i];
+	return difference;
 }
 
 template <uint32 N, uint32 N2, uint32 M, typename T>
@@ -160,7 +152,7 @@ GenoMatrix<N2, M, T> operator*(const GenoMatrix<N, M, T> & left, const GenoMatri
 				product[j * M + i] += left.m[k * M + i] * right.m[j * N + k];
 		}
 	}
-	return GenoMatrix<N2, M, T>(product);
+	return product;
 }
 
 template <uint32 N, uint32 M, typename T>
@@ -168,7 +160,7 @@ std::ostream & operator<<(std::ostream & stream, const GenoMatrix<N, M, T> & mat
 	for (uint32 i = 0; i < M; ++i) {
 		stream << '[';
 		for (uint32 j = 0; j < N; ++j) {
-			stream << m[j * M + i];
+			stream << matrix.m[j * M + i];
 			if (j < N - 1)
 				stream << ", ";
 		}
