@@ -28,22 +28,9 @@
 #include <chrono>
 
 #include "geno/GenoInts.h"
-#include "geno/math/GenoMatrixN.h"
+#include "geno/math/GenoMatrix4.h"
 
 int32 main(int32 argc, char ** argv) {
-
-	auto mat = GenoMatrixNf<3>{
-		0, 1, 5,
-		7, 9, 5,
-		7, 9, 2
-	};
-	auto two = GenoMatrixNf<2>{
-		0, 1,
-		8, 3
-	};
-	
-	std::cout << det(two) << std::endl;
-	std::cout << det(mat) << std::endl;
 
 	/////// TIME TRIALS - LEAVE FOR FUTURE USE ///////
 /*

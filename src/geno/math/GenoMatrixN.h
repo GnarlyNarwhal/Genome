@@ -124,6 +124,10 @@ class GenoMatrix<N, N, T> {
 			return *this;
 		}
 
+		GenoMatrix<N, N, T> & operator*=(const GenoMatrix<N, N, T> & matrix) {
+			return *this = *this * matrix;
+		}
+
 		GenoVector<N, T> operator[](uint32 index) const noexcept {
 			return GenoVector<N, T>(index * N, false);
 		}
