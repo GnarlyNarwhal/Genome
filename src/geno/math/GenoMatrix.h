@@ -156,6 +156,17 @@ GenoMatrix<N2, M, T> operator*(const GenoMatrix<N, M, T> & left, const GenoMatri
 }
 
 template <uint32 N, uint32 M, typename T>
+GenoVector<M, T> operator*(const GenoMatrix<N, M, T> & left, const GenoVector<N, T> & right) {
+	auto product = new T[M];
+	for (uint32 i = 0; i < M; ++i) {
+		product[i] = 0;
+		for (uint32 j = 0; j < N; ++j) 
+			product[i] += left.m[j * M + i] * right.v[j];
+	}
+	return product;
+}
+
+template <uint32 N, uint32 M, typename T>
 std::ostream & operator<<(std::ostream & stream, const GenoMatrix<N, M, T> & matrix) {
 	for (uint32 i = 0; i < M; ++i) {
 		stream << '[';

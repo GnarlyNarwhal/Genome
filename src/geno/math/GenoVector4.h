@@ -81,8 +81,8 @@ class GenoVector<4, T> {
 			v(new T[4]()) {}
 
 		GenoVector(T * v, bool owner = true) noexcept :
-			v(v),
-			owner(owner) {}
+			owner(owner),
+			v(v) {}
 
 		explicit GenoVector(T value) :
 			v(new T[4] { value, value, value, value }) {}

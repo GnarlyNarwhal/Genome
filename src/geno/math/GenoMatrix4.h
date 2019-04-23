@@ -26,6 +26,14 @@
 
 #include "../GenoInts.h"
 
+#ifndef GNARLY_GENOME_VECTOR4_FORWARD
+#define GNARLY_GENOME_VECTOR4_FORWARD
+
+template <typename T>
+class GenoVector<4, T>;
+
+#endif // GNARLY_GENOME_VECTOR4_FORWARD
+
 #ifndef GNARLY_GENOME_MATRIX_FORWARD
 #define GNARLY_GENOME_MATRIX_FORWARD
 
@@ -120,8 +128,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScale2D(T scale) {
 			return new T[4 * 4] {
-				scale, 0, 0, 0
-				0, scale, 0, 0
+				scale, 0, 0, 0,
+				0, scale, 0, 0,
 				0, 0, 1, 0,
 				0, 0, 0, 1
 			};
@@ -129,8 +137,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScale2D(T scaleX, T scaleY) {
 			return new T[4 * 4] {
-				scaleX, 0, 0, 0
-				0, scaleY, 0, 0
+				scaleX, 0, 0, 0,
+				0, scaleY, 0, 0,
 				0, 0, 1, 0,
 				0, 0, 0, 1
 			};
@@ -138,8 +146,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScale2D(const GenoVector<2, T> & scale) {
 			return new T[4 * 4] {
-				scale.v[0], 0, 0, 0
-				0, scale.v[1], 0, 0
+				scale.v[0], 0, 0, 0,
+				0, scale.v[1], 0, 0,
 				0, 0, 1, 0,
 				0, 0, 0, 1
 			};
@@ -147,8 +155,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScale(T scale) {
 			return new T[4 * 4] {
-				scale, 0, 0, 0
-				0, scale, 0, 0
+				scale, 0, 0, 0,
+				0, scale, 0, 0,
 				0, 0, scale, 0,
 				0, 0, 0, 1
 			};
@@ -156,8 +164,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScale(T scaleX, T scaleY, T scaleZ) {
 			return new T[4 * 4] {
-				scaleX, 0, 0, 0
-				0, scaleY, 0, 0
+				scaleX, 0, 0, 0,
+				0, scaleY, 0, 0,
 				0, 0, scaleZ, 0,
 				0, 0, 0, 1
 			};
@@ -165,8 +173,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScale(const GenoVector<3, T> & scale) {
 			return new T[4 * 4] {
-				scale.v[0], 0, 0, 0
-				0, scale.v[1], 0, 0
+				scale.v[0], 0, 0, 0,
+				0, scale.v[1], 0, 0,
 				0, 0, scale.v[2], 0,
 				0, 0, 0, 1
 			};
@@ -600,8 +608,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScaleX(T scaleX) {
 			return new T[4 * 4] {
-				scaleX, 0, 0, 0
-				0, 1, 0, 0
+				scaleX, 0, 0, 0,
+				0, 1, 0, 0,
 				0, 0, 1, 0,
 				0, 0, 0, 1
 			};
@@ -609,8 +617,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScaleY(T scaleY) {
 			return new T[4 * 4] {
-				1, 0, 0, 0
-				0, scaleY, 0, 0
+				1, 0, 0, 0,
+				0, scaleY, 0, 0,
 				0, 0, 1, 0,
 				0, 0, 0, 1
 			};
@@ -618,8 +626,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScaleZ(T scaleZ) {
 			return new T[4 * 4] {
-				1, 0, 0, 0
-				0, 1, 0, 0
+				1, 0, 0, 0,
+				0, 1, 0, 0,
 				0, 0, scaleZ, 0,
 				0, 0, 0, 1
 			};
@@ -627,8 +635,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScaleXY(T scale) {
 			return new T[4 * 4] {
-				scale, 0, 0, 0
-				0, scale, 0, 0
+				scale, 0, 0, 0,
+				0, scale, 0, 0,
 				0, 0, 1, 0,
 				0, 0, 0, 1
 			};
@@ -636,8 +644,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScaleXY(T scaleX, T scaleY) {
 			return new T[4 * 4] {
-				scaleX, 0, 0, 0
-				0, scaleY, 0, 0
+				scaleX, 0, 0, 0,
+				0, scaleY, 0, 0,
 				0, 0, 1, 0,
 				0, 0, 0, 1
 			};
@@ -645,8 +653,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScaleXY(const GenoVector<2, T> & scale) {
 			return new T[4 * 4] {
-				scale.v[0], 0, 0, 0
-				0, scale.v[1], 0, 0
+				scale.v[0], 0, 0, 0,
+				0, scale.v[1], 0, 0,
 				0, 0, 1, 0,
 				0, 0, 0, 1
 			};
@@ -654,8 +662,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScaleXZ(T scale) {
 			return new T[4 * 4] {
-				scale, 0, 0, 0
-				0, 1, 0, 0
+				scale, 0, 0, 0,
+				0, 1, 0, 0,
 				0, 0, scale, 0,
 				0, 0, 0, 1
 			};
@@ -663,8 +671,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScaleXZ(T scaleX, T scaleZ) {
 			return new T[4 * 4] {
-				scaleX, 0, 0, 0
-				0, 1, 0, 0
+				scaleX, 0, 0, 0,
+				0, 1, 0, 0,
 				0, 0, scaleZ, 0,
 				0, 0, 0, 1
 			};
@@ -672,8 +680,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScaleXZ(const GenoVector<2, T> & scale) {
 			return new T[4 * 4] {
-				scale.v[0], 0, 0, 0
-				0, 1, 0, 0
+				scale.v[0], 0, 0, 0,
+				0, 1, 0, 0,
 				0, 0, scale.v[1], 0,
 				0, 0, 0, 1
 			};
@@ -681,8 +689,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScaleYX(const GenoVector<2, T> & scale) {
 			return new T[4 * 4] {
-				scale.v[1], 0, 0, 0
-				0, scale.v[0], 0, 0
+				scale.v[1], 0, 0, 0,
+				0, scale.v[0], 0, 0,
 				0, 0, 1, 0,
 				0, 0, 0, 1
 			};
@@ -690,8 +698,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScaleYZ(T scale) {
 			return new T[4 * 4] {
-				1, 0, 0, 0
-				0, scale, 0, 0
+				1, 0, 0, 0,
+				0, scale, 0, 0,
 				0, 0, scale, 0,
 				0, 0, 0, 1
 			};
@@ -699,8 +707,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScaleYZ(T scaleY, T scaleZ) {
 			return new T[4 * 4] {
-				1, 0, 0, 0
-				0, scaleY, 0, 0
+				1, 0, 0, 0,
+				0, scaleY, 0, 0,
 				0, 0, scaleZ, 0,
 				0, 0, 0, 1
 			};
@@ -708,8 +716,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScaleYZ(const GenoVector<2, T> & scale) {
 			return new T[4 * 4] {
-				1, 0, 0, 0
-				0, scale.v[0], 0, 0
+				1, 0, 0, 0,
+				0, scale.v[0], 0, 0,
 				0, 0, scale.v[1], 0,
 				0, 0, 0, 1
 			};
@@ -717,8 +725,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScaleZX(const GenoVector<2, T> & scale) {
 			return new T[4 * 4] {
-				scale.v[1], 0, 0, 0
-				0, 1, 0, 0
+				scale.v[1], 0, 0, 0,
+				0, 1, 0, 0,
 				0, 0, scale.v[0], 0,
 				0, 0, 0, 1
 			};
@@ -726,8 +734,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScaleZY(const GenoVector<2, T> & scale) {
 			return new T[4 * 4] {
-				1, 0, 0, 0
-				0, scale.v[1], 0, 0
+				1, 0, 0, 0,
+				0, scale.v[1], 0, 0,
 				0, 0, scale.v[0], 0,
 				0, 0, 0, 1
 			};
@@ -735,8 +743,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScaleXYZ(T scale) {
 			return new T[4 * 4] {
-				scale, 0, 0, 0
-				0, scale, 0, 0
+				scale, 0, 0, 0,
+				0, scale, 0, 0,
 				0, 0, scale, 0,
 				0, 0, 0, 1
 			};
@@ -744,8 +752,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScaleXYZ(T scaleX, T scaleY, T scaleZ) {
 			return new T[4 * 4] {
-				scaleX, 0, 0, 0
-				0, scaleY, 0, 0
+				scaleX, 0, 0, 0,
+				0, scaleY, 0, 0,
 				0, 0, scaleZ, 0,
 				0, 0, 0, 1
 			};
@@ -753,8 +761,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScaleXYZ(const GenoVector<3, T> & scale) {
 			return new T[4 * 4] {
-				scale.v[0], 0, 0, 0
-				0, scale.v[1], 0, 0
+				scale.v[0], 0, 0, 0,
+				0, scale.v[1], 0, 0,
 				0, 0, scale.v[2], 0,
 				0, 0, 0, 1
 			};
@@ -762,8 +770,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScaleXZY(const GenoVector<3, T> & scale) {
 			return new T[4 * 4] {
-				scale.v[0], 0, 0, 0
-				0, scale.v[2], 0, 0
+				scale.v[0], 0, 0, 0,
+				0, scale.v[2], 0, 0,
 				0, 0, scale.v[1], 0,
 				0, 0, 0, 1
 			};
@@ -771,8 +779,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScaleYXZ(const GenoVector<3, T> & scale) {
 			return new T[4 * 4] {
-				scale.v[1], 0, 0, 0
-				0, scale.v[0], 0, 0
+				scale.v[1], 0, 0, 0,
+				0, scale.v[0], 0, 0,
 				0, 0, scale.v[2], 0,
 				0, 0, 0, 1
 			};
@@ -780,8 +788,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScaleYZX(const GenoVector<3, T> & scale) {
 			return new T[4 * 4] {
-				scale.v[2], 0, 0, 0
-				0, scale.v[0], 0, 0
+				scale.v[2], 0, 0, 0,
+				0, scale.v[0], 0, 0,
 				0, 0, scale.v[1], 0,
 				0, 0, 0, 1
 			};
@@ -789,8 +797,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScaleZXY(const GenoVector<3, T> & scale) {
 			return new T[4 * 4] {
-				scale.v[1], 0, 0, 0
-				0, scale.v[2], 0, 0
+				scale.v[1], 0, 0, 0,
+				0, scale.v[2], 0, 0,
 				0, 0, scale.v[0], 0,
 				0, 0, 0, 1
 			};
@@ -798,8 +806,8 @@ class GenoMatrix<4, 4, T> {
 
 		static GenoMatrix<4, 4, T> makeScaleZYX(const GenoVector<3, T> & scale) {
 			return new T[4 * 4] {
-				scale.v[2], 0, 0, 0
-				0, scale.v[1], 0, 0
+				scale.v[2], 0, 0, 0,
+				0, scale.v[1], 0, 0,
 				0, 0, scale.v[0], 0,
 				0, 0, 0, 1
 			};
@@ -4006,6 +4014,16 @@ GenoMatrix<4, 4, T> & projectPerspective(const GenoMatrix<4, 4, T> & matrix, T f
 	target.m[14] = matrix.m[10] * m14;
 	target.m[15] = matrix.m[11] * m14;
 	return target;
+}
+
+template <typename T>
+GenoVector<4, T> operator*(const GenoMatrix<4, 4, T> & left, const GenoVector<4, T> & right) {
+	return new T[4] {
+		left.m[0] * right.v[0] + left.m[4] * right.v[1] + left.m[8 ] * right.v[2] + left.m[12] * right.v[3],
+		left.m[1] * right.v[0] + left.m[5] * right.v[1] + left.m[9 ] * right.v[2] + left.m[13] * right.v[3],
+		left.m[2] * right.v[0] + left.m[6] * right.v[1] + left.m[10] * right.v[2] + left.m[14] * right.v[3],
+		left.m[3] * right.v[0] + left.m[7] * right.v[1] + left.m[11] * right.v[2] + left.m[15] * right.v[3]
+	};
 }
 
 template <typename T>

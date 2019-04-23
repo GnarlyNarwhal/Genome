@@ -28,10 +28,17 @@
 #include <chrono>
 
 #include "geno/GenoInts.h"
+#include "geno/math/GenoVector3.h"
+#include "geno/math/GenoVector4.h"
 #include "geno/math/GenoMatrix4.h"
 
 int32 main(int32 argc, char ** argv) {
 
+	auto mat = GenoMatrix4f::makeIdentity();
+
+	std::cout << GenoVector3f{ 0, 1, 2 }.rotateXYZ(1, 7, 6) << std::endl;
+	std::cout << GenoMatrix4f::makeRotateXYZ(1, 7, 6) * GenoVector4f{ 0, 1, 2, 1 } << std::endl;
+	std::cout << mat.rotateXYZ(1, 7, 6) * GenoVector4f{ 0, 1, 2, 1 } << std::endl;
 
 	/////// TIME TRIALS - LEAVE FOR FUTURE USE ///////
 /*
