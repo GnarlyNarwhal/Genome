@@ -1324,11 +1324,6 @@ class GenoVector<4, T> {
 			v[3] *= scale.v[1];
 		}
 
-		GenoVector<4, T> & scaleYX(T scale) {
-			v[1] *= scale;
-			v[0] *= scale;
-		}
-
 		GenoVector<4, T> & scaleYX(const GenoVector<2, T> & scale) {
 			v[1] *= scale.v[0];
 			v[0] *= scale.v[1];
@@ -1364,19 +1359,9 @@ class GenoVector<4, T> {
 			v[3] *= scale.v[1];
 		}
 
-		GenoVector<4, T> & scaleZX(T scale) {
-			v[2] *= scale;
-			v[0] *= scale;
-		}
-
 		GenoVector<4, T> & scaleZX(const GenoVector<2, T> & scale) {
 			v[2] *= scale.v[0];
 			v[0] *= scale.v[1];
-		}
-
-		GenoVector<4, T> & scaleZY(T scale) {
-			v[2] *= scale;
-			v[1] *= scale;
 		}
 
 		GenoVector<4, T> & scaleZY(const GenoVector<2, T> & scale) {
@@ -1399,29 +1384,14 @@ class GenoVector<4, T> {
 			v[3] *= scale.v[1];
 		}
 
-		GenoVector<4, T> & scaleWX(T scale) {
-			v[3] *= scale;
-			v[0] *= scale;
-		}
-
 		GenoVector<4, T> & scaleWX(const GenoVector<2, T> & scale) {
 			v[3] *= scale.v[0];
 			v[0] *= scale.v[1];
 		}
 
-		GenoVector<4, T> & scaleWY(T scale) {
-			v[3] *= scale;
-			v[1] *= scale;
-		}
-
 		GenoVector<4, T> & scaleWY(const GenoVector<2, T> & scale) {
 			v[3] *= scale.v[0];
 			v[1] *= scale.v[1];
-		}
-
-		GenoVector<4, T> & scaleWZ(T scale) {
-			v[3] *= scale;
-			v[2] *= scale;
 		}
 
 		GenoVector<4, T> & scaleWZ(const GenoVector<2, T> & scale) {
@@ -1465,12 +1435,6 @@ class GenoVector<4, T> {
 			v[3] *= scale.v[2];
 		}
 
-		GenoVector<4, T> & scaleXZY(T scale) {
-			v[0] *= scale;
-			v[2] *= scale;
-			v[1] *= scale;
-		}
-
 		GenoVector<4, T> & scaleXZY(const GenoVector<3, T> & scale) {
 			v[0] *= scale.v[0];
 			v[2] *= scale.v[1];
@@ -1495,22 +1459,10 @@ class GenoVector<4, T> {
 			v[3] *= scale.v[2];
 		}
 
-		GenoVector<4, T> & scaleXWY(T scale) {
-			v[0] *= scale;
-			v[3] *= scale;
-			v[1] *= scale;
-		}
-
 		GenoVector<4, T> & scaleXWY(const GenoVector<3, T> & scale) {
 			v[0] *= scale.v[0];
 			v[3] *= scale.v[1];
 			v[1] *= scale.v[2];
-		}
-
-		GenoVector<4, T> & scaleXWZ(T scale) {
-			v[0] *= scale;
-			v[3] *= scale;
-			v[2] *= scale;
 		}
 
 		GenoVector<4, T> & scaleXWZ(const GenoVector<3, T> & scale) {
@@ -1519,34 +1471,16 @@ class GenoVector<4, T> {
 			v[2] *= scale.v[2];
 		}
 
-		GenoVector<4, T> & scaleYXZ(T scale) {
-			v[1] *= scale;
-			v[0] *= scale;
-			v[2] *= scale;
-		}
-
 		GenoVector<4, T> & scaleYXZ(const GenoVector<3, T> & scale) {
 			v[1] *= scale.v[0];
 			v[0] *= scale.v[1];
 			v[2] *= scale.v[2];
 		}
 
-		GenoVector<4, T> & scaleYXW(T scale) {
-			v[1] *= scale;
-			v[0] *= scale;
-			v[3] *= scale;
-		}
-
 		GenoVector<4, T> & scaleYXW(const GenoVector<3, T> & scale) {
 			v[1] *= scale.v[0];
 			v[0] *= scale.v[1];
 			v[3] *= scale.v[2];
-		}
-
-		GenoVector<4, T> & scaleYZX(T scale) {
-			v[1] *= scale;
-			v[2] *= scale;
-			v[0] *= scale;
 		}
 
 		GenoVector<4, T> & scaleYZX(const GenoVector<3, T> & scale) {
@@ -1573,22 +1507,10 @@ class GenoVector<4, T> {
 			v[3] *= scale.v[2];
 		}
 
-		GenoVector<4, T> & scaleYWX(T scale) {
-			v[1] *= scale;
-			v[3] *= scale;
-			v[0] *= scale;
-		}
-
 		GenoVector<4, T> & scaleYWX(const GenoVector<3, T> & scale) {
 			v[1] *= scale.v[0];
 			v[3] *= scale.v[1];
 			v[0] *= scale.v[2];
-		}
-
-		GenoVector<4, T> & scaleYWZ(T scale) {
-			v[1] *= scale;
-			v[3] *= scale;
-			v[2] *= scale;
 		}
 
 		GenoVector<4, T> & scaleYWZ(const GenoVector<3, T> & scale) {
@@ -1597,22 +1519,10 @@ class GenoVector<4, T> {
 			v[2] *= scale.v[2];
 		}
 
-		GenoVector<4, T> & scaleZXY(T scale) {
-			v[2] *= scale;
-			v[0] *= scale;
-			v[1] *= scale;
-		}
-
 		GenoVector<4, T> & scaleZXY(const GenoVector<3, T> & scale) {
 			v[2] *= scale.v[0];
 			v[0] *= scale.v[1];
 			v[1] *= scale.v[2];
-		}
-
-		GenoVector<4, T> & scaleZXW(T scale) {
-			v[2] *= scale;
-			v[0] *= scale;
-			v[3] *= scale;
 		}
 
 		GenoVector<4, T> & scaleZXW(const GenoVector<3, T> & scale) {
@@ -1621,22 +1531,10 @@ class GenoVector<4, T> {
 			v[3] *= scale.v[2];
 		}
 
-		GenoVector<4, T> & scaleZYX(T scale) {
-			v[2] *= scale;
-			v[1] *= scale;
-			v[0] *= scale;
-		}
-
 		GenoVector<4, T> & scaleZYX(const GenoVector<3, T> & scale) {
 			v[2] *= scale.v[0];
 			v[1] *= scale.v[1];
 			v[0] *= scale.v[2];
-		}
-
-		GenoVector<4, T> & scaleZYW(T scale) {
-			v[2] *= scale;
-			v[1] *= scale;
-			v[3] *= scale;
 		}
 
 		GenoVector<4, T> & scaleZYW(const GenoVector<3, T> & scale) {
@@ -1645,22 +1543,10 @@ class GenoVector<4, T> {
 			v[3] *= scale.v[2];
 		}
 
-		GenoVector<4, T> & scaleZWX(T scale) {
-			v[2] *= scale;
-			v[3] *= scale;
-			v[0] *= scale;
-		}
-
 		GenoVector<4, T> & scaleZWX(const GenoVector<3, T> & scale) {
 			v[2] *= scale.v[0];
 			v[3] *= scale.v[1];
 			v[0] *= scale.v[2];
-		}
-
-		GenoVector<4, T> & scaleZWY(T scale) {
-			v[2] *= scale;
-			v[3] *= scale;
-			v[1] *= scale;
 		}
 
 		GenoVector<4, T> & scaleZWY(const GenoVector<3, T> & scale) {
@@ -1669,22 +1555,10 @@ class GenoVector<4, T> {
 			v[1] *= scale.v[2];
 		}
 
-		GenoVector<4, T> & scaleWXY(T scale) {
-			v[3] *= scale;
-			v[0] *= scale;
-			v[1] *= scale;
-		}
-
 		GenoVector<4, T> & scaleWXY(const GenoVector<3, T> & scale) {
 			v[3] *= scale.v[0];
 			v[0] *= scale.v[1];
 			v[1] *= scale.v[2];
-		}
-
-		GenoVector<4, T> & scaleWXZ(T scale) {
-			v[3] *= scale;
-			v[0] *= scale;
-			v[2] *= scale;
 		}
 
 		GenoVector<4, T> & scaleWXZ(const GenoVector<3, T> & scale) {
@@ -1693,22 +1567,10 @@ class GenoVector<4, T> {
 			v[2] *= scale.v[2];
 		}
 
-		GenoVector<4, T> & scaleWYX(T scale) {
-			v[3] *= scale;
-			v[1] *= scale;
-			v[0] *= scale;
-		}
-
 		GenoVector<4, T> & scaleWYX(const GenoVector<3, T> & scale) {
 			v[3] *= scale.v[0];
 			v[1] *= scale.v[1];
 			v[0] *= scale.v[2];
-		}
-
-		GenoVector<4, T> & scaleWYZ(T scale) {
-			v[3] *= scale;
-			v[1] *= scale;
-			v[2] *= scale;
 		}
 
 		GenoVector<4, T> & scaleWYZ(const GenoVector<3, T> & scale) {
@@ -1717,22 +1579,10 @@ class GenoVector<4, T> {
 			v[2] *= scale.v[2];
 		}
 
-		GenoVector<4, T> & scaleWZX(T scale) {
-			v[3] *= scale;
-			v[2] *= scale;
-			v[0] *= scale;
-		}
-
 		GenoVector<4, T> & scaleWZX(const GenoVector<3, T> & scale) {
 			v[3] *= scale.v[0];
 			v[2] *= scale.v[1];
 			v[0] *= scale.v[2];
-		}
-
-		GenoVector<4, T> & scaleWZY(T scale) {
-			v[3] *= scale;
-			v[2] *= scale;
-			v[1] *= scale;
 		}
 
 		GenoVector<4, T> & scaleWZY(const GenoVector<3, T> & scale) {
@@ -1762,25 +1612,11 @@ class GenoVector<4, T> {
 			v[3] *= scale.v[3];
 		}
 
-		GenoVector<4, T> & scaleXYWZ(T scale) {
-			v[0] *= scale;
-			v[1] *= scale;
-			v[3] *= scale;
-			v[2] *= scale;
-		}
-
 		GenoVector<4, T> & scaleXYWZ(const GenoVector<4, T> & scale) {
 			v[0] *= scale.v[0];
 			v[1] *= scale.v[1];
 			v[3] *= scale.v[2];
 			v[2] *= scale.v[3];
-		}
-
-		GenoVector<4, T> & scaleXZYW(T scale) {
-			v[0] *= scale;
-			v[2] *= scale;
-			v[1] *= scale;
-			v[3] *= scale;
 		}
 
 		GenoVector<4, T> & scaleXZYW(const GenoVector<4, T> & scale) {
@@ -1790,25 +1626,11 @@ class GenoVector<4, T> {
 			v[3] *= scale.v[3];
 		}
 
-		GenoVector<4, T> & scaleXZWY(T scale) {
-			v[0] *= scale;
-			v[2] *= scale;
-			v[3] *= scale;
-			v[1] *= scale;
-		}
-
 		GenoVector<4, T> & scaleXZWY(const GenoVector<4, T> & scale) {
 			v[0] *= scale.v[0];
 			v[2] *= scale.v[1];
 			v[3] *= scale.v[2];
 			v[1] *= scale.v[3];
-		}
-
-		GenoVector<4, T> & scaleXWYZ(T scale) {
-			v[0] *= scale;
-			v[3] *= scale;
-			v[1] *= scale;
-			v[2] *= scale;
 		}
 
 		GenoVector<4, T> & scaleXWYZ(const GenoVector<4, T> & scale) {
@@ -1818,25 +1640,11 @@ class GenoVector<4, T> {
 			v[2] *= scale.v[3];
 		}
 
-		GenoVector<4, T> & scaleXWZY(T scale) {
-			v[0] *= scale;
-			v[3] *= scale;
-			v[2] *= scale;
-			v[1] *= scale;
-		}
-
 		GenoVector<4, T> & scaleXWZY(const GenoVector<4, T> & scale) {
 			v[0] *= scale.v[0];
 			v[3] *= scale.v[1];
 			v[2] *= scale.v[2];
 			v[1] *= scale.v[3];
-		}
-
-		GenoVector<4, T> & scaleYXZW(T scale) {
-			v[1] *= scale;
-			v[0] *= scale;
-			v[2] *= scale;
-			v[3] *= scale;
 		}
 
 		GenoVector<4, T> & scaleYXZW(const GenoVector<4, T> & scale) {
@@ -1846,25 +1654,11 @@ class GenoVector<4, T> {
 			v[3] *= scale.v[3];
 		}
 
-		GenoVector<4, T> & scaleYXWZ(T scale) {
-			v[1] *= scale;
-			v[0] *= scale;
-			v[3] *= scale;
-			v[2] *= scale;
-		}
-
 		GenoVector<4, T> & scaleYXWZ(const GenoVector<4, T> & scale) {
 			v[1] *= scale.v[0];
 			v[0] *= scale.v[1];
 			v[3] *= scale.v[2];
 			v[2] *= scale.v[3];
-		}
-
-		GenoVector<4, T> & scaleYZXW(T scale) {
-			v[1] *= scale;
-			v[2] *= scale;
-			v[0] *= scale;
-			v[3] *= scale;
 		}
 
 		GenoVector<4, T> & scaleYZXW(const GenoVector<4, T> & scale) {
@@ -1874,25 +1668,11 @@ class GenoVector<4, T> {
 			v[3] *= scale.v[3];
 		}
 
-		GenoVector<4, T> & scaleYZWX(T scale) {
-			v[1] *= scale;
-			v[2] *= scale;
-			v[3] *= scale;
-			v[0] *= scale;
-		}
-
 		GenoVector<4, T> & scaleYZWX(const GenoVector<4, T> & scale) {
 			v[1] *= scale.v[0];
 			v[2] *= scale.v[1];
 			v[3] *= scale.v[2];
 			v[0] *= scale.v[3];
-		}
-
-		GenoVector<4, T> & scaleYWXZ(T scale) {
-			v[1] *= scale;
-			v[3] *= scale;
-			v[0] *= scale;
-			v[2] *= scale;
 		}
 
 		GenoVector<4, T> & scaleYWXZ(const GenoVector<4, T> & scale) {
@@ -1902,25 +1682,11 @@ class GenoVector<4, T> {
 			v[2] *= scale.v[3];
 		}
 
-		GenoVector<4, T> & scaleYWZX(T scale) {
-			v[1] *= scale;
-			v[3] *= scale;
-			v[2] *= scale;
-			v[0] *= scale;
-		}
-
 		GenoVector<4, T> & scaleYWZX(const GenoVector<4, T> & scale) {
 			v[1] *= scale.v[0];
 			v[3] *= scale.v[1];
 			v[2] *= scale.v[2];
 			v[0] *= scale.v[3];
-		}
-
-		GenoVector<4, T> & scaleZXYW(T scale) {
-			v[2] *= scale;
-			v[0] *= scale;
-			v[1] *= scale;
-			v[3] *= scale;
 		}
 
 		GenoVector<4, T> & scaleZXYW(const GenoVector<4, T> & scale) {
@@ -1930,25 +1696,11 @@ class GenoVector<4, T> {
 			v[3] *= scale.v[3];
 		}
 
-		GenoVector<4, T> & scaleZXWY(T scale) {
-			v[2] *= scale;
-			v[0] *= scale;
-			v[3] *= scale;
-			v[1] *= scale;
-		}
-
 		GenoVector<4, T> & scaleZXWY(const GenoVector<4, T> & scale) {
 			v[2] *= scale.v[0];
 			v[0] *= scale.v[1];
 			v[3] *= scale.v[2];
 			v[1] *= scale.v[3];
-		}
-
-		GenoVector<4, T> & scaleZYXW(T scale) {
-			v[2] *= scale;
-			v[1] *= scale;
-			v[0] *= scale;
-			v[3] *= scale;
 		}
 
 		GenoVector<4, T> & scaleZYXW(const GenoVector<4, T> & scale) {
@@ -1958,25 +1710,11 @@ class GenoVector<4, T> {
 			v[3] *= scale.v[3];
 		}
 
-		GenoVector<4, T> & scaleZYWX(T scale) {
-			v[2] *= scale;
-			v[1] *= scale;
-			v[3] *= scale;
-			v[0] *= scale;
-		}
-
 		GenoVector<4, T> & scaleZYWX(const GenoVector<4, T> & scale) {
 			v[2] *= scale.v[0];
 			v[1] *= scale.v[1];
 			v[3] *= scale.v[2];
 			v[0] *= scale.v[3];
-		}
-
-		GenoVector<4, T> & scaleZWXY(T scale) {
-			v[2] *= scale;
-			v[3] *= scale;
-			v[0] *= scale;
-			v[1] *= scale;
 		}
 
 		GenoVector<4, T> & scaleZWXY(const GenoVector<4, T> & scale) {
@@ -1986,25 +1724,11 @@ class GenoVector<4, T> {
 			v[1] *= scale.v[3];
 		}
 
-		GenoVector<4, T> & scaleZWYX(T scale) {
-			v[2] *= scale;
-			v[3] *= scale;
-			v[1] *= scale;
-			v[0] *= scale;
-		}
-
 		GenoVector<4, T> & scaleZWYX(const GenoVector<4, T> & scale) {
 			v[2] *= scale.v[0];
 			v[3] *= scale.v[1];
 			v[1] *= scale.v[2];
 			v[0] *= scale.v[3];
-		}
-
-		GenoVector<4, T> & scaleWXYZ(T scale) {
-			v[3] *= scale;
-			v[0] *= scale;
-			v[1] *= scale;
-			v[2] *= scale;
 		}
 
 		GenoVector<4, T> & scaleWXYZ(const GenoVector<4, T> & scale) {
@@ -2014,25 +1738,11 @@ class GenoVector<4, T> {
 			v[2] *= scale.v[3];
 		}
 
-		GenoVector<4, T> & scaleWXZY(T scale) {
-			v[3] *= scale;
-			v[0] *= scale;
-			v[2] *= scale;
-			v[1] *= scale;
-		}
-
 		GenoVector<4, T> & scaleWXZY(const GenoVector<4, T> & scale) {
 			v[3] *= scale.v[0];
 			v[0] *= scale.v[1];
 			v[2] *= scale.v[2];
 			v[1] *= scale.v[3];
-		}
-
-		GenoVector<4, T> & scaleWYXZ(T scale) {
-			v[3] *= scale;
-			v[1] *= scale;
-			v[0] *= scale;
-			v[2] *= scale;
 		}
 
 		GenoVector<4, T> & scaleWYXZ(const GenoVector<4, T> & scale) {
@@ -2042,13 +1752,6 @@ class GenoVector<4, T> {
 			v[2] *= scale.v[3];
 		}
 
-		GenoVector<4, T> & scaleWYZX(T scale) {
-			v[3] *= scale;
-			v[1] *= scale;
-			v[2] *= scale;
-			v[0] *= scale;
-		}
-
 		GenoVector<4, T> & scaleWYZX(const GenoVector<4, T> & scale) {
 			v[3] *= scale.v[0];
 			v[1] *= scale.v[1];
@@ -2056,25 +1759,11 @@ class GenoVector<4, T> {
 			v[0] *= scale.v[3];
 		}
 
-		GenoVector<4, T> & scaleWZXY(T scale) {
-			v[3] *= scale;
-			v[2] *= scale;
-			v[0] *= scale;
-			v[1] *= scale;
-		}
-
 		GenoVector<4, T> & scaleWZXY(const GenoVector<4, T> & scale) {
 			v[3] *= scale.v[0];
 			v[2] *= scale.v[1];
 			v[0] *= scale.v[2];
 			v[1] *= scale.v[3];
-		}
-
-		GenoVector<4, T> & scaleWZYX(T scale) {
-			v[3] *= scale;
-			v[2] *= scale;
-			v[1] *= scale;
-			v[0] *= scale;
 		}
 
 		GenoVector<4, T> & scaleWZYX(const GenoVector<4, T> & scale) {
@@ -6184,16 +5873,6 @@ GenoVector<4, T> scaleXW(const GenoVector<4, T> & vector, const GenoVector<2, T>
 }
 
 template<typename T>
-GenoVector<4, T> scaleYX(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2],
-		vector.v[3]
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleYX(const GenoVector<4, T> & vector, const GenoVector<2, T> & scale) {
 	return {
 		vector.v[0] * scale.v[1],
@@ -6264,31 +5943,11 @@ GenoVector<4, T> scaleYW(const GenoVector<4, T> & vector, const GenoVector<2, T>
 }
 
 template<typename T>
-GenoVector<4, T> scaleZX(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1],
-		vector.v[2] * scale,
-		vector.v[3]
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleZX(const GenoVector<4, T> & vector, const GenoVector<2, T> & scale) {
 	return {
 		vector.v[0] * scale.v[1],
 		vector.v[1],
 		vector.v[2] * scale.v[0],
-		vector.v[3]
-	};
-}
-
-template<typename T>
-GenoVector<4, T> scaleZY(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0],
-		vector.v[1] * scale,
-		vector.v[2] * scale,
 		vector.v[3]
 	};
 }
@@ -6334,16 +5993,6 @@ GenoVector<4, T> scaleZW(const GenoVector<4, T> & vector, const GenoVector<2, T>
 }
 
 template<typename T>
-GenoVector<4, T> scaleWX(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1],
-		vector.v[2],
-		vector.v[3] * scale
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleWX(const GenoVector<4, T> & vector, const GenoVector<2, T> & scale) {
 	return {
 		vector.v[0] * scale.v[1],
@@ -6354,32 +6003,12 @@ GenoVector<4, T> scaleWX(const GenoVector<4, T> & vector, const GenoVector<2, T>
 }
 
 template<typename T>
-GenoVector<4, T> scaleWY(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0],
-		vector.v[1] * scale,
-		vector.v[2],
-		vector.v[3] * scale
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleWY(const GenoVector<4, T> & vector, const GenoVector<2, T> & scale) {
 	return {
 		vector.v[0],
 		vector.v[1] * scale.v[1],
 		vector.v[2],
 		vector.v[3] * scale.v[0]
-	};
-}
-
-template<typename T>
-GenoVector<4, T> scaleWZ(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0],
-		vector.v[1],
-		vector.v[2] * scale,
-		vector.v[3] * scale
 	};
 }
 
@@ -6454,16 +6083,6 @@ GenoVector<4, T> scaleXYW(const GenoVector<4, T> & vector, const GenoVector<3, T
 }
 
 template<typename T>
-GenoVector<4, T> scaleXZY(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3]
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleXZY(const GenoVector<4, T> & vector, const GenoVector<3, T> & scale) {
 	return {
 		vector.v[0] * scale.v[0],
@@ -6504,32 +6123,12 @@ GenoVector<4, T> scaleXZW(const GenoVector<4, T> & vector, const GenoVector<3, T
 }
 
 template<typename T>
-GenoVector<4, T> scaleXWY(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2],
-		vector.v[3] * scale
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleXWY(const GenoVector<4, T> & vector, const GenoVector<3, T> & scale) {
 	return {
 		vector.v[0] * scale.v[0],
 		vector.v[1] * scale.v[2],
 		vector.v[2],
 		vector.v[3] * scale.v[1]
-	};
-}
-
-template<typename T>
-GenoVector<4, T> scaleXWZ(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1],
-		vector.v[2] * scale,
-		vector.v[3] * scale
 	};
 }
 
@@ -6544,16 +6143,6 @@ GenoVector<4, T> scaleXWZ(const GenoVector<4, T> & vector, const GenoVector<3, T
 }
 
 template<typename T>
-GenoVector<4, T> scaleYXZ(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3]
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleYXZ(const GenoVector<4, T> & vector, const GenoVector<3, T> & scale) {
 	return {
 		vector.v[0] * scale.v[1],
@@ -6564,32 +6153,12 @@ GenoVector<4, T> scaleYXZ(const GenoVector<4, T> & vector, const GenoVector<3, T
 }
 
 template<typename T>
-GenoVector<4, T> scaleYXW(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2],
-		vector.v[3] * scale
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleYXW(const GenoVector<4, T> & vector, const GenoVector<3, T> & scale) {
 	return {
 		vector.v[0] * scale.v[1],
 		vector.v[1] * scale.v[0],
 		vector.v[2],
 		vector.v[3] * scale.v[2]
-	};
-}
-
-template<typename T>
-GenoVector<4, T> scaleYZX(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3]
 	};
 }
 
@@ -6634,32 +6203,12 @@ GenoVector<4, T> scaleYZW(const GenoVector<4, T> & vector, const GenoVector<3, T
 }
 
 template<typename T>
-GenoVector<4, T> scaleYWX(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2],
-		vector.v[3] * scale
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleYWX(const GenoVector<4, T> & vector, const GenoVector<3, T> & scale) {
 	return {
 		vector.v[0] * scale.v[2],
 		vector.v[1] * scale.v[0],
 		vector.v[2],
 		vector.v[3] * scale.v[1]
-	};
-}
-
-template<typename T>
-GenoVector<4, T> scaleYWZ(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0],
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
 	};
 }
 
@@ -6674,32 +6223,12 @@ GenoVector<4, T> scaleYWZ(const GenoVector<4, T> & vector, const GenoVector<3, T
 }
 
 template<typename T>
-GenoVector<4, T> scaleZXY(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3]
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleZXY(const GenoVector<4, T> & vector, const GenoVector<3, T> & scale) {
 	return {
 		vector.v[0] * scale.v[1],
 		vector.v[1] * scale.v[2],
 		vector.v[2] * scale.v[0],
 		vector.v[3]
-	};
-}
-
-template<typename T>
-GenoVector<4, T> scaleZXW(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1],
-		vector.v[2] * scale,
-		vector.v[3] * scale
 	};
 }
 
@@ -6714,32 +6243,12 @@ GenoVector<4, T> scaleZXW(const GenoVector<4, T> & vector, const GenoVector<3, T
 }
 
 template<typename T>
-GenoVector<4, T> scaleZYX(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3]
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleZYX(const GenoVector<4, T> & vector, const GenoVector<3, T> & scale) {
 	return {
 		vector.v[0] * scale.v[2],
 		vector.v[1] * scale.v[1],
 		vector.v[2] * scale.v[0],
 		vector.v[3]
-	};
-}
-
-template<typename T>
-GenoVector<4, T> scaleZYW(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0],
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
 	};
 }
 
@@ -6754,32 +6263,12 @@ GenoVector<4, T> scaleZYW(const GenoVector<4, T> & vector, const GenoVector<3, T
 }
 
 template<typename T>
-GenoVector<4, T> scaleZWX(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1],
-		vector.v[2] * scale,
-		vector.v[3] * scale
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleZWX(const GenoVector<4, T> & vector, const GenoVector<3, T> & scale) {
 	return {
 		vector.v[0] * scale.v[2],
 		vector.v[1],
 		vector.v[2] * scale.v[0],
 		vector.v[3] * scale.v[1]
-	};
-}
-
-template<typename T>
-GenoVector<4, T> scaleZWY(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0],
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
 	};
 }
 
@@ -6794,32 +6283,12 @@ GenoVector<4, T> scaleZWY(const GenoVector<4, T> & vector, const GenoVector<3, T
 }
 
 template<typename T>
-GenoVector<4, T> scaleWXY(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2],
-		vector.v[3] * scale
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleWXY(const GenoVector<4, T> & vector, const GenoVector<3, T> & scale) {
 	return {
 		vector.v[0] * scale.v[1],
 		vector.v[1] * scale.v[2],
 		vector.v[2],
 		vector.v[3] * scale.v[0]
-	};
-}
-
-template<typename T>
-GenoVector<4, T> scaleWXZ(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1],
-		vector.v[2] * scale,
-		vector.v[3] * scale
 	};
 }
 
@@ -6834,32 +6303,12 @@ GenoVector<4, T> scaleWXZ(const GenoVector<4, T> & vector, const GenoVector<3, T
 }
 
 template<typename T>
-GenoVector<4, T> scaleWYX(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2],
-		vector.v[3] * scale
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleWYX(const GenoVector<4, T> & vector, const GenoVector<3, T> & scale) {
 	return {
 		vector.v[0] * scale.v[2],
 		vector.v[1] * scale.v[1],
 		vector.v[2],
 		vector.v[3] * scale.v[0]
-	};
-}
-
-template<typename T>
-GenoVector<4, T> scaleWYZ(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0],
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
 	};
 }
 
@@ -6874,32 +6323,12 @@ GenoVector<4, T> scaleWYZ(const GenoVector<4, T> & vector, const GenoVector<3, T
 }
 
 template<typename T>
-GenoVector<4, T> scaleWZX(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1],
-		vector.v[2] * scale,
-		vector.v[3] * scale
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleWZX(const GenoVector<4, T> & vector, const GenoVector<3, T> & scale) {
 	return {
 		vector.v[0] * scale.v[2],
 		vector.v[1],
 		vector.v[2] * scale.v[1],
 		vector.v[3] * scale.v[0]
-	};
-}
-
-template<typename T>
-GenoVector<4, T> scaleWZY(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0],
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
 	};
 }
 
@@ -6944,32 +6373,12 @@ GenoVector<4, T> scaleXYZW(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleXYWZ(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleXYWZ(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale) {
 	return {
 		vector.v[0] * scale.v[0],
 		vector.v[1] * scale.v[1],
 		vector.v[2] * scale.v[3],
 		vector.v[3] * scale.v[2]
-	};
-}
-
-template<typename T>
-GenoVector<4, T> scaleXZYW(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
 	};
 }
 
@@ -6984,32 +6393,12 @@ GenoVector<4, T> scaleXZYW(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleXZWY(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleXZWY(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale) {
 	return {
 		vector.v[0] * scale.v[0],
 		vector.v[1] * scale.v[3],
 		vector.v[2] * scale.v[1],
 		vector.v[3] * scale.v[2]
-	};
-}
-
-template<typename T>
-GenoVector<4, T> scaleXWYZ(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
 	};
 }
 
@@ -7024,32 +6413,12 @@ GenoVector<4, T> scaleXWYZ(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleXWZY(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleXWZY(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale) {
 	return {
 		vector.v[0] * scale.v[0],
 		vector.v[1] * scale.v[3],
 		vector.v[2] * scale.v[2],
 		vector.v[3] * scale.v[1]
-	};
-}
-
-template<typename T>
-GenoVector<4, T> scaleYXZW(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
 	};
 }
 
@@ -7064,32 +6433,12 @@ GenoVector<4, T> scaleYXZW(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleYXWZ(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleYXWZ(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale) {
 	return {
 		vector.v[0] * scale.v[1],
 		vector.v[1] * scale.v[0],
 		vector.v[2] * scale.v[3],
 		vector.v[3] * scale.v[2]
-	};
-}
-
-template<typename T>
-GenoVector<4, T> scaleYZXW(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
 	};
 }
 
@@ -7104,32 +6453,12 @@ GenoVector<4, T> scaleYZXW(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleYZWX(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleYZWX(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale) {
 	return {
 		vector.v[0] * scale.v[3],
 		vector.v[1] * scale.v[0],
 		vector.v[2] * scale.v[1],
 		vector.v[3] * scale.v[2]
-	};
-}
-
-template<typename T>
-GenoVector<4, T> scaleYWXZ(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
 	};
 }
 
@@ -7144,32 +6473,12 @@ GenoVector<4, T> scaleYWXZ(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleYWZX(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleYWZX(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale) {
 	return {
 		vector.v[0] * scale.v[3],
 		vector.v[1] * scale.v[0],
 		vector.v[2] * scale.v[2],
 		vector.v[3] * scale.v[1]
-	};
-}
-
-template<typename T>
-GenoVector<4, T> scaleZXYW(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
 	};
 }
 
@@ -7184,32 +6493,12 @@ GenoVector<4, T> scaleZXYW(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleZXWY(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleZXWY(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale) {
 	return {
 		vector.v[0] * scale.v[1],
 		vector.v[1] * scale.v[3],
 		vector.v[2] * scale.v[0],
 		vector.v[3] * scale.v[2]
-	};
-}
-
-template<typename T>
-GenoVector<4, T> scaleZYXW(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
 	};
 }
 
@@ -7224,32 +6513,12 @@ GenoVector<4, T> scaleZYXW(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleZYWX(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleZYWX(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale) {
 	return {
 		vector.v[0] * scale.v[3],
 		vector.v[1] * scale.v[1],
 		vector.v[2] * scale.v[0],
 		vector.v[3] * scale.v[2]
-	};
-}
-
-template<typename T>
-GenoVector<4, T> scaleZWXY(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
 	};
 }
 
@@ -7264,32 +6533,12 @@ GenoVector<4, T> scaleZWXY(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleZWYX(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleZWYX(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale) {
 	return {
 		vector.v[0] * scale.v[3],
 		vector.v[1] * scale.v[2],
 		vector.v[2] * scale.v[0],
 		vector.v[3] * scale.v[1]
-	};
-}
-
-template<typename T>
-GenoVector<4, T> scaleWXYZ(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
 	};
 }
 
@@ -7304,32 +6553,12 @@ GenoVector<4, T> scaleWXYZ(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleWXZY(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleWXZY(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale) {
 	return {
 		vector.v[0] * scale.v[1],
 		vector.v[1] * scale.v[3],
 		vector.v[2] * scale.v[2],
 		vector.v[3] * scale.v[0]
-	};
-}
-
-template<typename T>
-GenoVector<4, T> scaleWYXZ(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
 	};
 }
 
@@ -7344,32 +6573,12 @@ GenoVector<4, T> scaleWYXZ(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleWYZX(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleWYZX(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale) {
 	return {
 		vector.v[0] * scale.v[3],
 		vector.v[1] * scale.v[1],
 		vector.v[2] * scale.v[2],
 		vector.v[3] * scale.v[0]
-	};
-}
-
-template<typename T>
-GenoVector<4, T> scaleWZXY(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
 	};
 }
 
@@ -7384,16 +6593,6 @@ GenoVector<4, T> scaleWZXY(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleWZYX(const GenoVector<4, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale,
-		vector.v[2] * scale,
-		vector.v[3] * scale
-	};
-}
-
-template<typename T>
 GenoVector<4, T> scaleWZYX(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale) {
 	return {
 		vector.v[0] * scale.v[3],
@@ -7404,7 +6603,7 @@ GenoVector<4, T> scaleWZYX(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleX(const GenoVector<4, T> & vector, T scaleX, GenoVector<4, T> & target) {
+GenoVector<4, T> scaleX(const GenoVector<4, T> & vector, T scaleX, const GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scaleX;
 	target.v[1] = vector.v[1];
 	target.v[2] = vector.v[2];
@@ -7413,7 +6612,7 @@ GenoVector<4, T> scaleX(const GenoVector<4, T> & vector, T scaleX, GenoVector<4,
 }
 
 template<typename T>
-GenoVector<4, T> scaleY(const GenoVector<4, T> & vector, T scaleY, GenoVector<4, T> & target) {
+GenoVector<4, T> scaleY(const GenoVector<4, T> & vector, T scaleY, const GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0];
 	target.v[1] = vector.v[1] * scaleY;
 	target.v[2] = vector.v[2];
@@ -7422,7 +6621,7 @@ GenoVector<4, T> scaleY(const GenoVector<4, T> & vector, T scaleY, GenoVector<4,
 }
 
 template<typename T>
-GenoVector<4, T> scaleZ(const GenoVector<4, T> & vector, T scaleZ, GenoVector<4, T> & target) {
+GenoVector<4, T> scaleZ(const GenoVector<4, T> & vector, T scaleZ, const GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0];
 	target.v[1] = vector.v[1];
 	target.v[2] = vector.v[2] * scaleZ;
@@ -7431,7 +6630,7 @@ GenoVector<4, T> scaleZ(const GenoVector<4, T> & vector, T scaleZ, GenoVector<4,
 }
 
 template<typename T>
-GenoVector<4, T> scaleW(const GenoVector<4, T> & vector, T scaleW, GenoVector<4, T> & target) {
+GenoVector<4, T> scaleW(const GenoVector<4, T> & vector, T scaleW, const GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0];
 	target.v[1] = vector.v[1];
 	target.v[2] = vector.v[2];
@@ -7449,7 +6648,7 @@ GenoVector<4, T> scaleXY(const GenoVector<4, T> & vector, T scale, GenoVector<4,
 }
 
 template<typename T>
-GenoVector<4, T> scaleXY(const GenoVector<4, T> & vector, T scaleX, T scaleY, GenoVector<4, T> & target) {
+GenoVector<4, T> scaleXY(const GenoVector<4, T> & vector, T scaleX, T scaleY, const GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scaleX;
 	target.v[1] = vector.v[1] * scaleY;
 	target.v[2] = vector.v[2];
@@ -7476,7 +6675,7 @@ GenoVector<4, T> scaleXZ(const GenoVector<4, T> & vector, T scale, GenoVector<4,
 }
 
 template<typename T>
-GenoVector<4, T> scaleXZ(const GenoVector<4, T> & vector, T scaleX, T scaleZ, GenoVector<4, T> & target) {
+GenoVector<4, T> scaleXZ(const GenoVector<4, T> & vector, T scaleX, T scaleZ, const GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scaleX;
 	target.v[1] = vector.v[1];
 	target.v[2] = vector.v[2] * scaleZ;
@@ -7503,7 +6702,7 @@ GenoVector<4, T> scaleXW(const GenoVector<4, T> & vector, T scale, GenoVector<4,
 }
 
 template<typename T>
-GenoVector<4, T> scaleXW(const GenoVector<4, T> & vector, T scaleX, T scaleW, GenoVector<4, T> & target) {
+GenoVector<4, T> scaleXW(const GenoVector<4, T> & vector, T scaleX, T scaleW, const GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scaleX;
 	target.v[1] = vector.v[1];
 	target.v[2] = vector.v[2];
@@ -7517,15 +6716,6 @@ GenoVector<4, T> scaleXW(const GenoVector<4, T> & vector, const GenoVector<2, T>
 	target.v[1] = vector.v[1];
 	target.v[2] = vector.v[2];
 	target.v[3] = vector.v[3] * scale.v[1];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleYX(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2];
-	target.v[3] = vector.v[3];
 	return target;
 }
 
@@ -7548,7 +6738,7 @@ GenoVector<4, T> scaleYZ(const GenoVector<4, T> & vector, T scale, GenoVector<4,
 }
 
 template<typename T>
-GenoVector<4, T> scaleYZ(const GenoVector<4, T> & vector, T scaleY, T scaleZ, GenoVector<4, T> & target) {
+GenoVector<4, T> scaleYZ(const GenoVector<4, T> & vector, T scaleY, T scaleZ, const GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0];
 	target.v[1] = vector.v[1] * scaleY;
 	target.v[2] = vector.v[2] * scaleZ;
@@ -7575,7 +6765,7 @@ GenoVector<4, T> scaleYW(const GenoVector<4, T> & vector, T scale, GenoVector<4,
 }
 
 template<typename T>
-GenoVector<4, T> scaleYW(const GenoVector<4, T> & vector, T scaleY, T scaleW, GenoVector<4, T> & target) {
+GenoVector<4, T> scaleYW(const GenoVector<4, T> & vector, T scaleY, T scaleW, const GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0];
 	target.v[1] = vector.v[1] * scaleY;
 	target.v[2] = vector.v[2];
@@ -7593,28 +6783,10 @@ GenoVector<4, T> scaleYW(const GenoVector<4, T> & vector, const GenoVector<2, T>
 }
 
 template<typename T>
-GenoVector<4, T> scaleZX(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1];
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3];
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleZX(const GenoVector<4, T> & vector, const GenoVector<2, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[1];
 	target.v[1] = vector.v[1];
 	target.v[2] = vector.v[2] * scale.v[0];
-	target.v[3] = vector.v[3];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleZY(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0];
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
 	target.v[3] = vector.v[3];
 	return target;
 }
@@ -7638,7 +6810,7 @@ GenoVector<4, T> scaleZW(const GenoVector<4, T> & vector, T scale, GenoVector<4,
 }
 
 template<typename T>
-GenoVector<4, T> scaleZW(const GenoVector<4, T> & vector, T scaleZ, T scaleW, GenoVector<4, T> & target) {
+GenoVector<4, T> scaleZW(const GenoVector<4, T> & vector, T scaleZ, T scaleW, const GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0];
 	target.v[1] = vector.v[1];
 	target.v[2] = vector.v[2] * scaleZ;
@@ -7656,15 +6828,6 @@ GenoVector<4, T> scaleZW(const GenoVector<4, T> & vector, const GenoVector<2, T>
 }
 
 template<typename T>
-GenoVector<4, T> scaleWX(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1];
-	target.v[2] = vector.v[2];
-	target.v[3] = vector.v[3] * scale;
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleWX(const GenoVector<4, T> & vector, const GenoVector<2, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[1];
 	target.v[1] = vector.v[1];
@@ -7674,29 +6837,11 @@ GenoVector<4, T> scaleWX(const GenoVector<4, T> & vector, const GenoVector<2, T>
 }
 
 template<typename T>
-GenoVector<4, T> scaleWY(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0];
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2];
-	target.v[3] = vector.v[3] * scale;
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleWY(const GenoVector<4, T> & vector, const GenoVector<2, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0];
 	target.v[1] = vector.v[1] * scale.v[1];
 	target.v[2] = vector.v[2];
 	target.v[3] = vector.v[3] * scale.v[0];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleWZ(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0];
-	target.v[1] = vector.v[1];
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
 	return target;
 }
 
@@ -7719,7 +6864,7 @@ GenoVector<4, T> scaleXYZ(const GenoVector<4, T> & vector, T scale, GenoVector<4
 }
 
 template<typename T>
-GenoVector<4, T> scaleXYZ(const GenoVector<4, T> & vector, T scaleX, T scaleY, T scaleZ, GenoVector<4, T> & target) {
+GenoVector<4, T> scaleXYZ(const GenoVector<4, T> & vector, T scaleX, T scaleY, T scaleZ, const GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scaleX;
 	target.v[1] = vector.v[1] * scaleY;
 	target.v[2] = vector.v[2] * scaleZ;
@@ -7746,7 +6891,7 @@ GenoVector<4, T> scaleXYW(const GenoVector<4, T> & vector, T scale, GenoVector<4
 }
 
 template<typename T>
-GenoVector<4, T> scaleXYW(const GenoVector<4, T> & vector, T scaleX, T scaleY, T scaleW, GenoVector<4, T> & target) {
+GenoVector<4, T> scaleXYW(const GenoVector<4, T> & vector, T scaleX, T scaleY, T scaleW, const GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scaleX;
 	target.v[1] = vector.v[1] * scaleY;
 	target.v[2] = vector.v[2];
@@ -7760,15 +6905,6 @@ GenoVector<4, T> scaleXYW(const GenoVector<4, T> & vector, const GenoVector<3, T
 	target.v[1] = vector.v[1] * scale.v[1];
 	target.v[2] = vector.v[2];
 	target.v[3] = vector.v[3] * scale.v[2];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleXZY(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3];
 	return target;
 }
 
@@ -7791,7 +6927,7 @@ GenoVector<4, T> scaleXZW(const GenoVector<4, T> & vector, T scale, GenoVector<4
 }
 
 template<typename T>
-GenoVector<4, T> scaleXZW(const GenoVector<4, T> & vector, T scaleX, T scaleZ, T scaleW, GenoVector<4, T> & target) {
+GenoVector<4, T> scaleXZW(const GenoVector<4, T> & vector, T scaleX, T scaleZ, T scaleW, const GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scaleX;
 	target.v[1] = vector.v[1];
 	target.v[2] = vector.v[2] * scaleZ;
@@ -7809,29 +6945,11 @@ GenoVector<4, T> scaleXZW(const GenoVector<4, T> & vector, const GenoVector<3, T
 }
 
 template<typename T>
-GenoVector<4, T> scaleXWY(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2];
-	target.v[3] = vector.v[3] * scale;
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleXWY(const GenoVector<4, T> & vector, const GenoVector<3, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[0];
 	target.v[1] = vector.v[1] * scale.v[2];
 	target.v[2] = vector.v[2];
 	target.v[3] = vector.v[3] * scale.v[1];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleXWZ(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1];
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
 	return target;
 }
 
@@ -7845,15 +6963,6 @@ GenoVector<4, T> scaleXWZ(const GenoVector<4, T> & vector, const GenoVector<3, T
 }
 
 template<typename T>
-GenoVector<4, T> scaleYXZ(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3];
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleYXZ(const GenoVector<4, T> & vector, const GenoVector<3, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[1];
 	target.v[1] = vector.v[1] * scale.v[0];
@@ -7863,29 +6972,11 @@ GenoVector<4, T> scaleYXZ(const GenoVector<4, T> & vector, const GenoVector<3, T
 }
 
 template<typename T>
-GenoVector<4, T> scaleYXW(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2];
-	target.v[3] = vector.v[3] * scale;
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleYXW(const GenoVector<4, T> & vector, const GenoVector<3, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[1];
 	target.v[1] = vector.v[1] * scale.v[0];
 	target.v[2] = vector.v[2];
 	target.v[3] = vector.v[3] * scale.v[2];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleYZX(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3];
 	return target;
 }
 
@@ -7908,7 +6999,7 @@ GenoVector<4, T> scaleYZW(const GenoVector<4, T> & vector, T scale, GenoVector<4
 }
 
 template<typename T>
-GenoVector<4, T> scaleYZW(const GenoVector<4, T> & vector, T scaleY, T scaleZ, T scaleW, GenoVector<4, T> & target) {
+GenoVector<4, T> scaleYZW(const GenoVector<4, T> & vector, T scaleY, T scaleZ, T scaleW, const GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0];
 	target.v[1] = vector.v[1] * scaleY;
 	target.v[2] = vector.v[2] * scaleZ;
@@ -7926,29 +7017,11 @@ GenoVector<4, T> scaleYZW(const GenoVector<4, T> & vector, const GenoVector<3, T
 }
 
 template<typename T>
-GenoVector<4, T> scaleYWX(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2];
-	target.v[3] = vector.v[3] * scale;
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleYWX(const GenoVector<4, T> & vector, const GenoVector<3, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[2];
 	target.v[1] = vector.v[1] * scale.v[0];
 	target.v[2] = vector.v[2];
 	target.v[3] = vector.v[3] * scale.v[1];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleYWZ(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0];
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
 	return target;
 }
 
@@ -7962,29 +7035,11 @@ GenoVector<4, T> scaleYWZ(const GenoVector<4, T> & vector, const GenoVector<3, T
 }
 
 template<typename T>
-GenoVector<4, T> scaleZXY(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3];
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleZXY(const GenoVector<4, T> & vector, const GenoVector<3, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[1];
 	target.v[1] = vector.v[1] * scale.v[2];
 	target.v[2] = vector.v[2] * scale.v[0];
 	target.v[3] = vector.v[3];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleZXW(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1];
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
 	return target;
 }
 
@@ -7998,29 +7053,11 @@ GenoVector<4, T> scaleZXW(const GenoVector<4, T> & vector, const GenoVector<3, T
 }
 
 template<typename T>
-GenoVector<4, T> scaleZYX(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3];
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleZYX(const GenoVector<4, T> & vector, const GenoVector<3, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[2];
 	target.v[1] = vector.v[1] * scale.v[1];
 	target.v[2] = vector.v[2] * scale.v[0];
 	target.v[3] = vector.v[3];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleZYW(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0];
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
 	return target;
 }
 
@@ -8034,29 +7071,11 @@ GenoVector<4, T> scaleZYW(const GenoVector<4, T> & vector, const GenoVector<3, T
 }
 
 template<typename T>
-GenoVector<4, T> scaleZWX(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1];
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleZWX(const GenoVector<4, T> & vector, const GenoVector<3, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[2];
 	target.v[1] = vector.v[1];
 	target.v[2] = vector.v[2] * scale.v[0];
 	target.v[3] = vector.v[3] * scale.v[1];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleZWY(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0];
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
 	return target;
 }
 
@@ -8070,29 +7089,11 @@ GenoVector<4, T> scaleZWY(const GenoVector<4, T> & vector, const GenoVector<3, T
 }
 
 template<typename T>
-GenoVector<4, T> scaleWXY(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2];
-	target.v[3] = vector.v[3] * scale;
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleWXY(const GenoVector<4, T> & vector, const GenoVector<3, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[1];
 	target.v[1] = vector.v[1] * scale.v[2];
 	target.v[2] = vector.v[2];
 	target.v[3] = vector.v[3] * scale.v[0];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleWXZ(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1];
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
 	return target;
 }
 
@@ -8106,29 +7107,11 @@ GenoVector<4, T> scaleWXZ(const GenoVector<4, T> & vector, const GenoVector<3, T
 }
 
 template<typename T>
-GenoVector<4, T> scaleWYX(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2];
-	target.v[3] = vector.v[3] * scale;
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleWYX(const GenoVector<4, T> & vector, const GenoVector<3, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[2];
 	target.v[1] = vector.v[1] * scale.v[1];
 	target.v[2] = vector.v[2];
 	target.v[3] = vector.v[3] * scale.v[0];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleWYZ(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0];
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
 	return target;
 }
 
@@ -8142,29 +7125,11 @@ GenoVector<4, T> scaleWYZ(const GenoVector<4, T> & vector, const GenoVector<3, T
 }
 
 template<typename T>
-GenoVector<4, T> scaleWZX(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1];
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleWZX(const GenoVector<4, T> & vector, const GenoVector<3, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[2];
 	target.v[1] = vector.v[1];
 	target.v[2] = vector.v[2] * scale.v[1];
 	target.v[3] = vector.v[3] * scale.v[0];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleWZY(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0];
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
 	return target;
 }
 
@@ -8187,7 +7152,7 @@ GenoVector<4, T> scaleXYZW(const GenoVector<4, T> & vector, T scale, GenoVector<
 }
 
 template<typename T>
-GenoVector<4, T> scaleXYZW(const GenoVector<4, T> & vector, T scaleX, T scaleY, T scaleZ, T scaleW, GenoVector<4, T> & target) {
+GenoVector<4, T> scaleXYZW(const GenoVector<4, T> & vector, T scaleX, T scaleY, T scaleZ, T scaleW, const GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scaleX;
 	target.v[1] = vector.v[1] * scaleY;
 	target.v[2] = vector.v[2] * scaleZ;
@@ -8205,29 +7170,11 @@ GenoVector<4, T> scaleXYZW(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleXYWZ(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleXYWZ(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[0];
 	target.v[1] = vector.v[1] * scale.v[1];
 	target.v[2] = vector.v[2] * scale.v[3];
 	target.v[3] = vector.v[3] * scale.v[2];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleXZYW(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
 	return target;
 }
 
@@ -8241,29 +7188,11 @@ GenoVector<4, T> scaleXZYW(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleXZWY(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleXZWY(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[0];
 	target.v[1] = vector.v[1] * scale.v[3];
 	target.v[2] = vector.v[2] * scale.v[1];
 	target.v[3] = vector.v[3] * scale.v[2];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleXWYZ(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
 	return target;
 }
 
@@ -8277,29 +7206,11 @@ GenoVector<4, T> scaleXWYZ(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleXWZY(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleXWZY(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[0];
 	target.v[1] = vector.v[1] * scale.v[3];
 	target.v[2] = vector.v[2] * scale.v[2];
 	target.v[3] = vector.v[3] * scale.v[1];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleYXZW(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
 	return target;
 }
 
@@ -8313,29 +7224,11 @@ GenoVector<4, T> scaleYXZW(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleYXWZ(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleYXWZ(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[1];
 	target.v[1] = vector.v[1] * scale.v[0];
 	target.v[2] = vector.v[2] * scale.v[3];
 	target.v[3] = vector.v[3] * scale.v[2];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleYZXW(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
 	return target;
 }
 
@@ -8349,29 +7242,11 @@ GenoVector<4, T> scaleYZXW(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleYZWX(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleYZWX(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[3];
 	target.v[1] = vector.v[1] * scale.v[0];
 	target.v[2] = vector.v[2] * scale.v[1];
 	target.v[3] = vector.v[3] * scale.v[2];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleYWXZ(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
 	return target;
 }
 
@@ -8385,29 +7260,11 @@ GenoVector<4, T> scaleYWXZ(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleYWZX(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleYWZX(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[3];
 	target.v[1] = vector.v[1] * scale.v[0];
 	target.v[2] = vector.v[2] * scale.v[2];
 	target.v[3] = vector.v[3] * scale.v[1];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleZXYW(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
 	return target;
 }
 
@@ -8421,29 +7278,11 @@ GenoVector<4, T> scaleZXYW(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleZXWY(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleZXWY(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[1];
 	target.v[1] = vector.v[1] * scale.v[3];
 	target.v[2] = vector.v[2] * scale.v[0];
 	target.v[3] = vector.v[3] * scale.v[2];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleZYXW(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
 	return target;
 }
 
@@ -8457,29 +7296,11 @@ GenoVector<4, T> scaleZYXW(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleZYWX(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleZYWX(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[3];
 	target.v[1] = vector.v[1] * scale.v[1];
 	target.v[2] = vector.v[2] * scale.v[0];
 	target.v[3] = vector.v[3] * scale.v[2];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleZWXY(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
 	return target;
 }
 
@@ -8493,29 +7314,11 @@ GenoVector<4, T> scaleZWXY(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleZWYX(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleZWYX(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[3];
 	target.v[1] = vector.v[1] * scale.v[2];
 	target.v[2] = vector.v[2] * scale.v[0];
 	target.v[3] = vector.v[3] * scale.v[1];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleWXYZ(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
 	return target;
 }
 
@@ -8529,29 +7332,11 @@ GenoVector<4, T> scaleWXYZ(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleWXZY(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleWXZY(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[1];
 	target.v[1] = vector.v[1] * scale.v[3];
 	target.v[2] = vector.v[2] * scale.v[2];
 	target.v[3] = vector.v[3] * scale.v[0];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleWYXZ(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
 	return target;
 }
 
@@ -8565,15 +7350,6 @@ GenoVector<4, T> scaleWYXZ(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleWYZX(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleWYZX(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[3];
 	target.v[1] = vector.v[1] * scale.v[1];
@@ -8583,29 +7359,11 @@ GenoVector<4, T> scaleWYZX(const GenoVector<4, T> & vector, const GenoVector<4, 
 }
 
 template<typename T>
-GenoVector<4, T> scaleWZXY(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
-	return target;
-}
-
-template<typename T>
 GenoVector<4, T> scaleWZXY(const GenoVector<4, T> & vector, const GenoVector<4, T> & scale, GenoVector<4, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[2];
 	target.v[1] = vector.v[1] * scale.v[3];
 	target.v[2] = vector.v[2] * scale.v[1];
 	target.v[3] = vector.v[3] * scale.v[0];
-	return target;
-}
-
-template<typename T>
-GenoVector<4, T> scaleWZYX(const GenoVector<4, T> & vector, T scale, GenoVector<4, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
-	target.v[2] = vector.v[2] * scale;
-	target.v[3] = vector.v[3] * scale;
 	return target;
 }
 

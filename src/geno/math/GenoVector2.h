@@ -369,11 +369,6 @@ class GenoVector<2, T> {
 			v[1] *= scale.v[1];
 		}
 
-		GenoVector<2, T> & scaleYX(T scale) {
-			v[1] *= scale;
-			v[0] *= scale;
-		}
-
 		GenoVector<2, T> & scaleYX(const GenoVector<2, T> & scale) {
 			v[1] *= scale.v[0];
 			v[0] *= scale.v[1];
@@ -950,14 +945,6 @@ GenoVector<2, T> scaleXY(const GenoVector<2, T> & vector, const GenoVector<2, T>
 }
 
 template<typename T>
-GenoVector<2, T> scaleYX(const GenoVector<2, T> & vector, T scale) {
-	return {
-		vector.v[0] * scale,
-		vector.v[1] * scale
-	};
-}
-
-template<typename T>
 GenoVector<2, T> scaleYX(const GenoVector<2, T> & vector, const GenoVector<2, T> & scale) {
 	return {
 		vector.v[0] * scale.v[1],
@@ -966,14 +953,14 @@ GenoVector<2, T> scaleYX(const GenoVector<2, T> & vector, const GenoVector<2, T>
 }
 
 template<typename T>
-GenoVector<2, T> scaleX(const GenoVector<2, T> & vector, T scaleX, GenoVector<2, T> & target) {
+GenoVector<2, T> scaleX(const GenoVector<2, T> & vector, T scaleX, const GenoVector<2, T> & target) {
 	target.v[0] = vector.v[0] * scaleX;
 	target.v[1] = vector.v[1];
 	return target;
 }
 
 template<typename T>
-GenoVector<2, T> scaleY(const GenoVector<2, T> & vector, T scaleY, GenoVector<2, T> & target) {
+GenoVector<2, T> scaleY(const GenoVector<2, T> & vector, T scaleY, const GenoVector<2, T> & target) {
 	target.v[0] = vector.v[0];
 	target.v[1] = vector.v[1] * scaleY;
 	return target;
@@ -987,7 +974,7 @@ GenoVector<2, T> scaleXY(const GenoVector<2, T> & vector, T scale, GenoVector<2,
 }
 
 template<typename T>
-GenoVector<2, T> scaleXY(const GenoVector<2, T> & vector, T scaleX, T scaleY, GenoVector<2, T> & target) {
+GenoVector<2, T> scaleXY(const GenoVector<2, T> & vector, T scaleX, T scaleY, const GenoVector<2, T> & target) {
 	target.v[0] = vector.v[0] * scaleX;
 	target.v[1] = vector.v[1] * scaleY;
 	return target;
@@ -997,13 +984,6 @@ template<typename T>
 GenoVector<2, T> scaleXY(const GenoVector<2, T> & vector, const GenoVector<2, T> & scale, GenoVector<2, T> & target) {
 	target.v[0] = vector.v[0] * scale.v[0];
 	target.v[1] = vector.v[1] * scale.v[1];
-	return target;
-}
-
-template<typename T>
-GenoVector<2, T> scaleYX(const GenoVector<2, T> & vector, T scale, GenoVector<2, T> & target) {
-	target.v[0] = vector.v[0] * scale;
-	target.v[1] = vector.v[1] * scale;
 	return target;
 }
 

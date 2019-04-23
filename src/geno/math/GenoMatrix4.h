@@ -82,6 +82,729 @@ class GenoMatrix<4, 4, T> {
 			};
 		}
 
+		static GenoMatrix<4, 4, T> makeTranslate2D(T translateX, T translateY) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				translateX, translateY, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeTranslate2D(const GenoVector<2, T> & translate) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				translate.v[0], translate.v[1], 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeTranslate(T translateX, T translateY, T translateZ) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				translateX, translateY, translateZ, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeTranslate(const GenoVector<3, T> & translate) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				translate.v[0], translate.v[1], translate.v[2], 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScale2D(T scale) {
+			return new T[4 * 4] {
+				scale, 0, 0, 0
+				0, scale, 0, 0
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScale2D(T scaleX, T scaleY) {
+			return new T[4 * 4] {
+				scaleX, 0, 0, 0
+				0, scaleY, 0, 0
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScale2D(const GenoVector<2, T> & scale) {
+			return new T[4 * 4] {
+				scale.v[0], 0, 0, 0
+				0, scale.v[1], 0, 0
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScale(T scale) {
+			return new T[4 * 4] {
+				scale, 0, 0, 0
+				0, scale, 0, 0
+				0, 0, scale, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScale(T scaleX, T scaleY, T scaleZ) {
+			return new T[4 * 4] {
+				scaleX, 0, 0, 0
+				0, scaleY, 0, 0
+				0, 0, scaleZ, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScale(const GenoVector<3, T> & scale) {
+			return new T[4 * 4] {
+				scale.v[0], 0, 0, 0
+				0, scale.v[1], 0, 0
+				0, 0, scale.v[2], 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeTranslateX(T translateX) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				translateX, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeTranslateY(T translateY) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				0, translateY, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeTranslateZ(T translateZ) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				0, 0, translateZ, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeTranslateXY(T translateX, T translateY) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				translateX, translateY, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeTranslateXY(const GenoVector<2, T> & translate) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				translate.v[0], translate.v[1], 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeTranslateXZ(T translateX, T translateZ) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				translateX, 0, translateZ, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeTranslateXZ(const GenoVector<2, T> & translate) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				translate.v[0], 0, translate.v[1], 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeTranslateYX(const GenoVector<2, T> & translate) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				translate.v[1], translate.v[0], 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeTranslateYZ(T translateY, T translateZ) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				0, translateY, translateZ, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeTranslateYZ(const GenoVector<2, T> & translate) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				0, translate.v[0], translate.v[1], 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeTranslateZX(const GenoVector<2, T> & translate) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				translate.v[1], 0, translate.v[0], 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeTranslateZY(const GenoVector<2, T> & translate) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				0, translate.v[1], translate.v[0], 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeTranslateXYZ(T translateX, T translateY, T translateZ) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				translateX, translateY, translateZ, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeTranslateXYZ(const GenoVector<3, T> & translate) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				translate.v[0], translate.v[1], translate.v[2], 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeTranslateXZY(const GenoVector<3, T> & translate) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				translate.v[0], translate.v[2], translate.v[1], 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeTranslateYXZ(const GenoVector<3, T> & translate) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				translate.v[1], translate.v[0], translate.v[2], 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeTranslateYZX(const GenoVector<3, T> & translate) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				translate.v[2], translate.v[0], translate.v[1], 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeTranslateZXY(const GenoVector<3, T> & translate) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				translate.v[1], translate.v[2], translate.v[0], 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeTranslateZYX(const GenoVector<3, T> & translate) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				translate.v[2], translate.v[1], translate.v[0], 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeRotateX(T rotateX) {
+			auto sinX = sin(rotateX);
+			auto cosX = cos(rotateX);
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				0, cosX, sinX, 0,
+				0, -sinX, cosX, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeRotateY(T rotateY) {
+			auto sinY = sin(rotateY);
+			auto cosY = cos(rotateY);
+			return new T[4 * 4] {
+				cosY, 0, -sinY, 0,
+				0, 1, 0, 0,
+				sinY, 0, cosY, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeRotateZ(T rotateZ) {
+			auto sinZ = sin(rotateZ);
+			auto cosZ = cos(rotateZ);
+			return new T[4 * 4] {
+				cosZ, sinZ, 0, 0,
+				-sinZ, cosZ, 0, 0,
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeRotateXY(T rotateX, T rotateY) {
+			auto sinX = sin(rotateX);
+			auto cosX = cos(rotateX);
+			auto sinY = sin(rotateY);
+			auto cosY = cos(rotateY);
+			return new T[4 * 4] {
+				cosY, 0, -sinY, 0,
+				sinY * sinX, cosX, cosY * sinX, 0,
+				sinY * cosX, -sinX, cosY * cosX, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeRotateXY(const GenoVector<2, T> & rotate) {
+			auto sinX = sin(rotate.v[0]);
+			auto cosX = cos(rotate.v[0]);
+			auto sinY = sin(rotate.v[1]);
+			auto cosY = cos(rotate.v[1]);
+			return new T[4 * 4] {
+				cosY, 0, -sinY, 0,
+				sinY * sinX, cosX, cosY * sinX, 0,
+				sinY * cosX, -sinX, cosY * cosX, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeRotateXZ(T rotateX, T rotateZ) {
+			auto sinX = sin(rotateX);
+			auto cosX = cos(rotateX);
+			auto sinZ = sin(rotateZ);
+			auto cosZ = cos(rotateZ);
+			return new T[4 * 4] {
+				cosZ, sinZ, 0, 0,
+				-sinZ * cosX, cosZ * cosX, sinX, 0,
+				sinZ * sinX, -cosZ * sinX, cosX, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeRotateXZ(const GenoVector<2, T> & rotate) {
+			auto sinX = sin(rotate.v[0]);
+			auto cosX = cos(rotate.v[0]);
+			auto sinZ = sin(rotate.v[1]);
+			auto cosZ = cos(rotate.v[1]);
+			return new T[4 * 4] {
+				cosZ, sinZ, 0, 0,
+				-sinZ * cosX, cosZ * cosX, sinX, 0,
+				sinZ * sinX, -cosZ * sinX, cosX, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeRotateYX(const GenoVector<2, T> & rotate) {
+			auto sinX = sin(rotate.v[1]);
+			auto cosX = cos(rotate.v[1]);
+			auto sinY = sin(rotate.v[0]);
+			auto cosY = cos(rotate.v[0]);
+			return new T[4 * 4] {
+				cosY, sinX * sinY, -cosX * sinY, 0,
+				0, cosX, sinX, 0,
+				sinY, -sinX * cosY, cosX * cosY, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeRotateYZ(T rotateY, T rotateZ) {
+			auto sinY = sin(rotateY);
+			auto cosY = cos(rotateY);
+			auto sinZ = sin(rotateZ);
+			auto cosZ = cos(rotateZ);
+			return new T[4 * 4] {
+				cosZ * cosY, sinZ * cosY, -sinY, 0,
+				-sinZ, cosZ, 0, 0,
+				cosZ * sinY, sinZ * sinY, cosY, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeRotateYZ(const GenoVector<2, T> & rotate) {
+			auto sinY = sin(rotate.v[0]);
+			auto cosY = cos(rotate.v[0]);
+			auto sinZ = sin(rotate.v[1]);
+			auto cosZ = cos(rotate.v[1]);
+			return new T[4 * 4] {
+				cosZ * cosY, sinZ * cosY, -sinY, 0,
+				-sinZ, cosZ, 0, 0,
+				cosZ * sinY, sinZ * sinY, cosY, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeRotateZX(const GenoVector<2, T> & rotate) {
+			auto sinX = sin(rotate.v[1]);
+			auto cosX = cos(rotate.v[1]);
+			auto sinZ = sin(rotate.v[0]);
+			auto cosZ = cos(rotate.v[0]);
+			return new T[4 * 4] {
+				cosZ, cosX * sinZ, sinX * sinZ, 0,
+				-sinZ, cosX * cosZ, sinX * cosZ, 0,
+				0, -sinX, cosX, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeRotateZY(const GenoVector<2, T> & rotate) {
+			auto sinY = sin(rotate.v[1]);
+			auto cosY = cos(rotate.v[1]);
+			auto sinZ = sin(rotate.v[0]);
+			auto cosZ = cos(rotate.v[0]);
+			return new T[4 * 4] {
+				cosY * cosZ, sinZ, -sinY * cosZ, 0,
+				-cosY * sinZ, cosZ, sinY * sinZ, 0,
+				sinY, 0, cosY, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeRotateXYZ(T rotateX, T rotateY, T rotateZ) {
+			auto sinX = sin(rotateX);
+			auto cosX = cos(rotateX);
+			auto sinY = sin(rotateY);
+			auto cosY = cos(rotateY);
+			auto sinZ = sin(rotateZ);
+			auto cosZ = cos(rotateZ);
+			return new T[4 * 4] {
+				cosZ * cosY, sinZ * cosY, -sinY, 0,
+				-sinZ * cosX + cosZ * sinY * sinX, cosZ * cosX + sinZ * sinY * sinX, cosY * sinX, 0,
+				sinZ * sinX + cosZ * sinY * cosX, -cosZ * sinX + sinZ * sinY * cosX, cosY * cosX, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeRotateXYZ(const GenoVector<3, T> & rotate) {
+			auto sinX = sin(rotate.v[0]);
+			auto cosX = cos(rotate.v[0]);
+			auto sinY = sin(rotate.v[1]);
+			auto cosY = cos(rotate.v[1]);
+			auto sinZ = sin(rotate.v[2]);
+			auto cosZ = cos(rotate.v[2]);
+			return new T[4 * 4] {
+				cosZ * cosY, sinZ * cosY, -sinY, 0,
+				-sinZ * cosX + cosZ * sinY * sinX, cosZ * cosX + sinZ * sinY * sinX, cosY * sinX, 0,
+				sinZ * sinX + cosZ * sinY * cosX, -cosZ * sinX + sinZ * sinY * cosX, cosY * cosX, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeRotateXZY(const GenoVector<3, T> & rotate) {
+			auto sinX = sin(rotate.v[0]);
+			auto cosX = cos(rotate.v[0]);
+			auto sinY = sin(rotate.v[2]);
+			auto cosY = cos(rotate.v[2]);
+			auto sinZ = sin(rotate.v[1]);
+			auto cosZ = cos(rotate.v[1]);
+			return new T[4 * 4] {
+				cosY * cosZ, sinZ, -sinY * cosZ, 0,
+				-cosY * sinZ * cosX + sinY * sinX, cosZ * cosX, sinY * sinZ * cosX + cosY * sinX, 0,
+				cosY * sinZ * sinX + sinY * cosX, -cosZ * sinX, -sinY * sinZ * sinX + cosY * cosX, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeRotateYXZ(const GenoVector<3, T> & rotate) {
+			auto sinX = sin(rotate.v[1]);
+			auto cosX = cos(rotate.v[1]);
+			auto sinY = sin(rotate.v[0]);
+			auto cosY = cos(rotate.v[0]);
+			auto sinZ = sin(rotate.v[2]);
+			auto cosZ = cos(rotate.v[2]);
+			return new T[4 * 4] {
+				cosZ * cosY - sinZ * sinX * sinY, sinZ * cosY + cosZ * sinX * sinY, -cosX * sinY, 0,
+				-sinZ * cosX, cosZ * cosX, sinX, 0,
+				cosZ * sinY + sinZ * sinX * cosY, sinZ * sinY - cosZ * sinX * cosY, cosX * cosY, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeRotateYZX(const GenoVector<3, T> & rotate) {
+			auto sinX = sin(rotate.v[2]);
+			auto cosX = cos(rotate.v[2]);
+			auto sinY = sin(rotate.v[0]);
+			auto cosY = cos(rotate.v[0]);
+			auto sinZ = sin(rotate.v[1]);
+			auto cosZ = cos(rotate.v[1]);
+			return new T[4 * 4] {
+				cosZ * cosY, cosX * sinZ * cosY + sinX * sinY, sinX * sinZ * cosY - cosX * sinY, 0,
+				-sinZ, cosX * cosZ, sinX * cosZ, 0,
+				cosZ * sinY, cosX * sinZ * sinY - sinX * cosY, sinX * sinZ * sinY + cosX * cosY, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeRotateZXY(const GenoVector<3, T> & rotate) {
+			auto sinX = sin(rotate.v[1]);
+			auto cosX = cos(rotate.v[1]);
+			auto sinY = sin(rotate.v[2]);
+			auto cosY = cos(rotate.v[2]);
+			auto sinZ = sin(rotate.v[0]);
+			auto cosZ = cos(rotate.v[0]);
+			return new T[4 * 4] {
+				cosY * cosZ + sinY * sinX * sinZ, cosX * sinZ, -sinY * cosZ + cosY * sinX * sinZ, 0,
+				-cosY * sinZ + sinY * sinX * cosZ, cosX * cosZ, sinY * sinZ + cosY * sinX * cosZ, 0,
+				sinY * cosX, -sinX, cosY * cosX, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeRotateZYX(const GenoVector<3, T> & rotate) {
+			auto sinX = sin(rotate.v[2]);
+			auto cosX = cos(rotate.v[2]);
+			auto sinY = sin(rotate.v[1]);
+			auto cosY = cos(rotate.v[1]);
+			auto sinZ = sin(rotate.v[0]);
+			auto cosZ = cos(rotate.v[0]);
+			return new T[4 * 4] {
+				cosY * cosZ, sinX * sinY * cosZ + cosX * sinZ, -cosX * sinY * cosZ + sinX * sinZ, 0,
+				-cosY * sinZ, -sinX * sinY * sinZ + cosX * cosZ, cosX * sinY * sinZ + sinX * cosZ, 0,
+				sinY, -sinX * cosY, cosX * cosY, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScaleX(T scaleX) {
+			return new T[4 * 4] {
+				scaleX, 0, 0, 0
+				0, 1, 0, 0
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScaleY(T scaleY) {
+			return new T[4 * 4] {
+				1, 0, 0, 0
+				0, scaleY, 0, 0
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScaleZ(T scaleZ) {
+			return new T[4 * 4] {
+				1, 0, 0, 0
+				0, 1, 0, 0
+				0, 0, scaleZ, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScaleXY(T scale) {
+			return new T[4 * 4] {
+				scale, 0, 0, 0
+				0, scale, 0, 0
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScaleXY(T scaleX, T scaleY) {
+			return new T[4 * 4] {
+				scaleX, 0, 0, 0
+				0, scaleY, 0, 0
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScaleXY(const GenoVector<2, T> & scale) {
+			return new T[4 * 4] {
+				scale.v[0], 0, 0, 0
+				0, scale.v[1], 0, 0
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScaleXZ(T scale) {
+			return new T[4 * 4] {
+				scale, 0, 0, 0
+				0, 1, 0, 0
+				0, 0, scale, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScaleXZ(T scaleX, T scaleZ) {
+			return new T[4 * 4] {
+				scaleX, 0, 0, 0
+				0, 1, 0, 0
+				0, 0, scaleZ, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScaleXZ(const GenoVector<2, T> & scale) {
+			return new T[4 * 4] {
+				scale.v[0], 0, 0, 0
+				0, 1, 0, 0
+				0, 0, scale.v[1], 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScaleYX(const GenoVector<2, T> & scale) {
+			return new T[4 * 4] {
+				scale.v[1], 0, 0, 0
+				0, scale.v[0], 0, 0
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScaleYZ(T scale) {
+			return new T[4 * 4] {
+				1, 0, 0, 0
+				0, scale, 0, 0
+				0, 0, scale, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScaleYZ(T scaleY, T scaleZ) {
+			return new T[4 * 4] {
+				1, 0, 0, 0
+				0, scaleY, 0, 0
+				0, 0, scaleZ, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScaleYZ(const GenoVector<2, T> & scale) {
+			return new T[4 * 4] {
+				1, 0, 0, 0
+				0, scale.v[0], 0, 0
+				0, 0, scale.v[1], 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScaleZX(const GenoVector<2, T> & scale) {
+			return new T[4 * 4] {
+				scale.v[1], 0, 0, 0
+				0, 1, 0, 0
+				0, 0, scale.v[0], 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScaleZY(const GenoVector<2, T> & scale) {
+			return new T[4 * 4] {
+				1, 0, 0, 0
+				0, scale.v[1], 0, 0
+				0, 0, scale.v[0], 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScaleXYZ(T scale) {
+			return new T[4 * 4] {
+				scale, 0, 0, 0
+				0, scale, 0, 0
+				0, 0, scale, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScaleXYZ(T scaleX, T scaleY, T scaleZ) {
+			return new T[4 * 4] {
+				scaleX, 0, 0, 0
+				0, scaleY, 0, 0
+				0, 0, scaleZ, 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScaleXYZ(const GenoVector<3, T> & scale) {
+			return new T[4 * 4] {
+				scale.v[0], 0, 0, 0
+				0, scale.v[1], 0, 0
+				0, 0, scale.v[2], 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScaleXZY(const GenoVector<3, T> & scale) {
+			return new T[4 * 4] {
+				scale.v[0], 0, 0, 0
+				0, scale.v[2], 0, 0
+				0, 0, scale.v[1], 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScaleYXZ(const GenoVector<3, T> & scale) {
+			return new T[4 * 4] {
+				scale.v[1], 0, 0, 0
+				0, scale.v[0], 0, 0
+				0, 0, scale.v[2], 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScaleYZX(const GenoVector<3, T> & scale) {
+			return new T[4 * 4] {
+				scale.v[2], 0, 0, 0
+				0, scale.v[0], 0, 0
+				0, 0, scale.v[1], 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScaleZXY(const GenoVector<3, T> & scale) {
+			return new T[4 * 4] {
+				scale.v[1], 0, 0, 0
+				0, scale.v[2], 0, 0
+				0, 0, scale.v[0], 0,
+				0, 0, 0, 1
+			};
+		}
+
+		static GenoMatrix<4, 4, T> makeScaleZYX(const GenoVector<3, T> & scale) {
+			return new T[4 * 4] {
+				scale.v[2], 0, 0, 0
+				0, scale.v[1], 0, 0
+				0, 0, scale.v[0], 0,
+				0, 0, 0, 1
+			};
+		}
+
 		GenoMatrix() :
 			m(new T[4 * 4]()) {}
 
@@ -281,6 +1004,1510 @@ class GenoMatrix<4, 4, T> {
 			m[13] = 0;
 			m[14] = (2 * far * near) / (near - far);
 			m[15] = 0;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setTranslate2D(T translateX, T translateY) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = translateX;
+			m[13] = translateY;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setTranslate2D(const GenoVector<2, T> & translate) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = translate.v[0];
+			m[13] = translate.v[1];
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setTranslate(T translateX, T translateY, T translateZ) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = translateX;
+			m[13] = translateY;
+			m[14] = translateZ;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setTranslate(const GenoVector<3, T> & translate) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = translate.v[0];
+			m[13] = translate.v[1];
+			m[14] = translate.v[2];
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScale2D(T scale) {
+			m[0 ] = scale;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = scale;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScale2D(T scaleX, T scaleY) {
+			m[0 ] = scaleX;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = scaleY;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScale2D(const GenoVector<2, T> & scale) {
+			m[0 ] = scale.v[0];
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = scale.v[1];
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScale(T scale) {
+			m[0 ] = scale;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = scale;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = scale;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScale(T scaleX, T scaleY, T scaleZ) {
+			m[0 ] = scaleX;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = scaleY;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = scaleZ;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScale(const GenoVector<3, T> & scale) {
+			m[0 ] = scale.v[0];
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = scale.v[1];
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = scale.v[2];
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setTranslateX(T translateX) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = translateX;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setTranslateY(T translateY) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = translateY;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setTranslateZ(T translateZ) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = translateZ;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setTranslateXY(T translateX, T translateY) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = translateX;
+			m[13] = translateY;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setTranslateXY(const GenoVector<2, T> & translate) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = translate.v[0];
+			m[13] = translate.v[1];
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setTranslateXZ(T translateX, T translateZ) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = translateX;
+			m[13] = 0;
+			m[14] = translateZ;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setTranslateXZ(const GenoVector<2, T> & translate) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = translate.v[0];
+			m[13] = 0;
+			m[14] = translate.v[1];
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setTranslateYX(const GenoVector<2, T> & translate) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = translate.v[1];
+			m[13] = translate.v[0];
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setTranslateYZ(T translateY, T translateZ) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = translateY;
+			m[14] = translateZ;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setTranslateYZ(const GenoVector<2, T> & translate) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = translate.v[0];
+			m[14] = translate.v[1];
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setTranslateZX(const GenoVector<2, T> & translate) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = translate.v[1];
+			m[13] = 0;
+			m[14] = translate.v[0];
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setTranslateZY(const GenoVector<2, T> & translate) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = translate.v[1];
+			m[14] = translate.v[0];
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setTranslateXYZ(T translateX, T translateY, T translateZ) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = translateX;
+			m[13] = translateY;
+			m[14] = translateZ;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setTranslateXYZ(const GenoVector<3, T> & translate) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = translate.v[0];
+			m[13] = translate.v[1];
+			m[14] = translate.v[2];
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setTranslateXZY(const GenoVector<3, T> & translate) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = translate.v[0];
+			m[13] = translate.v[2];
+			m[14] = translate.v[1];
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setTranslateYXZ(const GenoVector<3, T> & translate) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = translate.v[1];
+			m[13] = translate.v[0];
+			m[14] = translate.v[2];
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setTranslateYZX(const GenoVector<3, T> & translate) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = translate.v[2];
+			m[13] = translate.v[0];
+			m[14] = translate.v[1];
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setTranslateZXY(const GenoVector<3, T> & translate) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = translate.v[1];
+			m[13] = translate.v[2];
+			m[14] = translate.v[0];
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setTranslateZYX(const GenoVector<3, T> & translate) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = translate.v[2];
+			m[13] = translate.v[1];
+			m[14] = translate.v[0];
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setRotateX(T rotateX) {
+			auto sinX = sin(rotateX);
+			auto cosX = cos(rotateX);
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = cosX;
+			m[6 ] = sinX;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = -sinX;
+			m[10] = cosX;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setRotateY(T rotateY) {
+			auto sinY = sin(rotateY);
+			auto cosY = cos(rotateY);
+			m[0 ] = cosY;
+			m[1 ] = 0;
+			m[2 ] = -sinY;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = sinY;
+			m[9 ] = 0;
+			m[10] = cosY;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setRotateZ(T rotateZ) {
+			auto sinZ = sin(rotateZ);
+			auto cosZ = cos(rotateZ);
+			m[0 ] = cosZ;
+			m[1 ] = sinZ;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = -sinZ;
+			m[5 ] = cosZ;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setRotateXY(T rotateX, T rotateY) {
+			auto sinX = sin(rotateX);
+			auto cosX = cos(rotateX);
+			auto sinY = sin(rotateY);
+			auto cosY = cos(rotateY);
+			m[0 ] = cosY;
+			m[1 ] = 0;
+			m[2 ] = -sinY;
+			m[3 ] = 0;
+			m[4 ] = sinY * sinX;
+			m[5 ] = cosX;
+			m[6 ] = cosY * sinX;
+			m[7 ] = 0;
+			m[8 ] = sinY * cosX;
+			m[9 ] = -sinX;
+			m[10] = cosY * cosX;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setRotateXY(const GenoVector<2, T> & rotate) {
+			auto sinX = sin(rotate.v[0]);
+			auto cosX = cos(rotate.v[0]);
+			auto sinY = sin(rotate.v[1]);
+			auto cosY = cos(rotate.v[1]);
+			m[0 ] = cosY;
+			m[1 ] = 0;
+			m[2 ] = -sinY;
+			m[3 ] = 0;
+			m[4 ] = sinY * sinX;
+			m[5 ] = cosX;
+			m[6 ] = cosY * sinX;
+			m[7 ] = 0;
+			m[8 ] = sinY * cosX;
+			m[9 ] = -sinX;
+			m[10] = cosY * cosX;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setRotateXZ(T rotateX, T rotateZ) {
+			auto sinX = sin(rotateX);
+			auto cosX = cos(rotateX);
+			auto sinZ = sin(rotateZ);
+			auto cosZ = cos(rotateZ);
+			m[0 ] = cosZ;
+			m[1 ] = sinZ;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = -sinZ * cosX;
+			m[5 ] = cosZ * cosX;
+			m[6 ] = sinX;
+			m[7 ] = 0;
+			m[8 ] = sinZ * sinX;
+			m[9 ] = -cosZ * sinX;
+			m[10] = cosX;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setRotateXZ(const GenoVector<2, T> & rotate) {
+			auto sinX = sin(rotate.v[0]);
+			auto cosX = cos(rotate.v[0]);
+			auto sinZ = sin(rotate.v[1]);
+			auto cosZ = cos(rotate.v[1]);
+			m[0 ] = cosZ;
+			m[1 ] = sinZ;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = -sinZ * cosX;
+			m[5 ] = cosZ * cosX;
+			m[6 ] = sinX;
+			m[7 ] = 0;
+			m[8 ] = sinZ * sinX;
+			m[9 ] = -cosZ * sinX;
+			m[10] = cosX;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setRotateYX(const GenoVector<2, T> & rotate) {
+			auto sinX = sin(rotate.v[1]);
+			auto cosX = cos(rotate.v[1]);
+			auto sinY = sin(rotate.v[0]);
+			auto cosY = cos(rotate.v[0]);
+			m[0 ] = cosY;
+			m[1 ] = sinX * sinY;
+			m[2 ] = -cosX * sinY;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = cosX;
+			m[6 ] = sinX;
+			m[7 ] = 0;
+			m[8 ] = sinY;
+			m[9 ] = -sinX * cosY;
+			m[10] = cosX * cosY;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setRotateYZ(T rotateY, T rotateZ) {
+			auto sinY = sin(rotateY);
+			auto cosY = cos(rotateY);
+			auto sinZ = sin(rotateZ);
+			auto cosZ = cos(rotateZ);
+			m[0 ] = cosZ * cosY;
+			m[1 ] = sinZ * cosY;
+			m[2 ] = -sinY;
+			m[3 ] = 0;
+			m[4 ] = -sinZ;
+			m[5 ] = cosZ;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = cosZ * sinY;
+			m[9 ] = sinZ * sinY;
+			m[10] = cosY;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setRotateYZ(const GenoVector<2, T> & rotate) {
+			auto sinY = sin(rotate.v[0]);
+			auto cosY = cos(rotate.v[0]);
+			auto sinZ = sin(rotate.v[1]);
+			auto cosZ = cos(rotate.v[1]);
+			m[0 ] = cosZ * cosY;
+			m[1 ] = sinZ * cosY;
+			m[2 ] = -sinY;
+			m[3 ] = 0;
+			m[4 ] = -sinZ;
+			m[5 ] = cosZ;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = cosZ * sinY;
+			m[9 ] = sinZ * sinY;
+			m[10] = cosY;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setRotateZX(const GenoVector<2, T> & rotate) {
+			auto sinX = sin(rotate.v[1]);
+			auto cosX = cos(rotate.v[1]);
+			auto sinZ = sin(rotate.v[0]);
+			auto cosZ = cos(rotate.v[0]);
+			m[0 ] = cosZ;
+			m[1 ] = cosX * sinZ;
+			m[2 ] = sinX * sinZ;
+			m[3 ] = 0;
+			m[4 ] = -sinZ;
+			m[5 ] = cosX * cosZ;
+			m[6 ] = sinX * cosZ;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = -sinX;
+			m[10] = cosX;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setRotateZY(const GenoVector<2, T> & rotate) {
+			auto sinY = sin(rotate.v[1]);
+			auto cosY = cos(rotate.v[1]);
+			auto sinZ = sin(rotate.v[0]);
+			auto cosZ = cos(rotate.v[0]);
+			m[0 ] = cosY * cosZ;
+			m[1 ] = sinZ;
+			m[2 ] = -sinY * cosZ;
+			m[3 ] = 0;
+			m[4 ] = -cosY * sinZ;
+			m[5 ] = cosZ;
+			m[6 ] = sinY * sinZ;
+			m[7 ] = 0;
+			m[8 ] = sinY;
+			m[9 ] = 0;
+			m[10] = cosY;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setRotateXYZ(T rotateX, T rotateY, T rotateZ) {
+			auto sinX = sin(rotateX);
+			auto cosX = cos(rotateX);
+			auto sinY = sin(rotateY);
+			auto cosY = cos(rotateY);
+			auto sinZ = sin(rotateZ);
+			auto cosZ = cos(rotateZ);
+			m[0 ] = cosZ * cosY;
+			m[1 ] = sinZ * cosY;
+			m[2 ] = -sinY;
+			m[3 ] = 0;
+			m[4 ] = -sinZ * cosX + cosZ * sinY * sinX;
+			m[5 ] = cosZ * cosX + sinZ * sinY * sinX;
+			m[6 ] = cosY * sinX;
+			m[7 ] = 0;
+			m[8 ] = sinZ * sinX + cosZ * sinY * cosX;
+			m[9 ] = -cosZ * sinX + sinZ * sinY * cosX;
+			m[10] = cosY * cosX;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setRotateXYZ(const GenoVector<3, T> & rotate) {
+			auto sinX = sin(rotate.v[0]);
+			auto cosX = cos(rotate.v[0]);
+			auto sinY = sin(rotate.v[1]);
+			auto cosY = cos(rotate.v[1]);
+			auto sinZ = sin(rotate.v[2]);
+			auto cosZ = cos(rotate.v[2]);
+			m[0 ] = cosZ * cosY;
+			m[1 ] = sinZ * cosY;
+			m[2 ] = -sinY;
+			m[3 ] = 0;
+			m[4 ] = -sinZ * cosX + cosZ * sinY * sinX;
+			m[5 ] = cosZ * cosX + sinZ * sinY * sinX;
+			m[6 ] = cosY * sinX;
+			m[7 ] = 0;
+			m[8 ] = sinZ * sinX + cosZ * sinY * cosX;
+			m[9 ] = -cosZ * sinX + sinZ * sinY * cosX;
+			m[10] = cosY * cosX;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setRotateXZY(const GenoVector<3, T> & rotate) {
+			auto sinX = sin(rotate.v[0]);
+			auto cosX = cos(rotate.v[0]);
+			auto sinY = sin(rotate.v[2]);
+			auto cosY = cos(rotate.v[2]);
+			auto sinZ = sin(rotate.v[1]);
+			auto cosZ = cos(rotate.v[1]);
+			m[0 ] = cosY * cosZ;
+			m[1 ] = sinZ;
+			m[2 ] = -sinY * cosZ;
+			m[3 ] = 0;
+			m[4 ] = -cosY * sinZ * cosX + sinY * sinX;
+			m[5 ] = cosZ * cosX;
+			m[6 ] = sinY * sinZ * cosX + cosY * sinX;
+			m[7 ] = 0;
+			m[8 ] = cosY * sinZ * sinX + sinY * cosX;
+			m[9 ] = -cosZ * sinX;
+			m[10] = -sinY * sinZ * sinX + cosY * cosX;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setRotateYXZ(const GenoVector<3, T> & rotate) {
+			auto sinX = sin(rotate.v[1]);
+			auto cosX = cos(rotate.v[1]);
+			auto sinY = sin(rotate.v[0]);
+			auto cosY = cos(rotate.v[0]);
+			auto sinZ = sin(rotate.v[2]);
+			auto cosZ = cos(rotate.v[2]);
+			m[0 ] = cosZ * cosY - sinZ * sinX * sinY;
+			m[1 ] = sinZ * cosY + cosZ * sinX * sinY;
+			m[2 ] = -cosX * sinY;
+			m[3 ] = 0;
+			m[4 ] = -sinZ * cosX;
+			m[5 ] = cosZ * cosX;
+			m[6 ] = sinX;
+			m[7 ] = 0;
+			m[8 ] = cosZ * sinY + sinZ * sinX * cosY;
+			m[9 ] = sinZ * sinY - cosZ * sinX * cosY;
+			m[10] = cosX * cosY;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setRotateYZX(const GenoVector<3, T> & rotate) {
+			auto sinX = sin(rotate.v[2]);
+			auto cosX = cos(rotate.v[2]);
+			auto sinY = sin(rotate.v[0]);
+			auto cosY = cos(rotate.v[0]);
+			auto sinZ = sin(rotate.v[1]);
+			auto cosZ = cos(rotate.v[1]);
+			m[0 ] = cosZ * cosY;
+			m[1 ] = cosX * sinZ * cosY + sinX * sinY;
+			m[2 ] = sinX * sinZ * cosY - cosX * sinY;
+			m[3 ] = 0;
+			m[4 ] = -sinZ;
+			m[5 ] = cosX * cosZ;
+			m[6 ] = sinX * cosZ;
+			m[7 ] = 0;
+			m[8 ] = cosZ * sinY;
+			m[9 ] = cosX * sinZ * sinY - sinX * cosY;
+			m[10] = sinX * sinZ * sinY + cosX * cosY;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setRotateZXY(const GenoVector<3, T> & rotate) {
+			auto sinX = sin(rotate.v[1]);
+			auto cosX = cos(rotate.v[1]);
+			auto sinY = sin(rotate.v[2]);
+			auto cosY = cos(rotate.v[2]);
+			auto sinZ = sin(rotate.v[0]);
+			auto cosZ = cos(rotate.v[0]);
+			m[0 ] = cosY * cosZ + sinY * sinX * sinZ;
+			m[1 ] = cosX * sinZ;
+			m[2 ] = -sinY * cosZ + cosY * sinX * sinZ;
+			m[3 ] = 0;
+			m[4 ] = -cosY * sinZ + sinY * sinX * cosZ;
+			m[5 ] = cosX * cosZ;
+			m[6 ] = sinY * sinZ + cosY * sinX * cosZ;
+			m[7 ] = 0;
+			m[8 ] = sinY * cosX;
+			m[9 ] = -sinX;
+			m[10] = cosY * cosX;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setRotateZYX(const GenoVector<3, T> & rotate) {
+			auto sinX = sin(rotate.v[2]);
+			auto cosX = cos(rotate.v[2]);
+			auto sinY = sin(rotate.v[1]);
+			auto cosY = cos(rotate.v[1]);
+			auto sinZ = sin(rotate.v[0]);
+			auto cosZ = cos(rotate.v[0]);
+			m[0 ] = cosY * cosZ;
+			m[1 ] = sinX * sinY * cosZ + cosX * sinZ;
+			m[2 ] = -cosX * sinY * cosZ + sinX * sinZ;
+			m[3 ] = 0;
+			m[4 ] = -cosY * sinZ;
+			m[5 ] = -sinX * sinY * sinZ + cosX * cosZ;
+			m[6 ] = cosX * sinY * sinZ + sinX * cosZ;
+			m[7 ] = 0;
+			m[8 ] = sinY;
+			m[9 ] = -sinX * cosY;
+			m[10] = cosX * cosY;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScaleX(T scaleX) {
+			m[0 ] = scaleX;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScaleY(T scaleY) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = scaleY;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScaleZ(T scaleZ) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = scaleZ;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScaleXY(T scale) {
+			m[0 ] = scale;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = scale;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScaleXY(T scaleX, T scaleY) {
+			m[0 ] = scaleX;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = scaleY;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScaleXY(const GenoVector<2, T> & scale) {
+			m[0 ] = scale.v[0];
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = scale.v[1];
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScaleXZ(T scale) {
+			m[0 ] = scale;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = scale;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScaleXZ(T scaleX, T scaleZ) {
+			m[0 ] = scaleX;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = scaleZ;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScaleXZ(const GenoVector<2, T> & scale) {
+			m[0 ] = scale.v[0];
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = scale.v[1];
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScaleYX(const GenoVector<2, T> & scale) {
+			m[0 ] = scale.v[1];
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = scale.v[0];
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScaleYZ(T scale) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = scale;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = scale;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScaleYZ(T scaleY, T scaleZ) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = scaleY;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = scaleZ;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScaleYZ(const GenoVector<2, T> & scale) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = scale.v[0];
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = scale.v[1];
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScaleZX(const GenoVector<2, T> & scale) {
+			m[0 ] = scale.v[1];
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = scale.v[0];
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScaleZY(const GenoVector<2, T> & scale) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = scale.v[1];
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = scale.v[0];
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScaleXYZ(T scale) {
+			m[0 ] = scale;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = scale;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = scale;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScaleXYZ(T scaleX, T scaleY, T scaleZ) {
+			m[0 ] = scaleX;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = scaleY;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = scaleZ;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScaleXYZ(const GenoVector<3, T> & scale) {
+			m[0 ] = scale.v[0];
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = scale.v[1];
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = scale.v[2];
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScaleXZY(const GenoVector<3, T> & scale) {
+			m[0 ] = scale.v[0];
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = scale.v[2];
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = scale.v[1];
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScaleYXZ(const GenoVector<3, T> & scale) {
+			m[0 ] = scale.v[1];
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = scale.v[0];
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = scale.v[2];
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScaleYZX(const GenoVector<3, T> & scale) {
+			m[0 ] = scale.v[2];
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = scale.v[0];
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = scale.v[1];
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScaleZXY(const GenoVector<3, T> & scale) {
+			m[0 ] = scale.v[1];
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = scale.v[2];
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = scale.v[0];
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setScaleZYX(const GenoVector<3, T> & scale) {
+			m[0 ] = scale.v[2];
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = scale.v[1];
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = scale.v[0];
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
 			return *this;
 		}
 
