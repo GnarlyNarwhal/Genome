@@ -261,13 +261,51 @@ class GenoVector<2, T> {
 			return *this;
 		}
 
+		GenoVector<2, T> & shear(const GenoVector<2, T> & axis, T shearAngle) {
+			auto unitAxis = normalize(axis); 
+			auto scalar  = v[0] * unitAxis.v[1] - v[1] * unitAxis.v[0];
+			     scalar *= tan(shearAngle);
+			v[0] += scalar * unitAxis.v[0];
+			v[1] += scalar * unitAxis.v[1];
+			return *this;
+		}
+
+		GenoVector<2, T> & shear(T axisAngle, const GenoVector<2, T> & shear) {
+			auto sinAxis = sin(axisAngle);
+			auto cosAxis = cos(axisAngle);
+			auto scalar  = v[0] * sinAxis - v[1] * cosAxis;
+			     scalar *= shear.v[1] / shear.v[0];
+			v[0] += scalar * cosAxis;
+			v[1] += scalar * sinAxis;
+			return *this;
+		}
+
+		GenoVector<2, T> & shear(const GenoVector<2, T> & axis, const GenoVector<2, T> & shear) {
+			auto unitAxis = normalize(axis); 
+			auto scalar  = v[0] * unitAxis.v[1] - v[1] * unitAxis.v[0];
+			     scalar *= shear.v[1] / shear.v[0];
+			v[0] += scalar * unitAxis.v[0];
+			v[1] += scalar * unitAxis.v[1];
+			return *this;
+		}
+
 		GenoVector<2, T> & shearX(T angle) {
 			v[0] -= v[1] * tan(angle);
 			return *this;
 		}
 
+		GenoVector<2, T> & shearX(const GenoVector<2, T> & shear) {
+			v[0] -= v[1] * shear.v[1] / shear.v[0];
+			return *this;
+		}
+
 		GenoVector<2, T> & shearY(T angle) {
 			v[1] += v[0] * tan(angle);
+			return *this;
+		}
+
+		GenoVector<2, T> & shearY(const GenoVector<2, T> & shear) {
+			v[1] += v[0] * shear.v[1] / shear.v[0];
 			return *this;
 		}
 

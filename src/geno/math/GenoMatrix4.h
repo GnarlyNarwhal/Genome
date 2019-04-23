@@ -81,12 +81,94 @@ class GenoMatrix<4, 4, T> {
 		}
 
 		static GenoMatrix<4, 4, T> makePerspective(T fovY, T aspectRatio, T near, T far) {
-			T vertical = 1 / tan(fovY / 2);
+			auto vertical = 1 / tan(fovY / 2);
 			return new T[4 * 4] {
 				vertical / aspectRatio, 0, 0, 0,
 				0, vertical, 0, 0,
 				0, 0, (near + far) / (near - far), -1,
 				0, 0, (2 * far * near) / (near - far), 0
+			};
+		}
+		
+		static GenoMatrix<4, 4, T> makeShear2D(T axisAngle, T shearAngle) {
+			auto sinAxis = sin(axisAngle);
+			auto cosAxis = cos(axisAngle);
+			auto tanShear = tan(shearAngle);
+			return new T[4 * 4] {
+				sinAxis * tanShear * cosAxis, -cosAxis * tanShear * cosAxis, 0, 0,
+				sinAxis * tanShear * sinAxis, -cosAxis * tanShear * sinAxis, 0, 0,
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			};
+		}
+		
+		static GenoMatrix<4, 4, T> makeShear2D(const GenoVector<2, T> & axis, T shearAngle) {
+			auto unitAxis = normalize(axis); 
+			auto tanShear = tan(shearAngle);
+			return new T[4 * 4] {
+				unitAxis.v[1] * tanShear * unitAxis.v[0], -unitAxis.v[0] * tanShear * unitAxis.v[0], 0, 0,
+				unitAxis.v[1] * tanShear * unitAxis.v[1], -unitAxis.v[0] * tanShear * unitAxis.v[1], 0, 0,
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			};
+		}
+		
+		static GenoMatrix<4, 4, T> makeShear2D(T axisAngle, const GenoVector<2, T> & shear) {
+			auto sinAxis = sin(axisAngle);
+			auto cosAxis = cos(axisAngle);
+			auto tanShear = shear.v[1] / shear.v[0];
+			return new T[4 * 4] {
+				sinAxis * tanShear * cosAxis, -cosAxis * tanShear * cosAxis, 0, 0,
+				sinAxis * tanShear * sinAxis, -cosAxis * tanShear * sinAxis, 0, 0,
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			};
+		}
+		
+		static GenoMatrix<4, 4, T> makeShear2D(const GenoVector<2, T> & axis, const GenoVector<2, T> & shear) {
+			auto unitAxis = normalize(axis);
+			auto tanShear = shear.v[1] / shear.v[0];
+			return new T[4 * 4] {
+				unitAxis.v[1] * tanShear * unitAxis.v[0], -unitAxis.v[0] * tanShear * unitAxis.v[0], 0, 0,
+				unitAxis.v[1] * tanShear * unitAxis.v[1], -unitAxis.v[0] * tanShear * unitAxis.v[1], 0, 0,
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			};
+		}
+		
+		static GenoMatrix<4, 4, T> makeShear2DX(T angle) {
+			return new T[4 * 4] {
+				1, -tan(angle), 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			};
+		}
+		
+		static GenoMatrix<4, 4, T> makeShear2DX(const GenoVector<2, T> & shear) {
+			return new T[4 * 4] {
+				1, -shear.v[1] / shear.v[0], 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			};
+		}
+		
+		static GenoMatrix<4, 4, T> makeShear2DY(T angle) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				tan(angle), 1, 0, 0,
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			};
+		}
+		
+		static GenoMatrix<4, 4, T> makeShear2DY(const GenoVector<2, T> & shear) {
+			return new T[4 * 4] {
+				1, 0, 0, 0,
+				shear.v[1] / shear.v[0], 1, 0, 0,
+				0, 0, 1, 0,
+				0, 0, 0, 1
 			};
 		}
 
@@ -1023,6 +1105,176 @@ class GenoMatrix<4, 4, T> {
 			m[13] = 0;
 			m[14] = (2 * far * near) / (near - far);
 			m[15] = 0;
+			return *this;
+		}
+		
+		GenoMatrix<4, 4, T> & setShear2D(T axisAngle, T shearAngle) {
+			auto sinAxis = sin(axisAngle);
+			auto cosAxis = cos(axisAngle);
+			auto tanShear = tan(shearAngle);
+			m[0 ] =  sinAxis * tanShear * cosAxis;
+			m[1 ] = -cosAxis * tanShear * cosAxis;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] =  sinAxis * tanShear * sinAxis;
+			m[5 ] = -cosAxis * tanShear * sinAxis;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+		
+		GenoMatrix<4, 4, T> & setShear2D(const GenoVector<2, T> & axis, T shearAngle) {
+			auto unitAxis = normalize(axis); 
+			auto tanShear = tan(shearAngle);
+			m[0 ] =  unitAxis.v[1] * tanShear * unitAxis.v[0];
+			m[1 ] = -unitAxis.v[0] * tanShear * unitAxis.v[0];
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] =  unitAxis.v[1] * tanShear * unitAxis.v[1];
+			m[5 ] = -unitAxis.v[0] * tanShear * unitAxis.v[1];
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+		
+		GenoMatrix<4, 4, T> & setShear2D(T axisAngle, const GenoVector<2, T> & shear) {
+			auto sinAxis = sin(axisAngle);
+			auto cosAxis = cos(axisAngle);
+			auto tanShear = shear.v[1] / shear.v[0];
+			m[0 ] =  sinAxis * tanShear * cosAxis;
+			m[1 ] = -cosAxis * tanShear * cosAxis;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] =  sinAxis * tanShear * sinAxis;
+			m[5 ] = -cosAxis * tanShear * sinAxis;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+		
+		GenoMatrix<4, 4, T> & setShear2D(const GenoVector<2, T> & axis, const GenoVector<2, T> & shear) {
+			auto unitAxis = normalize(axis);
+			auto tanShear = shear.v[1] / shear.v[0];
+			m[0 ] =  unitAxis.v[1] * tanShear * unitAxis.v[0];
+			m[1 ] = -unitAxis.v[0] * tanShear * unitAxis.v[0];
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] =  unitAxis.v[1] * tanShear * unitAxis.v[1];
+			m[5 ] = -unitAxis.v[0] * tanShear * unitAxis.v[1];
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+		
+		GenoMatrix<4, 4, T> & setShear2DX(T angle) {
+			m[0 ] = 1;
+			m[1 ] = -tan(angle);
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+		
+		GenoMatrix<4, 4, T> & setShear2DX(const GenoVector<2, T> & shear) {
+			m[0 ] = 1;
+			m[1 ] = -shear.v[1] / shear.v[0];
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = 0;
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+		
+		GenoMatrix<4, 4, T> & setShear2DY(T angle) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = tan(angle);
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
+			return *this;
+		}
+		
+		GenoMatrix<4, 4, T> & setShear2DY(const GenoVector<2, T> & shear) {
+			m[0 ] = 1;
+			m[1 ] = 0;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = shear.v[1] / shear.v[0];
+			m[5 ] = 1;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
+			m[15] = 1;
 			return *this;
 		}
 
@@ -2611,6 +2863,164 @@ class GenoMatrix<4, 4, T> {
 			m[4 ] = newM[4 ]; m[5 ] = newM[5 ]; m[6 ] = newM[6 ]; m[7 ] = newM[7 ];
 			m[8 ] = newM[8 ]; m[9 ] = newM[9 ]; m[10] = newM[10]; m[11] = newM[11];
 			m[12] = newM[12]; m[13] = newM[13]; m[14] = newM[14]; m[15] = newM[15];
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & shear2D(T axisAngle, T shearAngle) {
+			auto sinAxis = sin(axisAngle);
+			auto cosAxis = cos(axisAngle);
+			auto tanShear = tan(shearAngle);
+			auto m0  = sinAxis * tanShear * cosAxis;
+			auto m1  = -cosAxis * tanShear * cosAxis;
+			auto m4  = sinAxis * tanShear * sinAxis;
+			auto m5  = -cosAxis * tanShear * sinAxis;
+			T newM[] = {
+				m[0] * m0 + m[4] * m1,
+				m[1] * m0 + m[5] * m1,
+				m[2] * m0 + m[6] * m1,
+				m[3] * m0 + m[7] * m1,
+				m[0] * m4 + m[4] * m5,
+				m[1] * m4 + m[5] * m5,
+				m[2] * m4 + m[6] * m5,
+				m[3] * m4 + m[7] * m5,
+			};
+			m[0 ] = newM[0 ]; m[1 ] = newM[1 ]; m[2 ] = newM[2 ]; m[3 ] = newM[3 ];
+			m[4 ] = newM[4 ]; m[5 ] = newM[5 ]; m[6 ] = newM[6 ]; m[7 ] = newM[7 ];
+			/**** m[8 ] ****/ /**** m[9 ] ****/ /**** m[10] ****/ /**** m[11] ****/
+			/**** m[12] ****/ /**** m[13] ****/ /**** m[14] ****/ /**** m[15] ****/
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & shear2D(const GenoVector<2, T> & axis, T shearAngle) {
+			auto unitAxis = normalize(axis);
+			auto tanShear = tan(shearAngle);
+			auto m0  = unitAxis.v[1] * tanShear * unitAxis.v[0];
+			auto m1  = -unitAxis.v[0] * tanShear * unitAxis.v[0];
+			auto m4  = unitAxis.v[1] * tanShear * unitAxis.v[1];
+			auto m5  = -unitAxis.v[0] * tanShear * unitAxis.v[1];
+			T newM[] = {
+				m[0] * m0 + m[4] * m1,
+				m[1] * m0 + m[5] * m1,
+				m[2] * m0 + m[6] * m1,
+				m[3] * m0 + m[7] * m1,
+				m[0] * m4 + m[4] * m5,
+				m[1] * m4 + m[5] * m5,
+				m[2] * m4 + m[6] * m5,
+				m[3] * m4 + m[7] * m5,
+			};
+			m[0 ] = newM[0 ]; m[1 ] = newM[1 ]; m[2 ] = newM[2 ]; m[3 ] = newM[3 ];
+			m[4 ] = newM[4 ]; m[5 ] = newM[5 ]; m[6 ] = newM[6 ]; m[7 ] = newM[7 ];
+			/**** m[8 ] ****/ /**** m[9 ] ****/ /**** m[10] ****/ /**** m[11] ****/
+			/**** m[12] ****/ /**** m[13] ****/ /**** m[14] ****/ /**** m[15] ****/
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & shear2D(T axisAngle,const GenoVector<2, T> & shear) {
+			auto sinAxis = sin(axisAngle);
+			auto cosAxis = cos(axisAngle);
+			auto tanShear = shear.v[1] / shear.v[0];
+			auto m0  = sinAxis * tanShear * cosAxis;
+			auto m1  = -cosAxis * tanShear * cosAxis;
+			auto m4  = sinAxis * tanShear * sinAxis;
+			auto m5  = -cosAxis * tanShear * sinAxis;
+			T newM[] = {
+				m[0] * m0 + m[4] * m1,
+				m[1] * m0 + m[5] * m1,
+				m[2] * m0 + m[6] * m1,
+				m[3] * m0 + m[7] * m1,
+				m[0] * m4 + m[4] * m5,
+				m[1] * m4 + m[5] * m5,
+				m[2] * m4 + m[6] * m5,
+				m[3] * m4 + m[7] * m5,
+			};
+			m[0 ] = newM[0 ]; m[1 ] = newM[1 ]; m[2 ] = newM[2 ]; m[3 ] = newM[3 ];
+			m[4 ] = newM[4 ]; m[5 ] = newM[5 ]; m[6 ] = newM[6 ]; m[7 ] = newM[7 ];
+			/**** m[8 ] ****/ /**** m[9 ] ****/ /**** m[10] ****/ /**** m[11] ****/
+			/**** m[12] ****/ /**** m[13] ****/ /**** m[14] ****/ /**** m[15] ****/
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & shear2D(const GenoVector<2, T> & axis, const GenoVector<2, T> & shear) {
+			auto unitAxis = normalize(axis);
+			auto tanShear = shear.v[1] / shear.v[0];
+			auto m0  = unitAxis.v[1] * tanShear * unitAxis.v[0];
+			auto m1  = -unitAxis.v[0] * tanShear * unitAxis.v[0];
+			auto m4  = unitAxis.v[1] * tanShear * unitAxis.v[1];
+			auto m5  = -unitAxis.v[0] * tanShear * unitAxis.v[1];
+			T newM[] = {
+				m[0] * m0 + m[4] * m1,
+				m[1] * m0 + m[5] * m1,
+				m[2] * m0 + m[6] * m1,
+				m[3] * m0 + m[7] * m1,
+				m[0] * m4 + m[4] * m5,
+				m[1] * m4 + m[5] * m5,
+				m[2] * m4 + m[6] * m5,
+				m[3] * m4 + m[7] * m5,
+			};
+			m[0 ] = newM[0 ]; m[1 ] = newM[1 ]; m[2 ] = newM[2 ]; m[3 ] = newM[3 ];
+			m[4 ] = newM[4 ]; m[5 ] = newM[5 ]; m[6 ] = newM[6 ]; m[7 ] = newM[7 ];
+			/**** m[8 ] ****/ /**** m[9 ] ****/ /**** m[10] ****/ /**** m[11] ****/
+			/**** m[12] ****/ /**** m[13] ****/ /**** m[14] ****/ /**** m[15] ****/
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & shear2DX(T angle) {
+			auto m1  = -tan(angle);
+			T newM[] = {
+				m[0] + m[4] * m1,
+				m[1] + m[5] * m1,
+				m[2] + m[6] * m1,
+				m[3] + m[7] * m1,
+			};
+			m[0 ] = newM[0 ]; m[1 ] = newM[1 ]; m[2 ] = newM[2 ]; m[3 ] = newM[3 ];
+			/**** m[4 ] ****/ /**** m[5 ] ****/ /**** m[6 ] ****/ /**** m[7 ] ****/
+			/**** m[8 ] ****/ /**** m[9 ] ****/ /**** m[10] ****/ /**** m[11] ****/
+			/**** m[12] ****/ /**** m[13] ****/ /**** m[14] ****/ /**** m[15] ****/
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & shear2DX(const GenoVector<2, T> & shear) {
+			auto m1  = -shear.v[1] / shear.v[0];
+			T newM[] = {
+				m[0] + m[4] * m1,
+				m[1] + m[5] * m1,
+				m[2] + m[6] * m1,
+				m[3] + m[7] * m1,
+			};
+			m[0 ] = newM[0 ]; m[1 ] = newM[1 ]; m[2 ] = newM[2 ]; m[3 ] = newM[3 ];
+			/**** m[4 ] ****/ /**** m[5 ] ****/ /**** m[6 ] ****/ /**** m[7 ] ****/
+			/**** m[8 ] ****/ /**** m[9 ] ****/ /**** m[10] ****/ /**** m[11] ****/
+			/**** m[12] ****/ /**** m[13] ****/ /**** m[14] ****/ /**** m[15] ****/
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & shear2DY(T angle) {
+			auto m4  = tan(angle);
+			T newM[] = {
+				m[0] * m4 + m[4],
+				m[1] * m4 + m[5],
+				m[2] * m4 + m[6],
+				m[3] * m4 + m[7],
+			};
+			/**** m[0 ] ****/ /**** m[1 ] ****/ /**** m[2 ] ****/ /**** m[3 ] ****/
+			m[4 ] = newM[0 ]; m[5 ] = newM[1 ]; m[6 ] = newM[2 ]; m[7 ] = newM[3 ];
+			/**** m[8 ] ****/ /**** m[9 ] ****/ /**** m[10] ****/ /**** m[11] ****/
+			/**** m[12] ****/ /**** m[13] ****/ /**** m[14] ****/ /**** m[15] ****/
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & shear2DY(const GenoVector<2, T> & shear) {
+			auto m4  = shear.v[1] / shear.v[0];
+			T newM[] = {
+				m[0] * m4 + m[4],
+				m[1] * m4 + m[5],
+				m[2] * m4 + m[6],
+				m[3] * m4 + m[7],
+			};
+			/**** m[0 ] ****/ /**** m[1 ] ****/ /**** m[2 ] ****/ /**** m[3 ] ****/
+			m[4 ] = newM[0 ]; m[5 ] = newM[1 ]; m[6 ] = newM[2 ]; m[7 ] = newM[3 ];
+			/**** m[8 ] ****/ /**** m[9 ] ****/ /**** m[10] ****/ /**** m[11] ****/
+			/**** m[12] ****/ /**** m[13] ****/ /**** m[14] ****/ /**** m[15] ****/
 			return *this;
 		}
 
@@ -4246,6 +4656,410 @@ GenoMatrix<4, 4, T> & projectPerspective(const GenoMatrix<4, 4, T> & matrix, T f
 }
 
 template <typename T>
+GenoMatrix<4, 4, T> shear2D(const GenoMatrix<4, 4, T> & matrix, T axisAngle, T shearAngle) {
+	auto sinAxis = sin(axisAngle);
+	auto cosAxis = cos(axisAngle);
+	auto tanShear = tan(shearAngle);
+	auto m0  = sinAxis * tanShear * cosAxis;
+	auto m1  = -cosAxis * tanShear * cosAxis;
+	auto m4  = sinAxis * tanShear * sinAxis;
+	auto m5  = -cosAxis * tanShear * sinAxis;
+	return new T[4 * 4] {
+		matrix.m[0] * m0 + matrix.m[4] * m1,
+		matrix.m[1] * m0 + matrix.m[5] * m1,
+		matrix.m[2] * m0 + matrix.m[6] * m1,
+		matrix.m[3] * m0 + matrix.m[7] * m1,
+		matrix.m[0] * m4 + matrix.m[4] * m5,
+		matrix.m[1] * m4 + matrix.m[5] * m5,
+		matrix.m[2] * m4 + matrix.m[6] * m5,
+		matrix.m[3] * m4 + matrix.m[7] * m5,
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> shear2D(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & axis, T shearAngle) {
+	auto unitAxis = normalize(axis);
+	auto tanShear = tan(shearAngle);
+	auto m0  = unitAxis.v[1] * tanShear * unitAxis.v[0];
+	auto m1  = -unitAxis.v[0] * tanShear * unitAxis.v[0];
+	auto m4  = unitAxis.v[1] * tanShear * unitAxis.v[1];
+	auto m5  = -unitAxis.v[0] * tanShear * unitAxis.v[1];
+	return new T[4 * 4] {
+		matrix.m[0] * m0 + matrix.m[4] * m1,
+		matrix.m[1] * m0 + matrix.m[5] * m1,
+		matrix.m[2] * m0 + matrix.m[6] * m1,
+		matrix.m[3] * m0 + matrix.m[7] * m1,
+		matrix.m[0] * m4 + matrix.m[4] * m5,
+		matrix.m[1] * m4 + matrix.m[5] * m5,
+		matrix.m[2] * m4 + matrix.m[6] * m5,
+		matrix.m[3] * m4 + matrix.m[7] * m5,
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> shear2D(const GenoMatrix<4, 4, T> & matrix, T axisAngle,const GenoVector<2, T> & shear) {
+	auto sinAxis = sin(axisAngle);
+	auto cosAxis = cos(axisAngle);
+	auto tanShear = shear.v[1] / shear.v[0];
+	auto m0  = sinAxis * tanShear * cosAxis;
+	auto m1  = -cosAxis * tanShear * cosAxis;
+	auto m4  = sinAxis * tanShear * sinAxis;
+	auto m5  = -cosAxis * tanShear * sinAxis;
+	return new T[4 * 4] {
+		matrix.m[0] * m0 + matrix.m[4] * m1,
+		matrix.m[1] * m0 + matrix.m[5] * m1,
+		matrix.m[2] * m0 + matrix.m[6] * m1,
+		matrix.m[3] * m0 + matrix.m[7] * m1,
+		matrix.m[0] * m4 + matrix.m[4] * m5,
+		matrix.m[1] * m4 + matrix.m[5] * m5,
+		matrix.m[2] * m4 + matrix.m[6] * m5,
+		matrix.m[3] * m4 + matrix.m[7] * m5,
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> shear2D(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & axis, const GenoVector<2, T> & shear) {
+	auto unitAxis = normalize(axis);
+	auto tanShear = shear.v[1] / shear.v[0];
+	auto m0  = unitAxis.v[1] * tanShear * unitAxis.v[0];
+	auto m1  = -unitAxis.v[0] * tanShear * unitAxis.v[0];
+	auto m4  = unitAxis.v[1] * tanShear * unitAxis.v[1];
+	auto m5  = -unitAxis.v[0] * tanShear * unitAxis.v[1];
+	return new T[4 * 4] {
+		matrix.m[0] * m0 + matrix.m[4] * m1,
+		matrix.m[1] * m0 + matrix.m[5] * m1,
+		matrix.m[2] * m0 + matrix.m[6] * m1,
+		matrix.m[3] * m0 + matrix.m[7] * m1,
+		matrix.m[0] * m4 + matrix.m[4] * m5,
+		matrix.m[1] * m4 + matrix.m[5] * m5,
+		matrix.m[2] * m4 + matrix.m[6] * m5,
+		matrix.m[3] * m4 + matrix.m[7] * m5,
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> shear2DX(const GenoMatrix<4, 4, T> & matrix, T angle) {
+	auto m1  = -tan(angle);
+	return new T[4 * 4] {
+		matrix.m[0] + matrix.m[4] * m1,
+		matrix.m[1] + matrix.m[5] * m1,
+		matrix.m[2] + matrix.m[6] * m1,
+		matrix.m[3] + matrix.m[7] * m1,
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> shear2DX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & shear) {
+	auto m1  = -shear.v[1] / shear.v[0];
+	return new T[4 * 4] {
+		matrix.m[0] + matrix.m[4] * m1,
+		matrix.m[1] + matrix.m[5] * m1,
+		matrix.m[2] + matrix.m[6] * m1,
+		matrix.m[3] + matrix.m[7] * m1,
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> shear2DY(const GenoMatrix<4, 4, T> & matrix, T angle) {
+	auto m4  = tan(angle);
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[0] * m4 + matrix.m[4],
+		matrix.m[1] * m4 + matrix.m[5],
+		matrix.m[2] * m4 + matrix.m[6],
+		matrix.m[3] * m4 + matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> shear2DY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & shear) {
+	auto m4  = shear.v[1] / shear.v[0];
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[0] * m4 + matrix.m[4],
+		matrix.m[1] * m4 + matrix.m[5],
+		matrix.m[2] * m4 + matrix.m[6],
+		matrix.m[3] * m4 + matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & shear2D(const GenoMatrix<4, 4, T> & matrix, T axisAngle, T shearAngle, GenoMatrix<4, 4, T> & target) {
+	auto sinAxis = sin(axisAngle);
+	auto cosAxis = cos(axisAngle);
+	auto tanShear = tan(shearAngle);
+	auto m0  = sinAxis * tanShear * cosAxis;
+	auto m1  = -cosAxis * tanShear * cosAxis;
+	auto m4  = sinAxis * tanShear * sinAxis;
+	auto m5  = -cosAxis * tanShear * sinAxis;
+	target.m[0] = matrix.m[0] * m0 + matrix.m[4] * m1;
+	target.m[1] = matrix.m[1] * m0 + matrix.m[5] * m1;
+	target.m[2] = matrix.m[2] * m0 + matrix.m[6] * m1;
+	target.m[3] = matrix.m[3] * m0 + matrix.m[7] * m1;
+	target.m[4] = matrix.m[0] * m4 + matrix.m[4] * m5;
+	target.m[5] = matrix.m[1] * m4 + matrix.m[5] * m5;
+	target.m[6] = matrix.m[2] * m4 + matrix.m[6] * m5;
+	target.m[7] = matrix.m[3] * m4 + matrix.m[7] * m5;
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & shear2D(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & axis, T shearAngle, GenoMatrix<4, 4, T> & target) {
+	auto unitAxis = normalize(axis);
+	auto tanShear = tan(shearAngle);
+	auto m0  = unitAxis.v[1] * tanShear * unitAxis.v[0];
+	auto m1  = -unitAxis.v[0] * tanShear * unitAxis.v[0];
+	auto m4  = unitAxis.v[1] * tanShear * unitAxis.v[1];
+	auto m5  = -unitAxis.v[0] * tanShear * unitAxis.v[1];
+	target.m[0] = matrix.m[0] * m0 + matrix.m[4] * m1;
+	target.m[1] = matrix.m[1] * m0 + matrix.m[5] * m1;
+	target.m[2] = matrix.m[2] * m0 + matrix.m[6] * m1;
+	target.m[3] = matrix.m[3] * m0 + matrix.m[7] * m1;
+	target.m[4] = matrix.m[0] * m4 + matrix.m[4] * m5;
+	target.m[5] = matrix.m[1] * m4 + matrix.m[5] * m5;
+	target.m[6] = matrix.m[2] * m4 + matrix.m[6] * m5;
+	target.m[7] = matrix.m[3] * m4 + matrix.m[7] * m5;
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & shear2D(const GenoMatrix<4, 4, T> & matrix, T axisAngle,const GenoVector<2, T> & shear, GenoMatrix<4, 4, T> & target) {
+	auto sinAxis = sin(axisAngle);
+	auto cosAxis = cos(axisAngle);
+	auto tanShear = shear.v[1] / shear.v[0];
+	auto m0  = sinAxis * tanShear * cosAxis;
+	auto m1  = -cosAxis * tanShear * cosAxis;
+	auto m4  = sinAxis * tanShear * sinAxis;
+	auto m5  = -cosAxis * tanShear * sinAxis;
+	target.m[0] = matrix.m[0] * m0 + matrix.m[4] * m1;
+	target.m[1] = matrix.m[1] * m0 + matrix.m[5] * m1;
+	target.m[2] = matrix.m[2] * m0 + matrix.m[6] * m1;
+	target.m[3] = matrix.m[3] * m0 + matrix.m[7] * m1;
+	target.m[4] = matrix.m[0] * m4 + matrix.m[4] * m5;
+	target.m[5] = matrix.m[1] * m4 + matrix.m[5] * m5;
+	target.m[6] = matrix.m[2] * m4 + matrix.m[6] * m5;
+	target.m[7] = matrix.m[3] * m4 + matrix.m[7] * m5;
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & shear2D(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & axis, const GenoVector<2, T> & shear, GenoMatrix<4, 4, T> & target) {
+	auto unitAxis = normalize(axis);
+	auto tanShear = shear.v[1] / shear.v[0];
+	auto m0  = unitAxis.v[1] * tanShear * unitAxis.v[0];
+	auto m1  = -unitAxis.v[0] * tanShear * unitAxis.v[0];
+	auto m4  = unitAxis.v[1] * tanShear * unitAxis.v[1];
+	auto m5  = -unitAxis.v[0] * tanShear * unitAxis.v[1];
+	target.m[0] = matrix.m[0] * m0 + matrix.m[4] * m1;
+	target.m[1] = matrix.m[1] * m0 + matrix.m[5] * m1;
+	target.m[2] = matrix.m[2] * m0 + matrix.m[6] * m1;
+	target.m[3] = matrix.m[3] * m0 + matrix.m[7] * m1;
+	target.m[4] = matrix.m[0] * m4 + matrix.m[4] * m5;
+	target.m[5] = matrix.m[1] * m4 + matrix.m[5] * m5;
+	target.m[6] = matrix.m[2] * m4 + matrix.m[6] * m5;
+	target.m[7] = matrix.m[3] * m4 + matrix.m[7] * m5;
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & shear2DX(const GenoMatrix<4, 4, T> & matrix, T angle, GenoMatrix<4, 4, T> & target) {
+	auto m1  = -tan(angle);
+	target.m[0] = matrix.m[0] + matrix.m[4] * m1;
+	target.m[1] = matrix.m[1] + matrix.m[5] * m1;
+	target.m[2] = matrix.m[2] + matrix.m[6] * m1;
+	target.m[3] = matrix.m[3] + matrix.m[7] * m1;
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & shear2DX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & shear, GenoMatrix<4, 4, T> & target) {
+	auto m1  = -shear.v[1] / shear.v[0];
+	target.m[0] = matrix.m[0] + matrix.m[4] * m1;
+	target.m[1] = matrix.m[1] + matrix.m[5] * m1;
+	target.m[2] = matrix.m[2] + matrix.m[6] * m1;
+	target.m[3] = matrix.m[3] + matrix.m[7] * m1;
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & shear2DY(const GenoMatrix<4, 4, T> & matrix, T angle, GenoMatrix<4, 4, T> & target) {
+	auto m4  = tan(angle);
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[0] * m4 + matrix.m[4];
+	target.m[5] = matrix.m[1] * m4 + matrix.m[5];
+	target.m[6] = matrix.m[2] * m4 + matrix.m[6];
+	target.m[7] = matrix.m[3] * m4 + matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & shear2DY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & shear, GenoMatrix<4, 4, T> & target) {
+	auto m4  = shear.v[1] / shear.v[0];
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[0] * m4 + matrix.m[4];
+	target.m[5] = matrix.m[1] * m4 + matrix.m[5];
+	target.m[6] = matrix.m[2] * m4 + matrix.m[6];
+	target.m[7] = matrix.m[3] * m4 + matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
 GenoMatrix<4, 4, T> translate2D(const GenoMatrix<4, 4, T> & matrix, T translateX, T translateY) {
 	return new T[4 * 4] {
 		matrix.m[0],
@@ -4287,6 +5101,48 @@ GenoMatrix<4, 4, T> translate2D(const GenoMatrix<4, 4, T> & matrix, const GenoVe
 		matrix.m[2] * translate.v[0] + matrix.m[6] * translate.v[1] + matrix.m[14],
 		matrix.m[3] * translate.v[0] + matrix.m[7] * translate.v[1] + matrix.m[15]
 	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & translate2D(const GenoMatrix<4, 4, T> & matrix, T translateX, T translateY, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[0] * translateX + matrix.m[4] * translateY + matrix.m[12];
+	target.m[13] = matrix.m[1] * translateX + matrix.m[5] * translateY + matrix.m[13];
+	target.m[14] = matrix.m[2] * translateX + matrix.m[6] * translateY + matrix.m[14];
+	target.m[15] = matrix.m[3] * translateX + matrix.m[7] * translateY + matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & translate2D(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & translate, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[0] * translate.v[0] + matrix.m[4] * translate.v[1] + matrix.m[12];
+	target.m[13] = matrix.m[1] * translate.v[0] + matrix.m[5] * translate.v[1] + matrix.m[13];
+	target.m[14] = matrix.m[2] * translate.v[0] + matrix.m[6] * translate.v[1] + matrix.m[14];
+	target.m[15] = matrix.m[3] * translate.v[0] + matrix.m[7] * translate.v[1] + matrix.m[15];
+	return target;
 }
 
 template <typename T>
@@ -4334,6 +5190,48 @@ GenoMatrix<4, 4, T> translate(const GenoMatrix<4, 4, T> & matrix, const GenoVect
 }
 
 template <typename T>
+GenoMatrix<4, 4, T> & translate(const GenoMatrix<4, 4, T> & matrix, T translateX, T translateY, T translateZ, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[0] * translateX + matrix.m[4] * translateY + matrix.m[8] * translateZ + matrix.m[12];
+	target.m[13] = matrix.m[1] * translateX + matrix.m[5] * translateY + matrix.m[9] * translateZ + matrix.m[13];
+	target.m[14] = matrix.m[2] * translateX + matrix.m[6] * translateY + matrix.m[10] * translateZ + matrix.m[14];
+	target.m[15] = matrix.m[3] * translateX + matrix.m[7] * translateY + matrix.m[11] * translateZ + matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & translate(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & translate, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[0] * translate.v[0] + matrix.m[4] * translate.v[1] + matrix.m[8] * translate.v[2] + matrix.m[12];
+	target.m[13] = matrix.m[1] * translate.v[0] + matrix.m[5] * translate.v[1] + matrix.m[9] * translate.v[2] + matrix.m[13];
+	target.m[14] = matrix.m[2] * translate.v[0] + matrix.m[6] * translate.v[1] + matrix.m[10] * translate.v[2] + matrix.m[14];
+	target.m[15] = matrix.m[3] * translate.v[0] + matrix.m[7] * translate.v[1] + matrix.m[11] * translate.v[2] + matrix.m[15];
+	return target;
+}
+
+template <typename T>
 GenoMatrix<4, 4, T> rotate2D(const GenoMatrix<4, 4, T> & matrix, T rotateZ) {
 	auto sinZ = sin(rotateZ);
 	auto cosZ = cos(rotateZ);
@@ -4355,6 +5253,29 @@ GenoMatrix<4, 4, T> rotate2D(const GenoMatrix<4, 4, T> & matrix, T rotateZ) {
 		matrix.m[14],
 		matrix.m[15]
 	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotate2D(const GenoMatrix<4, 4, T> & matrix, T rotateZ, GenoMatrix<4, 4, T> & target) {
+	auto sinZ = sin(rotateZ);
+	auto cosZ = cos(rotateZ);
+	target.m[0] = matrix.m[0] * cosZ + matrix.m[4] * sinZ;
+	target.m[1] = matrix.m[1] * cosZ + matrix.m[5] * sinZ;
+	target.m[2] = matrix.m[2] * cosZ + matrix.m[6] * sinZ;
+	target.m[3] = matrix.m[3] * cosZ + matrix.m[7] * sinZ;
+	target.m[4] = matrix.m[0] * -sinZ + matrix.m[4] * cosZ;
+	target.m[5] = matrix.m[1] * -sinZ + matrix.m[5] * cosZ;
+	target.m[6] = matrix.m[2] * -sinZ + matrix.m[6] * cosZ;
+	target.m[7] = matrix.m[3] * -sinZ + matrix.m[7] * cosZ;
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
 }
 
 template <typename T>
@@ -4416,6 +5337,135 @@ GenoMatrix<4, 4, T> scale2D(const GenoMatrix<4, 4, T> & matrix, const GenoVector
 		matrix.m[9],
 		matrix.m[10],
 		matrix.m[11],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scale2D(const GenoMatrix<4, 4, T> & matrix, T scale, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0] * scale;
+	target.m[1] = matrix.m[1] * scale;
+	target.m[2] = matrix.m[2] * scale;
+	target.m[3] = matrix.m[3] * scale;
+	target.m[4] = matrix.m[4] * scale;
+	target.m[5] = matrix.m[5] * scale;
+	target.m[6] = matrix.m[6] * scale;
+	target.m[7] = matrix.m[7] * scale;
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scale2D(const GenoMatrix<4, 4, T> & matrix, T scaleX, T scaleY, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0] * scaleX;
+	target.m[1] = matrix.m[1] * scaleX;
+	target.m[2] = matrix.m[2] * scaleX;
+	target.m[3] = matrix.m[3] * scaleX;
+	target.m[4] = matrix.m[4] * scaleY;
+	target.m[5] = matrix.m[5] * scaleY;
+	target.m[6] = matrix.m[6] * scaleY;
+	target.m[7] = matrix.m[7] * scaleY;
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scale2D(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & scale, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0] * scale.v[0];
+	target.m[1] = matrix.m[1] * scale.v[0];
+	target.m[2] = matrix.m[2] * scale.v[0];
+	target.m[3] = matrix.m[3] * scale.v[0];
+	target.m[4] = matrix.m[4] * scale.v[1];
+	target.m[5] = matrix.m[5] * scale.v[1];
+	target.m[6] = matrix.m[6] * scale.v[1];
+	target.m[7] = matrix.m[7] * scale.v[1];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scale(const GenoMatrix<4, 4, T> & matrix, T scale) {
+	return new T[4 * 4] {
+		matrix.m[0] * scale,
+		matrix.m[1] * scale,
+		matrix.m[2] * scale,
+		matrix.m[3] * scale,
+		matrix.m[4] * scale,
+		matrix.m[5] * scale,
+		matrix.m[6] * scale,
+		matrix.m[7] * scale,
+		matrix.m[8] * scale,
+		matrix.m[9] * scale,
+		matrix.m[10] * scale,
+		matrix.m[11] * scale,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scale(const GenoMatrix<4, 4, T> & matrix, T scaleX, T scaleY, T scaleZ) {
+	return new T[4 * 4] {
+		matrix.m[0] * scaleX,
+		matrix.m[1] * scaleX,
+		matrix.m[2] * scaleX,
+		matrix.m[3] * scaleX,
+		matrix.m[4] * scaleY,
+		matrix.m[5] * scaleY,
+		matrix.m[6] * scaleY,
+		matrix.m[7] * scaleY,
+		matrix.m[8] * scaleZ,
+		matrix.m[9] * scaleZ,
+		matrix.m[10] * scaleZ,
+		matrix.m[11] * scaleZ,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scale(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & scale) {
+	return new T[4 * 4] {
+		matrix.m[0] * scale.v[0],
+		matrix.m[1] * scale.v[0],
+		matrix.m[2] * scale.v[0],
+		matrix.m[3] * scale.v[0],
+		matrix.m[4] * scale.v[1],
+		matrix.m[5] * scale.v[1],
+		matrix.m[6] * scale.v[1],
+		matrix.m[7] * scale.v[1],
+		matrix.m[8] * scale.v[2],
+		matrix.m[9] * scale.v[2],
+		matrix.m[10] * scale.v[2],
+		matrix.m[11] * scale.v[2],
 		matrix.m[12],
 		matrix.m[13],
 		matrix.m[14],
