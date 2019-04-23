@@ -4246,6 +4246,3222 @@ GenoMatrix<4, 4, T> & projectPerspective(const GenoMatrix<4, 4, T> & matrix, T f
 }
 
 template <typename T>
+GenoMatrix<4, 4, T> translate2D(const GenoMatrix<4, 4, T> & matrix, T translateX, T translateY) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[0] * translateX + matrix.m[4] * translateY + matrix.m[12],
+		matrix.m[1] * translateX + matrix.m[5] * translateY + matrix.m[13],
+		matrix.m[2] * translateX + matrix.m[6] * translateY + matrix.m[14],
+		matrix.m[3] * translateX + matrix.m[7] * translateY + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> translate2D(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & translate) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[0] * translate.v[0] + matrix.m[4] * translate.v[1] + matrix.m[12],
+		matrix.m[1] * translate.v[0] + matrix.m[5] * translate.v[1] + matrix.m[13],
+		matrix.m[2] * translate.v[0] + matrix.m[6] * translate.v[1] + matrix.m[14],
+		matrix.m[3] * translate.v[0] + matrix.m[7] * translate.v[1] + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> translate(const GenoMatrix<4, 4, T> & matrix, T translateX, T translateY, T translateZ) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[0] * translateX + matrix.m[4] * translateY + matrix.m[8] * translateZ + matrix.m[12],
+		matrix.m[1] * translateX + matrix.m[5] * translateY + matrix.m[9] * translateZ + matrix.m[13],
+		matrix.m[2] * translateX + matrix.m[6] * translateY + matrix.m[10] * translateZ + matrix.m[14],
+		matrix.m[3] * translateX + matrix.m[7] * translateY + matrix.m[11] * translateZ + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> translate(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & translate) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[0] * translate.v[0] + matrix.m[4] * translate.v[1] + matrix.m[8] * translate.v[2] + matrix.m[12],
+		matrix.m[1] * translate.v[0] + matrix.m[5] * translate.v[1] + matrix.m[9] * translate.v[2] + matrix.m[13],
+		matrix.m[2] * translate.v[0] + matrix.m[6] * translate.v[1] + matrix.m[10] * translate.v[2] + matrix.m[14],
+		matrix.m[3] * translate.v[0] + matrix.m[7] * translate.v[1] + matrix.m[11] * translate.v[2] + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> rotate2D(const GenoMatrix<4, 4, T> & matrix, T rotateZ) {
+	auto sinZ = sin(rotateZ);
+	auto cosZ = cos(rotateZ);
+	return new T[4 * 4] {
+		matrix.m[0] * cosZ + matrix.m[4] * sinZ,
+		matrix.m[1] * cosZ + matrix.m[5] * sinZ,
+		matrix.m[2] * cosZ + matrix.m[6] * sinZ,
+		matrix.m[3] * cosZ + matrix.m[7] * sinZ,
+		matrix.m[0] * -sinZ + matrix.m[4] * cosZ,
+		matrix.m[1] * -sinZ + matrix.m[5] * cosZ,
+		matrix.m[2] * -sinZ + matrix.m[6] * cosZ,
+		matrix.m[3] * -sinZ + matrix.m[7] * cosZ,
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scale2D(const GenoMatrix<4, 4, T> & matrix, T scale) {
+	return new T[4 * 4] {
+		matrix.m[0] * scale,
+		matrix.m[1] * scale,
+		matrix.m[2] * scale,
+		matrix.m[3] * scale,
+		matrix.m[4] * scale,
+		matrix.m[5] * scale,
+		matrix.m[6] * scale,
+		matrix.m[7] * scale,
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scale2D(const GenoMatrix<4, 4, T> & matrix, T scaleX, T scaleY) {
+	return new T[4 * 4] {
+		matrix.m[0] * scaleX,
+		matrix.m[1] * scaleX,
+		matrix.m[2] * scaleX,
+		matrix.m[3] * scaleX,
+		matrix.m[4] * scaleY,
+		matrix.m[5] * scaleY,
+		matrix.m[6] * scaleY,
+		matrix.m[7] * scaleY,
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scale2D(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & scale) {
+	return new T[4 * 4] {
+		matrix.m[0] * scale.v[0],
+		matrix.m[1] * scale.v[0],
+		matrix.m[2] * scale.v[0],
+		matrix.m[3] * scale.v[0],
+		matrix.m[4] * scale.v[1],
+		matrix.m[5] * scale.v[1],
+		matrix.m[6] * scale.v[1],
+		matrix.m[7] * scale.v[1],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scale(const GenoMatrix<4, 4, T> & matrix, T scale, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0] * scale;
+	target.m[1] = matrix.m[1] * scale;
+	target.m[2] = matrix.m[2] * scale;
+	target.m[3] = matrix.m[3] * scale;
+	target.m[4] = matrix.m[4] * scale;
+	target.m[5] = matrix.m[5] * scale;
+	target.m[6] = matrix.m[6] * scale;
+	target.m[7] = matrix.m[7] * scale;
+	target.m[8] = matrix.m[8] * scale;
+	target.m[9] = matrix.m[9] * scale;
+	target.m[10] = matrix.m[10] * scale;
+	target.m[11] = matrix.m[11] * scale;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scale(const GenoMatrix<4, 4, T> & matrix, T scaleX, T scaleY, T scaleZ, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0] * scaleX;
+	target.m[1] = matrix.m[1] * scaleX;
+	target.m[2] = matrix.m[2] * scaleX;
+	target.m[3] = matrix.m[3] * scaleX;
+	target.m[4] = matrix.m[4] * scaleY;
+	target.m[5] = matrix.m[5] * scaleY;
+	target.m[6] = matrix.m[6] * scaleY;
+	target.m[7] = matrix.m[7] * scaleY;
+	target.m[8] = matrix.m[8] * scaleZ;
+	target.m[9] = matrix.m[9] * scaleZ;
+	target.m[10] = matrix.m[10] * scaleZ;
+	target.m[11] = matrix.m[11] * scaleZ;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scale(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & scale, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0] * scale.v[0];
+	target.m[1] = matrix.m[1] * scale.v[0];
+	target.m[2] = matrix.m[2] * scale.v[0];
+	target.m[3] = matrix.m[3] * scale.v[0];
+	target.m[4] = matrix.m[4] * scale.v[1];
+	target.m[5] = matrix.m[5] * scale.v[1];
+	target.m[6] = matrix.m[6] * scale.v[1];
+	target.m[7] = matrix.m[7] * scale.v[1];
+	target.m[8] = matrix.m[8] * scale.v[2];
+	target.m[9] = matrix.m[9] * scale.v[2];
+	target.m[10] = matrix.m[10] * scale.v[2];
+	target.m[11] = matrix.m[11] * scale.v[2];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> translateX(const GenoMatrix<4, 4, T> & matrix, T translateX) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[0] * translateX + matrix.m[12],
+		matrix.m[1] * translateX + matrix.m[13],
+		matrix.m[2] * translateX + matrix.m[14],
+		matrix.m[3] * translateX + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> translateY(const GenoMatrix<4, 4, T> & matrix, T translateY) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[4] * translateY + matrix.m[12],
+		matrix.m[5] * translateY + matrix.m[13],
+		matrix.m[6] * translateY + matrix.m[14],
+		matrix.m[7] * translateY + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> translateZ(const GenoMatrix<4, 4, T> & matrix, T translateZ) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[8] * translateZ + matrix.m[12],
+		matrix.m[9] * translateZ + matrix.m[13],
+		matrix.m[10] * translateZ + matrix.m[14],
+		matrix.m[11] * translateZ + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> translateXY(const GenoMatrix<4, 4, T> & matrix, T translateX, T translateY) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[0] * translateX + matrix.m[4] * translateY + matrix.m[12],
+		matrix.m[1] * translateX + matrix.m[5] * translateY + matrix.m[13],
+		matrix.m[2] * translateX + matrix.m[6] * translateY + matrix.m[14],
+		matrix.m[3] * translateX + matrix.m[7] * translateY + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> translateXY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & translate) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[0] * translate.v[0] + matrix.m[4] * translate.v[1] + matrix.m[12],
+		matrix.m[1] * translate.v[0] + matrix.m[5] * translate.v[1] + matrix.m[13],
+		matrix.m[2] * translate.v[0] + matrix.m[6] * translate.v[1] + matrix.m[14],
+		matrix.m[3] * translate.v[0] + matrix.m[7] * translate.v[1] + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> translateXZ(const GenoMatrix<4, 4, T> & matrix, T translateX, T translateZ) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[0] * translateX + matrix.m[8] * translateZ + matrix.m[12],
+		matrix.m[1] * translateX + matrix.m[9] * translateZ + matrix.m[13],
+		matrix.m[2] * translateX + matrix.m[10] * translateZ + matrix.m[14],
+		matrix.m[3] * translateX + matrix.m[11] * translateZ + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> translateXZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & translate) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[0] * translate.v[0] + matrix.m[8] * translate.v[1] + matrix.m[12],
+		matrix.m[1] * translate.v[0] + matrix.m[9] * translate.v[1] + matrix.m[13],
+		matrix.m[2] * translate.v[0] + matrix.m[10] * translate.v[1] + matrix.m[14],
+		matrix.m[3] * translate.v[0] + matrix.m[11] * translate.v[1] + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> translateYX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & translate) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[0] * translate.v[1] + matrix.m[4] * translate.v[0] + matrix.m[12],
+		matrix.m[1] * translate.v[1] + matrix.m[5] * translate.v[0] + matrix.m[13],
+		matrix.m[2] * translate.v[1] + matrix.m[6] * translate.v[0] + matrix.m[14],
+		matrix.m[3] * translate.v[1] + matrix.m[7] * translate.v[0] + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> translateYZ(const GenoMatrix<4, 4, T> & matrix, T translateY, T translateZ) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[4] * translateY + matrix.m[8] * translateZ + matrix.m[12],
+		matrix.m[5] * translateY + matrix.m[9] * translateZ + matrix.m[13],
+		matrix.m[6] * translateY + matrix.m[10] * translateZ + matrix.m[14],
+		matrix.m[7] * translateY + matrix.m[11] * translateZ + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> translateYZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & translate) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[4] * translate.v[0] + matrix.m[8] * translate.v[1] + matrix.m[12],
+		matrix.m[5] * translate.v[0] + matrix.m[9] * translate.v[1] + matrix.m[13],
+		matrix.m[6] * translate.v[0] + matrix.m[10] * translate.v[1] + matrix.m[14],
+		matrix.m[7] * translate.v[0] + matrix.m[11] * translate.v[1] + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> translateZX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & translate) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[0] * translate.v[1] + matrix.m[8] * translate.v[0] + matrix.m[12],
+		matrix.m[1] * translate.v[1] + matrix.m[9] * translate.v[0] + matrix.m[13],
+		matrix.m[2] * translate.v[1] + matrix.m[10] * translate.v[0] + matrix.m[14],
+		matrix.m[3] * translate.v[1] + matrix.m[11] * translate.v[0] + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> translateZY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & translate) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[4] * translate.v[1] + matrix.m[8] * translate.v[0] + matrix.m[12],
+		matrix.m[5] * translate.v[1] + matrix.m[9] * translate.v[0] + matrix.m[13],
+		matrix.m[6] * translate.v[1] + matrix.m[10] * translate.v[0] + matrix.m[14],
+		matrix.m[7] * translate.v[1] + matrix.m[11] * translate.v[0] + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> translateXYZ(const GenoMatrix<4, 4, T> & matrix, T translateX, T translateY, T translateZ) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[0] * translateX + matrix.m[4] * translateY + matrix.m[8] * translateZ + matrix.m[12],
+		matrix.m[1] * translateX + matrix.m[5] * translateY + matrix.m[9] * translateZ + matrix.m[13],
+		matrix.m[2] * translateX + matrix.m[6] * translateY + matrix.m[10] * translateZ + matrix.m[14],
+		matrix.m[3] * translateX + matrix.m[7] * translateY + matrix.m[11] * translateZ + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> translateXYZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & translate) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[0] * translate.v[0] + matrix.m[4] * translate.v[1] + matrix.m[8] * translate.v[2] + matrix.m[12],
+		matrix.m[1] * translate.v[0] + matrix.m[5] * translate.v[1] + matrix.m[9] * translate.v[2] + matrix.m[13],
+		matrix.m[2] * translate.v[0] + matrix.m[6] * translate.v[1] + matrix.m[10] * translate.v[2] + matrix.m[14],
+		matrix.m[3] * translate.v[0] + matrix.m[7] * translate.v[1] + matrix.m[11] * translate.v[2] + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> translateXZY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & translate) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[0] * translate.v[0] + matrix.m[4] * translate.v[2] + matrix.m[8] * translate.v[1] + matrix.m[12],
+		matrix.m[1] * translate.v[0] + matrix.m[5] * translate.v[2] + matrix.m[9] * translate.v[1] + matrix.m[13],
+		matrix.m[2] * translate.v[0] + matrix.m[6] * translate.v[2] + matrix.m[10] * translate.v[1] + matrix.m[14],
+		matrix.m[3] * translate.v[0] + matrix.m[7] * translate.v[2] + matrix.m[11] * translate.v[1] + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> translateYXZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & translate) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[0] * translate.v[1] + matrix.m[4] * translate.v[0] + matrix.m[8] * translate.v[2] + matrix.m[12],
+		matrix.m[1] * translate.v[1] + matrix.m[5] * translate.v[0] + matrix.m[9] * translate.v[2] + matrix.m[13],
+		matrix.m[2] * translate.v[1] + matrix.m[6] * translate.v[0] + matrix.m[10] * translate.v[2] + matrix.m[14],
+		matrix.m[3] * translate.v[1] + matrix.m[7] * translate.v[0] + matrix.m[11] * translate.v[2] + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> translateYZX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & translate) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[0] * translate.v[2] + matrix.m[4] * translate.v[0] + matrix.m[8] * translate.v[1] + matrix.m[12],
+		matrix.m[1] * translate.v[2] + matrix.m[5] * translate.v[0] + matrix.m[9] * translate.v[1] + matrix.m[13],
+		matrix.m[2] * translate.v[2] + matrix.m[6] * translate.v[0] + matrix.m[10] * translate.v[1] + matrix.m[14],
+		matrix.m[3] * translate.v[2] + matrix.m[7] * translate.v[0] + matrix.m[11] * translate.v[1] + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> translateZXY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & translate) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[0] * translate.v[1] + matrix.m[4] * translate.v[2] + matrix.m[8] * translate.v[0] + matrix.m[12],
+		matrix.m[1] * translate.v[1] + matrix.m[5] * translate.v[2] + matrix.m[9] * translate.v[0] + matrix.m[13],
+		matrix.m[2] * translate.v[1] + matrix.m[6] * translate.v[2] + matrix.m[10] * translate.v[0] + matrix.m[14],
+		matrix.m[3] * translate.v[1] + matrix.m[7] * translate.v[2] + matrix.m[11] * translate.v[0] + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> translateZYX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & translate) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[0] * translate.v[2] + matrix.m[4] * translate.v[1] + matrix.m[8] * translate.v[0] + matrix.m[12],
+		matrix.m[1] * translate.v[2] + matrix.m[5] * translate.v[1] + matrix.m[9] * translate.v[0] + matrix.m[13],
+		matrix.m[2] * translate.v[2] + matrix.m[6] * translate.v[1] + matrix.m[10] * translate.v[0] + matrix.m[14],
+		matrix.m[3] * translate.v[2] + matrix.m[7] * translate.v[1] + matrix.m[11] * translate.v[0] + matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & translateX(const GenoMatrix<4, 4, T> & matrix, T translateX, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[0] * translateX + matrix.m[12];
+	target.m[13] = matrix.m[1] * translateX + matrix.m[13];
+	target.m[14] = matrix.m[2] * translateX + matrix.m[14];
+	target.m[15] = matrix.m[3] * translateX + matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & translateY(const GenoMatrix<4, 4, T> & matrix, T translateY, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[4] * translateY + matrix.m[12];
+	target.m[13] = matrix.m[5] * translateY + matrix.m[13];
+	target.m[14] = matrix.m[6] * translateY + matrix.m[14];
+	target.m[15] = matrix.m[7] * translateY + matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & translateZ(const GenoMatrix<4, 4, T> & matrix, T translateZ, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[8] * translateZ + matrix.m[12];
+	target.m[13] = matrix.m[9] * translateZ + matrix.m[13];
+	target.m[14] = matrix.m[10] * translateZ + matrix.m[14];
+	target.m[15] = matrix.m[11] * translateZ + matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & translateXY(const GenoMatrix<4, 4, T> & matrix, T translateX, T translateY, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[0] * translateX + matrix.m[4] * translateY + matrix.m[12];
+	target.m[13] = matrix.m[1] * translateX + matrix.m[5] * translateY + matrix.m[13];
+	target.m[14] = matrix.m[2] * translateX + matrix.m[6] * translateY + matrix.m[14];
+	target.m[15] = matrix.m[3] * translateX + matrix.m[7] * translateY + matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & translateXY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & translate, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[0] * translate.v[0] + matrix.m[4] * translate.v[1] + matrix.m[12];
+	target.m[13] = matrix.m[1] * translate.v[0] + matrix.m[5] * translate.v[1] + matrix.m[13];
+	target.m[14] = matrix.m[2] * translate.v[0] + matrix.m[6] * translate.v[1] + matrix.m[14];
+	target.m[15] = matrix.m[3] * translate.v[0] + matrix.m[7] * translate.v[1] + matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & translateXZ(const GenoMatrix<4, 4, T> & matrix, T translateX, T translateZ, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[0] * translateX + matrix.m[8] * translateZ + matrix.m[12];
+	target.m[13] = matrix.m[1] * translateX + matrix.m[9] * translateZ + matrix.m[13];
+	target.m[14] = matrix.m[2] * translateX + matrix.m[10] * translateZ + matrix.m[14];
+	target.m[15] = matrix.m[3] * translateX + matrix.m[11] * translateZ + matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & translateXZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & translate, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[0] * translate.v[0] + matrix.m[8] * translate.v[1] + matrix.m[12];
+	target.m[13] = matrix.m[1] * translate.v[0] + matrix.m[9] * translate.v[1] + matrix.m[13];
+	target.m[14] = matrix.m[2] * translate.v[0] + matrix.m[10] * translate.v[1] + matrix.m[14];
+	target.m[15] = matrix.m[3] * translate.v[0] + matrix.m[11] * translate.v[1] + matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & translateYX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & translate, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[0] * translate.v[1] + matrix.m[4] * translate.v[0] + matrix.m[12];
+	target.m[13] = matrix.m[1] * translate.v[1] + matrix.m[5] * translate.v[0] + matrix.m[13];
+	target.m[14] = matrix.m[2] * translate.v[1] + matrix.m[6] * translate.v[0] + matrix.m[14];
+	target.m[15] = matrix.m[3] * translate.v[1] + matrix.m[7] * translate.v[0] + matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & translateYZ(const GenoMatrix<4, 4, T> & matrix, T translateY, T translateZ, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[4] * translateY + matrix.m[8] * translateZ + matrix.m[12];
+	target.m[13] = matrix.m[5] * translateY + matrix.m[9] * translateZ + matrix.m[13];
+	target.m[14] = matrix.m[6] * translateY + matrix.m[10] * translateZ + matrix.m[14];
+	target.m[15] = matrix.m[7] * translateY + matrix.m[11] * translateZ + matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & translateYZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & translate, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[4] * translate.v[0] + matrix.m[8] * translate.v[1] + matrix.m[12];
+	target.m[13] = matrix.m[5] * translate.v[0] + matrix.m[9] * translate.v[1] + matrix.m[13];
+	target.m[14] = matrix.m[6] * translate.v[0] + matrix.m[10] * translate.v[1] + matrix.m[14];
+	target.m[15] = matrix.m[7] * translate.v[0] + matrix.m[11] * translate.v[1] + matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & translateZX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & translate, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[0] * translate.v[1] + matrix.m[8] * translate.v[0] + matrix.m[12];
+	target.m[13] = matrix.m[1] * translate.v[1] + matrix.m[9] * translate.v[0] + matrix.m[13];
+	target.m[14] = matrix.m[2] * translate.v[1] + matrix.m[10] * translate.v[0] + matrix.m[14];
+	target.m[15] = matrix.m[3] * translate.v[1] + matrix.m[11] * translate.v[0] + matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & translateZY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & translate, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[4] * translate.v[1] + matrix.m[8] * translate.v[0] + matrix.m[12];
+	target.m[13] = matrix.m[5] * translate.v[1] + matrix.m[9] * translate.v[0] + matrix.m[13];
+	target.m[14] = matrix.m[6] * translate.v[1] + matrix.m[10] * translate.v[0] + matrix.m[14];
+	target.m[15] = matrix.m[7] * translate.v[1] + matrix.m[11] * translate.v[0] + matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & translateXYZ(const GenoMatrix<4, 4, T> & matrix, T translateX, T translateY, T translateZ, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[0] * translateX + matrix.m[4] * translateY + matrix.m[8] * translateZ + matrix.m[12];
+	target.m[13] = matrix.m[1] * translateX + matrix.m[5] * translateY + matrix.m[9] * translateZ + matrix.m[13];
+	target.m[14] = matrix.m[2] * translateX + matrix.m[6] * translateY + matrix.m[10] * translateZ + matrix.m[14];
+	target.m[15] = matrix.m[3] * translateX + matrix.m[7] * translateY + matrix.m[11] * translateZ + matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & translateXYZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & translate, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[0] * translate.v[0] + matrix.m[4] * translate.v[1] + matrix.m[8] * translate.v[2] + matrix.m[12];
+	target.m[13] = matrix.m[1] * translate.v[0] + matrix.m[5] * translate.v[1] + matrix.m[9] * translate.v[2] + matrix.m[13];
+	target.m[14] = matrix.m[2] * translate.v[0] + matrix.m[6] * translate.v[1] + matrix.m[10] * translate.v[2] + matrix.m[14];
+	target.m[15] = matrix.m[3] * translate.v[0] + matrix.m[7] * translate.v[1] + matrix.m[11] * translate.v[2] + matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & translateXZY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & translate, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[0] * translate.v[0] + matrix.m[4] * translate.v[2] + matrix.m[8] * translate.v[1] + matrix.m[12];
+	target.m[13] = matrix.m[1] * translate.v[0] + matrix.m[5] * translate.v[2] + matrix.m[9] * translate.v[1] + matrix.m[13];
+	target.m[14] = matrix.m[2] * translate.v[0] + matrix.m[6] * translate.v[2] + matrix.m[10] * translate.v[1] + matrix.m[14];
+	target.m[15] = matrix.m[3] * translate.v[0] + matrix.m[7] * translate.v[2] + matrix.m[11] * translate.v[1] + matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & translateYXZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & translate, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[0] * translate.v[1] + matrix.m[4] * translate.v[0] + matrix.m[8] * translate.v[2] + matrix.m[12];
+	target.m[13] = matrix.m[1] * translate.v[1] + matrix.m[5] * translate.v[0] + matrix.m[9] * translate.v[2] + matrix.m[13];
+	target.m[14] = matrix.m[2] * translate.v[1] + matrix.m[6] * translate.v[0] + matrix.m[10] * translate.v[2] + matrix.m[14];
+	target.m[15] = matrix.m[3] * translate.v[1] + matrix.m[7] * translate.v[0] + matrix.m[11] * translate.v[2] + matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & translateYZX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & translate, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[0] * translate.v[2] + matrix.m[4] * translate.v[0] + matrix.m[8] * translate.v[1] + matrix.m[12];
+	target.m[13] = matrix.m[1] * translate.v[2] + matrix.m[5] * translate.v[0] + matrix.m[9] * translate.v[1] + matrix.m[13];
+	target.m[14] = matrix.m[2] * translate.v[2] + matrix.m[6] * translate.v[0] + matrix.m[10] * translate.v[1] + matrix.m[14];
+	target.m[15] = matrix.m[3] * translate.v[2] + matrix.m[7] * translate.v[0] + matrix.m[11] * translate.v[1] + matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & translateZXY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & translate, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[0] * translate.v[1] + matrix.m[4] * translate.v[2] + matrix.m[8] * translate.v[0] + matrix.m[12];
+	target.m[13] = matrix.m[1] * translate.v[1] + matrix.m[5] * translate.v[2] + matrix.m[9] * translate.v[0] + matrix.m[13];
+	target.m[14] = matrix.m[2] * translate.v[1] + matrix.m[6] * translate.v[2] + matrix.m[10] * translate.v[0] + matrix.m[14];
+	target.m[15] = matrix.m[3] * translate.v[1] + matrix.m[7] * translate.v[2] + matrix.m[11] * translate.v[0] + matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & translateZYX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & translate, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[0] * translate.v[2] + matrix.m[4] * translate.v[1] + matrix.m[8] * translate.v[0] + matrix.m[12];
+	target.m[13] = matrix.m[1] * translate.v[2] + matrix.m[5] * translate.v[1] + matrix.m[9] * translate.v[0] + matrix.m[13];
+	target.m[14] = matrix.m[2] * translate.v[2] + matrix.m[6] * translate.v[1] + matrix.m[10] * translate.v[0] + matrix.m[14];
+	target.m[15] = matrix.m[3] * translate.v[2] + matrix.m[7] * translate.v[1] + matrix.m[11] * translate.v[0] + matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> rotateX(const GenoMatrix<4, 4, T> & matrix, T rotateX) {
+	auto sinX = sin(rotateX);
+	auto cosX = cos(rotateX);
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4] * cosX + matrix.m[8] * sinX,
+		matrix.m[5] * cosX + matrix.m[9] * sinX,
+		matrix.m[6] * cosX + matrix.m[10] * sinX,
+		matrix.m[7] * cosX + matrix.m[11] * sinX,
+		matrix.m[4] * -sinX + matrix.m[8] * cosX,
+		matrix.m[5] * -sinX + matrix.m[9] * cosX,
+		matrix.m[6] * -sinX + matrix.m[10] * cosX,
+		matrix.m[7] * -sinX + matrix.m[11] * cosX,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> rotateY(const GenoMatrix<4, 4, T> & matrix, T rotateY) {
+	auto sinY = sin(rotateY);
+	auto cosY = cos(rotateY);
+	return new T[4 * 4] {
+		matrix.m[0] * cosY + matrix.m[8] * -sinY,
+		matrix.m[1] * cosY + matrix.m[9] * -sinY,
+		matrix.m[2] * cosY + matrix.m[10] * -sinY,
+		matrix.m[3] * cosY + matrix.m[11] * -sinY,
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[0] * sinY + matrix.m[8] * cosY,
+		matrix.m[1] * sinY + matrix.m[9] * cosY,
+		matrix.m[2] * sinY + matrix.m[10] * cosY,
+		matrix.m[3] * sinY + matrix.m[11] * cosY,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> rotateZ(const GenoMatrix<4, 4, T> & matrix, T rotateZ) {
+	auto sinZ = sin(rotateZ);
+	auto cosZ = cos(rotateZ);
+	return new T[4 * 4] {
+		matrix.m[0] * cosZ + matrix.m[4] * sinZ,
+		matrix.m[1] * cosZ + matrix.m[5] * sinZ,
+		matrix.m[2] * cosZ + matrix.m[6] * sinZ,
+		matrix.m[3] * cosZ + matrix.m[7] * sinZ,
+		matrix.m[0] * -sinZ + matrix.m[4] * cosZ,
+		matrix.m[1] * -sinZ + matrix.m[5] * cosZ,
+		matrix.m[2] * -sinZ + matrix.m[6] * cosZ,
+		matrix.m[3] * -sinZ + matrix.m[7] * cosZ,
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> rotateXY(const GenoMatrix<4, 4, T> & matrix, T rotateX, T rotateY) {
+	auto sinX = sin(rotateX);
+	auto cosX = cos(rotateX);
+	auto sinY = sin(rotateY);
+	auto cosY = cos(rotateY);
+	auto m4  = sinY * sinX;
+	auto m6  = cosY * sinX;
+	auto m8  = sinY * cosX;
+	auto m10 = cosY * cosX;
+	return new T[4 * 4] {
+		matrix.m[0] * cosY + matrix.m[8] * -sinY,
+		matrix.m[1] * cosY + matrix.m[9] * -sinY,
+		matrix.m[2] * cosY + matrix.m[10] * -sinY,
+		matrix.m[3] * cosY + matrix.m[11] * -sinY,
+		matrix.m[0] * m4 + matrix.m[4] * cosX + matrix.m[8] * m6,
+		matrix.m[1] * m4 + matrix.m[5] * cosX + matrix.m[9] * m6,
+		matrix.m[2] * m4 + matrix.m[6] * cosX + matrix.m[10] * m6,
+		matrix.m[3] * m4 + matrix.m[7] * cosX + matrix.m[11] * m6,
+		matrix.m[0] * m8 + matrix.m[4] * -sinX + matrix.m[8] * m10,
+		matrix.m[1] * m8 + matrix.m[5] * -sinX + matrix.m[9] * m10,
+		matrix.m[2] * m8 + matrix.m[6] * -sinX + matrix.m[10] * m10,
+		matrix.m[3] * m8 + matrix.m[7] * -sinX + matrix.m[11] * m10,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateXY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & rotate) {
+	auto sinX = sin(rotate.v[0]);
+	auto cosX = cos(rotate.v[0]);
+	auto sinY = sin(rotate.v[1]);
+	auto cosY = cos(rotate.v[1]);
+	auto m4  = sinY * sinX;
+	auto m6  = cosY * sinX;
+	auto m8  = sinY * cosX;
+	auto m10 = cosY * cosX;
+	return new T[4 * 4] {
+		matrix.m[0] * cosY + matrix.m[8] * -sinY,
+		matrix.m[1] * cosY + matrix.m[9] * -sinY,
+		matrix.m[2] * cosY + matrix.m[10] * -sinY,
+		matrix.m[3] * cosY + matrix.m[11] * -sinY,
+		matrix.m[0] * m4 + matrix.m[4] * cosX + matrix.m[8] * m6,
+		matrix.m[1] * m4 + matrix.m[5] * cosX + matrix.m[9] * m6,
+		matrix.m[2] * m4 + matrix.m[6] * cosX + matrix.m[10] * m6,
+		matrix.m[3] * m4 + matrix.m[7] * cosX + matrix.m[11] * m6,
+		matrix.m[0] * m8 + matrix.m[4] * -sinX + matrix.m[8] * m10,
+		matrix.m[1] * m8 + matrix.m[5] * -sinX + matrix.m[9] * m10,
+		matrix.m[2] * m8 + matrix.m[6] * -sinX + matrix.m[10] * m10,
+		matrix.m[3] * m8 + matrix.m[7] * -sinX + matrix.m[11] * m10,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> rotateXZ(const GenoMatrix<4, 4, T> & matrix, T rotateX, T rotateZ) {
+	auto sinX = sin(rotateX);
+	auto cosX = cos(rotateX);
+	auto sinZ = sin(rotateZ);
+	auto cosZ = cos(rotateZ);
+	auto m4  = -sinZ * cosX;
+	auto m5  = cosZ * cosX;
+	auto m8  = sinZ * sinX;
+	auto m9  = -cosZ * sinX;
+	return new T[4 * 4] {
+		matrix.m[0] * cosZ + matrix.m[4] * sinZ,
+		matrix.m[1] * cosZ + matrix.m[5] * sinZ,
+		matrix.m[2] * cosZ + matrix.m[6] * sinZ,
+		matrix.m[3] * cosZ + matrix.m[7] * sinZ,
+		matrix.m[0] * m4 + matrix.m[4] * m5 + matrix.m[8] * sinX,
+		matrix.m[1] * m4 + matrix.m[5] * m5 + matrix.m[9] * sinX,
+		matrix.m[2] * m4 + matrix.m[6] * m5 + matrix.m[10] * sinX,
+		matrix.m[3] * m4 + matrix.m[7] * m5 + matrix.m[11] * sinX,
+		matrix.m[0] * m8 + matrix.m[4] * m9 + matrix.m[8] * cosX,
+		matrix.m[1] * m8 + matrix.m[5] * m9 + matrix.m[9] * cosX,
+		matrix.m[2] * m8 + matrix.m[6] * m9 + matrix.m[10] * cosX,
+		matrix.m[3] * m8 + matrix.m[7] * m9 + matrix.m[11] * cosX,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateXZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & rotate) {
+	auto sinX = sin(rotate.v[0]);
+	auto cosX = cos(rotate.v[0]);
+	auto sinZ = sin(rotate.v[1]);
+	auto cosZ = cos(rotate.v[1]);
+	auto m4  = -sinZ * cosX;
+	auto m5  = cosZ * cosX;
+	auto m8  = sinZ * sinX;
+	auto m9  = -cosZ * sinX;
+	return new T[4 * 4] {
+		matrix.m[0] * cosZ + matrix.m[4] * sinZ,
+		matrix.m[1] * cosZ + matrix.m[5] * sinZ,
+		matrix.m[2] * cosZ + matrix.m[6] * sinZ,
+		matrix.m[3] * cosZ + matrix.m[7] * sinZ,
+		matrix.m[0] * m4 + matrix.m[4] * m5 + matrix.m[8] * sinX,
+		matrix.m[1] * m4 + matrix.m[5] * m5 + matrix.m[9] * sinX,
+		matrix.m[2] * m4 + matrix.m[6] * m5 + matrix.m[10] * sinX,
+		matrix.m[3] * m4 + matrix.m[7] * m5 + matrix.m[11] * sinX,
+		matrix.m[0] * m8 + matrix.m[4] * m9 + matrix.m[8] * cosX,
+		matrix.m[1] * m8 + matrix.m[5] * m9 + matrix.m[9] * cosX,
+		matrix.m[2] * m8 + matrix.m[6] * m9 + matrix.m[10] * cosX,
+		matrix.m[3] * m8 + matrix.m[7] * m9 + matrix.m[11] * cosX,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateYX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & rotate) {
+	auto sinX = sin(rotate.v[1]);
+	auto cosX = cos(rotate.v[1]);
+	auto sinY = sin(rotate.v[0]);
+	auto cosY = cos(rotate.v[0]);
+	auto m1  = sinX * sinY;
+	auto m2  = -cosX * sinY;
+	auto m9  = -sinX * cosY;
+	auto m10 = cosX * cosY;
+	return new T[4 * 4] {
+		matrix.m[0] * cosY + matrix.m[4] * m1 + matrix.m[8] * m2,
+		matrix.m[1] * cosY + matrix.m[5] * m1 + matrix.m[9] * m2,
+		matrix.m[2] * cosY + matrix.m[6] * m1 + matrix.m[10] * m2,
+		matrix.m[3] * cosY + matrix.m[7] * m1 + matrix.m[11] * m2,
+		matrix.m[4] * cosX + matrix.m[8] * sinX,
+		matrix.m[5] * cosX + matrix.m[9] * sinX,
+		matrix.m[6] * cosX + matrix.m[10] * sinX,
+		matrix.m[7] * cosX + matrix.m[11] * sinX,
+		matrix.m[0] * sinY + matrix.m[4] * m9 + matrix.m[8] * m10,
+		matrix.m[1] * sinY + matrix.m[5] * m9 + matrix.m[9] * m10,
+		matrix.m[2] * sinY + matrix.m[6] * m9 + matrix.m[10] * m10,
+		matrix.m[3] * sinY + matrix.m[7] * m9 + matrix.m[11] * m10,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> rotateYZ(const GenoMatrix<4, 4, T> & matrix, T rotateY, T rotateZ) {
+	auto sinY = sin(rotateY);
+	auto cosY = cos(rotateY);
+	auto sinZ = sin(rotateZ);
+	auto cosZ = cos(rotateZ);
+	auto m0  = cosZ * cosY;
+	auto m1  = sinZ * cosY;
+	auto m8  = cosZ * sinY;
+	auto m9  = sinZ * sinY;
+	return new T[4 * 4] {
+		matrix.m[0] * m0 + matrix.m[4] * m1 + matrix.m[8] * -sinY,
+		matrix.m[1] * m0 + matrix.m[5] * m1 + matrix.m[9] * -sinY,
+		matrix.m[2] * m0 + matrix.m[6] * m1 + matrix.m[10] * -sinY,
+		matrix.m[3] * m0 + matrix.m[7] * m1 + matrix.m[11] * -sinY,
+		matrix.m[0] * -sinZ + matrix.m[4] * cosZ,
+		matrix.m[1] * -sinZ + matrix.m[5] * cosZ,
+		matrix.m[2] * -sinZ + matrix.m[6] * cosZ,
+		matrix.m[3] * -sinZ + matrix.m[7] * cosZ,
+		matrix.m[0] * m8 + matrix.m[4] * m9 + matrix.m[8] * cosY,
+		matrix.m[1] * m8 + matrix.m[5] * m9 + matrix.m[9] * cosY,
+		matrix.m[2] * m8 + matrix.m[6] * m9 + matrix.m[10] * cosY,
+		matrix.m[3] * m8 + matrix.m[7] * m9 + matrix.m[11] * cosY,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateYZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & rotate) {
+	auto sinY = sin(rotate.v[0]);
+	auto cosY = cos(rotate.v[0]);
+	auto sinZ = sin(rotate.v[1]);
+	auto cosZ = cos(rotate.v[1]);
+	auto m0  = cosZ * cosY;
+	auto m1  = sinZ * cosY;
+	auto m8  = cosZ * sinY;
+	auto m9  = sinZ * sinY;
+	return new T[4 * 4] {
+		matrix.m[0] * m0 + matrix.m[4] * m1 + matrix.m[8] * -sinY,
+		matrix.m[1] * m0 + matrix.m[5] * m1 + matrix.m[9] * -sinY,
+		matrix.m[2] * m0 + matrix.m[6] * m1 + matrix.m[10] * -sinY,
+		matrix.m[3] * m0 + matrix.m[7] * m1 + matrix.m[11] * -sinY,
+		matrix.m[0] * -sinZ + matrix.m[4] * cosZ,
+		matrix.m[1] * -sinZ + matrix.m[5] * cosZ,
+		matrix.m[2] * -sinZ + matrix.m[6] * cosZ,
+		matrix.m[3] * -sinZ + matrix.m[7] * cosZ,
+		matrix.m[0] * m8 + matrix.m[4] * m9 + matrix.m[8] * cosY,
+		matrix.m[1] * m8 + matrix.m[5] * m9 + matrix.m[9] * cosY,
+		matrix.m[2] * m8 + matrix.m[6] * m9 + matrix.m[10] * cosY,
+		matrix.m[3] * m8 + matrix.m[7] * m9 + matrix.m[11] * cosY,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateZX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & rotate) {
+	auto sinX = sin(rotate.v[1]);
+	auto cosX = cos(rotate.v[1]);
+	auto sinZ = sin(rotate.v[0]);
+	auto cosZ = cos(rotate.v[0]);
+	auto m1  = cosX * sinZ;
+	auto m2  = sinX * sinZ;
+	auto m5  = cosX * cosZ;
+	auto m6  = sinX * cosZ;
+	return new T[4 * 4] {
+		matrix.m[0] * cosZ + matrix.m[4] * m1 + matrix.m[8] * m2,
+		matrix.m[1] * cosZ + matrix.m[5] * m1 + matrix.m[9] * m2,
+		matrix.m[2] * cosZ + matrix.m[6] * m1 + matrix.m[10] * m2,
+		matrix.m[3] * cosZ + matrix.m[7] * m1 + matrix.m[11] * m2,
+		matrix.m[0] * -sinZ + matrix.m[4] * m5 + matrix.m[8] * m6,
+		matrix.m[1] * -sinZ + matrix.m[5] * m5 + matrix.m[9] * m6,
+		matrix.m[2] * -sinZ + matrix.m[6] * m5 + matrix.m[10] * m6,
+		matrix.m[3] * -sinZ + matrix.m[7] * m5 + matrix.m[11] * m6,
+		matrix.m[4] * -sinX + matrix.m[8] * cosX,
+		matrix.m[5] * -sinX + matrix.m[9] * cosX,
+		matrix.m[6] * -sinX + matrix.m[10] * cosX,
+		matrix.m[7] * -sinX + matrix.m[11] * cosX,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateZY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & rotate) {
+	auto sinY = sin(rotate.v[1]);
+	auto cosY = cos(rotate.v[1]);
+	auto sinZ = sin(rotate.v[0]);
+	auto cosZ = cos(rotate.v[0]);
+	auto m0  = cosY * cosZ;
+	auto m2  = -sinY * cosZ;
+	auto m4  = -cosY * sinZ;
+	auto m6  = sinY * sinZ;
+	return new T[4 * 4] {
+		matrix.m[0] * m0 + matrix.m[4] * sinZ + matrix.m[8] * m2,
+		matrix.m[1] * m0 + matrix.m[5] * sinZ + matrix.m[9] * m2,
+		matrix.m[2] * m0 + matrix.m[6] * sinZ + matrix.m[10] * m2,
+		matrix.m[3] * m0 + matrix.m[7] * sinZ + matrix.m[11] * m2,
+		matrix.m[0] * m4 + matrix.m[4] * cosZ + matrix.m[8] * m6,
+		matrix.m[1] * m4 + matrix.m[5] * cosZ + matrix.m[9] * m6,
+		matrix.m[2] * m4 + matrix.m[6] * cosZ + matrix.m[10] * m6,
+		matrix.m[3] * m4 + matrix.m[7] * cosZ + matrix.m[11] * m6,
+		matrix.m[0] * sinY + matrix.m[8] * cosY,
+		matrix.m[1] * sinY + matrix.m[9] * cosY,
+		matrix.m[2] * sinY + matrix.m[10] * cosY,
+		matrix.m[3] * sinY + matrix.m[11] * cosY,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> rotateXYZ(const GenoMatrix<4, 4, T> & matrix, T rotateX, T rotateY, T rotateZ) {
+	auto sinX = sin(rotateX);
+	auto cosX = cos(rotateX);
+	auto sinY = sin(rotateY);
+	auto cosY = cos(rotateY);
+	auto sinZ = sin(rotateZ);
+	auto cosZ = cos(rotateZ);
+	auto m0  = cosZ * cosY;
+	auto m1  = sinZ * cosY;
+	auto m4  = -sinZ * cosX + cosZ * sinY * sinX;
+	auto m5  = cosZ * cosX + sinZ * sinY * sinX;
+	auto m6  = cosY * sinX;
+	auto m8  = sinZ * sinX + cosZ * sinY * cosX;
+	auto m9  = -cosZ * sinX + sinZ * sinY * cosX;
+	auto m10 = cosY * cosX;
+	return new T[4 * 4] {
+		matrix.m[0] * m0 + matrix.m[4] * m1 + matrix.m[8] * -sinY,
+		matrix.m[1] * m0 + matrix.m[5] * m1 + matrix.m[9] * -sinY,
+		matrix.m[2] * m0 + matrix.m[6] * m1 + matrix.m[10] * -sinY,
+		matrix.m[3] * m0 + matrix.m[7] * m1 + matrix.m[11] * -sinY,
+		matrix.m[0] * m4 + matrix.m[4] * m5 + matrix.m[8] * m6,
+		matrix.m[1] * m4 + matrix.m[5] * m5 + matrix.m[9] * m6,
+		matrix.m[2] * m4 + matrix.m[6] * m5 + matrix.m[10] * m6,
+		matrix.m[3] * m4 + matrix.m[7] * m5 + matrix.m[11] * m6,
+		matrix.m[0] * m8 + matrix.m[4] * m9 + matrix.m[8] * m10,
+		matrix.m[1] * m8 + matrix.m[5] * m9 + matrix.m[9] * m10,
+		matrix.m[2] * m8 + matrix.m[6] * m9 + matrix.m[10] * m10,
+		matrix.m[3] * m8 + matrix.m[7] * m9 + matrix.m[11] * m10,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateXYZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & rotate) {
+	auto sinX = sin(rotate.v[0]);
+	auto cosX = cos(rotate.v[0]);
+	auto sinY = sin(rotate.v[1]);
+	auto cosY = cos(rotate.v[1]);
+	auto sinZ = sin(rotate.v[2]);
+	auto cosZ = cos(rotate.v[2]);
+	auto m0  = cosZ * cosY;
+	auto m1  = sinZ * cosY;
+	auto m4  = -sinZ * cosX + cosZ * sinY * sinX;
+	auto m5  = cosZ * cosX + sinZ * sinY * sinX;
+	auto m6  = cosY * sinX;
+	auto m8  = sinZ * sinX + cosZ * sinY * cosX;
+	auto m9  = -cosZ * sinX + sinZ * sinY * cosX;
+	auto m10 = cosY * cosX;
+	return new T[4 * 4] {
+		matrix.m[0] * m0 + matrix.m[4] * m1 + matrix.m[8] * -sinY,
+		matrix.m[1] * m0 + matrix.m[5] * m1 + matrix.m[9] * -sinY,
+		matrix.m[2] * m0 + matrix.m[6] * m1 + matrix.m[10] * -sinY,
+		matrix.m[3] * m0 + matrix.m[7] * m1 + matrix.m[11] * -sinY,
+		matrix.m[0] * m4 + matrix.m[4] * m5 + matrix.m[8] * m6,
+		matrix.m[1] * m4 + matrix.m[5] * m5 + matrix.m[9] * m6,
+		matrix.m[2] * m4 + matrix.m[6] * m5 + matrix.m[10] * m6,
+		matrix.m[3] * m4 + matrix.m[7] * m5 + matrix.m[11] * m6,
+		matrix.m[0] * m8 + matrix.m[4] * m9 + matrix.m[8] * m10,
+		matrix.m[1] * m8 + matrix.m[5] * m9 + matrix.m[9] * m10,
+		matrix.m[2] * m8 + matrix.m[6] * m9 + matrix.m[10] * m10,
+		matrix.m[3] * m8 + matrix.m[7] * m9 + matrix.m[11] * m10,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateXZY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & rotate) {
+	auto sinX = sin(rotate.v[0]);
+	auto cosX = cos(rotate.v[0]);
+	auto sinY = sin(rotate.v[2]);
+	auto cosY = cos(rotate.v[2]);
+	auto sinZ = sin(rotate.v[1]);
+	auto cosZ = cos(rotate.v[1]);
+	auto m0  = cosY * cosZ;
+	auto m2  = -sinY * cosZ;
+	auto m4  = -cosY * sinZ * cosX + sinY * sinX;
+	auto m5  = cosZ * cosX;
+	auto m6  = sinY * sinZ * cosX + cosY * sinX;
+	auto m8  = cosY * sinZ * sinX + sinY * cosX;
+	auto m9  = -cosZ * sinX;
+	auto m10 = -sinY * sinZ * sinX + cosY * cosX;
+	return new T[4 * 4] {
+		matrix.m[0] * m0 + matrix.m[4] * sinZ + matrix.m[8] * m2,
+		matrix.m[1] * m0 + matrix.m[5] * sinZ + matrix.m[9] * m2,
+		matrix.m[2] * m0 + matrix.m[6] * sinZ + matrix.m[10] * m2,
+		matrix.m[3] * m0 + matrix.m[7] * sinZ + matrix.m[11] * m2,
+		matrix.m[0] * m4 + matrix.m[4] * m5 + matrix.m[8] * m6,
+		matrix.m[1] * m4 + matrix.m[5] * m5 + matrix.m[9] * m6,
+		matrix.m[2] * m4 + matrix.m[6] * m5 + matrix.m[10] * m6,
+		matrix.m[3] * m4 + matrix.m[7] * m5 + matrix.m[11] * m6,
+		matrix.m[0] * m8 + matrix.m[4] * m9 + matrix.m[8] * m10,
+		matrix.m[1] * m8 + matrix.m[5] * m9 + matrix.m[9] * m10,
+		matrix.m[2] * m8 + matrix.m[6] * m9 + matrix.m[10] * m10,
+		matrix.m[3] * m8 + matrix.m[7] * m9 + matrix.m[11] * m10,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateYXZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & rotate) {
+	auto sinX = sin(rotate.v[1]);
+	auto cosX = cos(rotate.v[1]);
+	auto sinY = sin(rotate.v[0]);
+	auto cosY = cos(rotate.v[0]);
+	auto sinZ = sin(rotate.v[2]);
+	auto cosZ = cos(rotate.v[2]);
+	auto m0  = cosZ * cosY - sinZ * sinX * sinY;
+	auto m1  = sinZ * cosY + cosZ * sinX * sinY;
+	auto m2  = -cosX * sinY;
+	auto m4  = -sinZ * cosX;
+	auto m5  = cosZ * cosX;
+	auto m8  = cosZ * sinY + sinZ * sinX * cosY;
+	auto m9  = sinZ * sinY - cosZ * sinX * cosY;
+	auto m10 = cosX * cosY;
+	return new T[4 * 4] {
+		matrix.m[0] * m0 + matrix.m[4] * m1 + matrix.m[8] * m2,
+		matrix.m[1] * m0 + matrix.m[5] * m1 + matrix.m[9] * m2,
+		matrix.m[2] * m0 + matrix.m[6] * m1 + matrix.m[10] * m2,
+		matrix.m[3] * m0 + matrix.m[7] * m1 + matrix.m[11] * m2,
+		matrix.m[0] * m4 + matrix.m[4] * m5 + matrix.m[8] * sinX,
+		matrix.m[1] * m4 + matrix.m[5] * m5 + matrix.m[9] * sinX,
+		matrix.m[2] * m4 + matrix.m[6] * m5 + matrix.m[10] * sinX,
+		matrix.m[3] * m4 + matrix.m[7] * m5 + matrix.m[11] * sinX,
+		matrix.m[0] * m8 + matrix.m[4] * m9 + matrix.m[8] * m10,
+		matrix.m[1] * m8 + matrix.m[5] * m9 + matrix.m[9] * m10,
+		matrix.m[2] * m8 + matrix.m[6] * m9 + matrix.m[10] * m10,
+		matrix.m[3] * m8 + matrix.m[7] * m9 + matrix.m[11] * m10,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateYZX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & rotate) {
+	auto sinX = sin(rotate.v[2]);
+	auto cosX = cos(rotate.v[2]);
+	auto sinY = sin(rotate.v[0]);
+	auto cosY = cos(rotate.v[0]);
+	auto sinZ = sin(rotate.v[1]);
+	auto cosZ = cos(rotate.v[1]);
+	auto m0  = cosZ * cosY;
+	auto m1  = cosX * sinZ * cosY + sinX * sinY;
+	auto m2  = sinX * sinZ * cosY - cosX * sinY;
+	auto m5  = cosX * cosZ;
+	auto m6  = sinX * cosZ;
+	auto m8  = cosZ * sinY;
+	auto m9  = cosX * sinZ * sinY - sinX * cosY;
+	auto m10 = sinX * sinZ * sinY + cosX * cosY;
+	return new T[4 * 4] {
+		matrix.m[0] * m0 + matrix.m[4] * m1 + matrix.m[8] * m2,
+		matrix.m[1] * m0 + matrix.m[5] * m1 + matrix.m[9] * m2,
+		matrix.m[2] * m0 + matrix.m[6] * m1 + matrix.m[10] * m2,
+		matrix.m[3] * m0 + matrix.m[7] * m1 + matrix.m[11] * m2,
+		matrix.m[0] * -sinZ + matrix.m[4] * m5 + matrix.m[8] * m6,
+		matrix.m[1] * -sinZ + matrix.m[5] * m5 + matrix.m[9] * m6,
+		matrix.m[2] * -sinZ + matrix.m[6] * m5 + matrix.m[10] * m6,
+		matrix.m[3] * -sinZ + matrix.m[7] * m5 + matrix.m[11] * m6,
+		matrix.m[0] * m8 + matrix.m[4] * m9 + matrix.m[8] * m10,
+		matrix.m[1] * m8 + matrix.m[5] * m9 + matrix.m[9] * m10,
+		matrix.m[2] * m8 + matrix.m[6] * m9 + matrix.m[10] * m10,
+		matrix.m[3] * m8 + matrix.m[7] * m9 + matrix.m[11] * m10,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateZXY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & rotate) {
+	auto sinX = sin(rotate.v[1]);
+	auto cosX = cos(rotate.v[1]);
+	auto sinY = sin(rotate.v[2]);
+	auto cosY = cos(rotate.v[2]);
+	auto sinZ = sin(rotate.v[0]);
+	auto cosZ = cos(rotate.v[0]);
+	auto m0  = cosY * cosZ + sinY * sinX * sinZ;
+	auto m1  = cosX * sinZ;
+	auto m2  = -sinY * cosZ + cosY * sinX * sinZ;
+	auto m4  = -cosY * sinZ + sinY * sinX * cosZ;
+	auto m5  = cosX * cosZ;
+	auto m6  = sinY * sinZ + cosY * sinX * cosZ;
+	auto m8  = sinY * cosX;
+	auto m10 = cosY * cosX;
+	return new T[4 * 4] {
+		matrix.m[0] * m0 + matrix.m[4] * m1 + matrix.m[8] * m2,
+		matrix.m[1] * m0 + matrix.m[5] * m1 + matrix.m[9] * m2,
+		matrix.m[2] * m0 + matrix.m[6] * m1 + matrix.m[10] * m2,
+		matrix.m[3] * m0 + matrix.m[7] * m1 + matrix.m[11] * m2,
+		matrix.m[0] * m4 + matrix.m[4] * m5 + matrix.m[8] * m6,
+		matrix.m[1] * m4 + matrix.m[5] * m5 + matrix.m[9] * m6,
+		matrix.m[2] * m4 + matrix.m[6] * m5 + matrix.m[10] * m6,
+		matrix.m[3] * m4 + matrix.m[7] * m5 + matrix.m[11] * m6,
+		matrix.m[0] * m8 + matrix.m[4] * -sinX + matrix.m[8] * m10,
+		matrix.m[1] * m8 + matrix.m[5] * -sinX + matrix.m[9] * m10,
+		matrix.m[2] * m8 + matrix.m[6] * -sinX + matrix.m[10] * m10,
+		matrix.m[3] * m8 + matrix.m[7] * -sinX + matrix.m[11] * m10,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateZYX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & rotate) {
+	auto sinX = sin(rotate.v[2]);
+	auto cosX = cos(rotate.v[2]);
+	auto sinY = sin(rotate.v[1]);
+	auto cosY = cos(rotate.v[1]);
+	auto sinZ = sin(rotate.v[0]);
+	auto cosZ = cos(rotate.v[0]);
+	auto m0  = cosY * cosZ;
+	auto m1  = sinX * sinY * cosZ + cosX * sinZ;
+	auto m2  = -cosX * sinY * cosZ + sinX * sinZ;
+	auto m4  = -cosY * sinZ;
+	auto m5  = -sinX * sinY * sinZ + cosX * cosZ;
+	auto m6  = cosX * sinY * sinZ + sinX * cosZ;
+	auto m9  = -sinX * cosY;
+	auto m10 = cosX * cosY;
+	return new T[4 * 4] {
+		matrix.m[0] * m0 + matrix.m[4] * m1 + matrix.m[8] * m2,
+		matrix.m[1] * m0 + matrix.m[5] * m1 + matrix.m[9] * m2,
+		matrix.m[2] * m0 + matrix.m[6] * m1 + matrix.m[10] * m2,
+		matrix.m[3] * m0 + matrix.m[7] * m1 + matrix.m[11] * m2,
+		matrix.m[0] * m4 + matrix.m[4] * m5 + matrix.m[8] * m6,
+		matrix.m[1] * m4 + matrix.m[5] * m5 + matrix.m[9] * m6,
+		matrix.m[2] * m4 + matrix.m[6] * m5 + matrix.m[10] * m6,
+		matrix.m[3] * m4 + matrix.m[7] * m5 + matrix.m[11] * m6,
+		matrix.m[0] * sinY + matrix.m[4] * m9 + matrix.m[8] * m10,
+		matrix.m[1] * sinY + matrix.m[5] * m9 + matrix.m[9] * m10,
+		matrix.m[2] * sinY + matrix.m[6] * m9 + matrix.m[10] * m10,
+		matrix.m[3] * sinY + matrix.m[7] * m9 + matrix.m[11] * m10,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateX(const GenoMatrix<4, 4, T> & matrix, T rotateX, GenoMatrix<4, 4, T> & target) {
+	auto sinX = sin(rotateX);
+	auto cosX = cos(rotateX);
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4] * cosX + matrix.m[8] * sinX;
+	target.m[5] = matrix.m[5] * cosX + matrix.m[9] * sinX;
+	target.m[6] = matrix.m[6] * cosX + matrix.m[10] * sinX;
+	target.m[7] = matrix.m[7] * cosX + matrix.m[11] * sinX;
+	target.m[8] = matrix.m[4] * -sinX + matrix.m[8] * cosX;
+	target.m[9] = matrix.m[5] * -sinX + matrix.m[9] * cosX;
+	target.m[10] = matrix.m[6] * -sinX + matrix.m[10] * cosX;
+	target.m[11] = matrix.m[7] * -sinX + matrix.m[11] * cosX;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateY(const GenoMatrix<4, 4, T> & matrix, T rotateY, GenoMatrix<4, 4, T> & target) {
+	auto sinY = sin(rotateY);
+	auto cosY = cos(rotateY);
+	target.m[0] = matrix.m[0] * cosY + matrix.m[8] * -sinY;
+	target.m[1] = matrix.m[1] * cosY + matrix.m[9] * -sinY;
+	target.m[2] = matrix.m[2] * cosY + matrix.m[10] * -sinY;
+	target.m[3] = matrix.m[3] * cosY + matrix.m[11] * -sinY;
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[0] * sinY + matrix.m[8] * cosY;
+	target.m[9] = matrix.m[1] * sinY + matrix.m[9] * cosY;
+	target.m[10] = matrix.m[2] * sinY + matrix.m[10] * cosY;
+	target.m[11] = matrix.m[3] * sinY + matrix.m[11] * cosY;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateZ(const GenoMatrix<4, 4, T> & matrix, T rotateZ, GenoMatrix<4, 4, T> & target) {
+	auto sinZ = sin(rotateZ);
+	auto cosZ = cos(rotateZ);
+	target.m[0] = matrix.m[0] * cosZ + matrix.m[4] * sinZ;
+	target.m[1] = matrix.m[1] * cosZ + matrix.m[5] * sinZ;
+	target.m[2] = matrix.m[2] * cosZ + matrix.m[6] * sinZ;
+	target.m[3] = matrix.m[3] * cosZ + matrix.m[7] * sinZ;
+	target.m[4] = matrix.m[0] * -sinZ + matrix.m[4] * cosZ;
+	target.m[5] = matrix.m[1] * -sinZ + matrix.m[5] * cosZ;
+	target.m[6] = matrix.m[2] * -sinZ + matrix.m[6] * cosZ;
+	target.m[7] = matrix.m[3] * -sinZ + matrix.m[7] * cosZ;
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateXY(const GenoMatrix<4, 4, T> & matrix, T rotateX, T rotateY, GenoMatrix<4, 4, T> & target) {
+	auto sinX = sin(rotateX);
+	auto cosX = cos(rotateX);
+	auto sinY = sin(rotateY);
+	auto cosY = cos(rotateY);
+	auto m4  = sinY * sinX;
+	auto m6  = cosY * sinX;
+	auto m8  = sinY * cosX;
+	auto m10 = cosY * cosX;
+	target.m[0] = matrix.m[0] * cosY + matrix.m[8] * -sinY;
+	target.m[1] = matrix.m[1] * cosY + matrix.m[9] * -sinY;
+	target.m[2] = matrix.m[2] * cosY + matrix.m[10] * -sinY;
+	target.m[3] = matrix.m[3] * cosY + matrix.m[11] * -sinY;
+	target.m[4] = matrix.m[0] * m4 + matrix.m[4] * cosX + matrix.m[8] * m6;
+	target.m[5] = matrix.m[1] * m4 + matrix.m[5] * cosX + matrix.m[9] * m6;
+	target.m[6] = matrix.m[2] * m4 + matrix.m[6] * cosX + matrix.m[10] * m6;
+	target.m[7] = matrix.m[3] * m4 + matrix.m[7] * cosX + matrix.m[11] * m6;
+	target.m[8] = matrix.m[0] * m8 + matrix.m[4] * -sinX + matrix.m[8] * m10;
+	target.m[9] = matrix.m[1] * m8 + matrix.m[5] * -sinX + matrix.m[9] * m10;
+	target.m[10] = matrix.m[2] * m8 + matrix.m[6] * -sinX + matrix.m[10] * m10;
+	target.m[11] = matrix.m[3] * m8 + matrix.m[7] * -sinX + matrix.m[11] * m10;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateXY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & rotate, GenoMatrix<4, 4, T> & target) {
+	auto sinX = sin(rotate.v[0]);
+	auto cosX = cos(rotate.v[0]);
+	auto sinY = sin(rotate.v[1]);
+	auto cosY = cos(rotate.v[1]);
+	auto m4  = sinY * sinX;
+	auto m6  = cosY * sinX;
+	auto m8  = sinY * cosX;
+	auto m10 = cosY * cosX;
+	target.m[0] = matrix.m[0] * cosY + matrix.m[8] * -sinY;
+	target.m[1] = matrix.m[1] * cosY + matrix.m[9] * -sinY;
+	target.m[2] = matrix.m[2] * cosY + matrix.m[10] * -sinY;
+	target.m[3] = matrix.m[3] * cosY + matrix.m[11] * -sinY;
+	target.m[4] = matrix.m[0] * m4 + matrix.m[4] * cosX + matrix.m[8] * m6;
+	target.m[5] = matrix.m[1] * m4 + matrix.m[5] * cosX + matrix.m[9] * m6;
+	target.m[6] = matrix.m[2] * m4 + matrix.m[6] * cosX + matrix.m[10] * m6;
+	target.m[7] = matrix.m[3] * m4 + matrix.m[7] * cosX + matrix.m[11] * m6;
+	target.m[8] = matrix.m[0] * m8 + matrix.m[4] * -sinX + matrix.m[8] * m10;
+	target.m[9] = matrix.m[1] * m8 + matrix.m[5] * -sinX + matrix.m[9] * m10;
+	target.m[10] = matrix.m[2] * m8 + matrix.m[6] * -sinX + matrix.m[10] * m10;
+	target.m[11] = matrix.m[3] * m8 + matrix.m[7] * -sinX + matrix.m[11] * m10;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateXZ(const GenoMatrix<4, 4, T> & matrix, T rotateX, T rotateZ, GenoMatrix<4, 4, T> & target) {
+	auto sinX = sin(rotateX);
+	auto cosX = cos(rotateX);
+	auto sinZ = sin(rotateZ);
+	auto cosZ = cos(rotateZ);
+	auto m4  = -sinZ * cosX;
+	auto m5  = cosZ * cosX;
+	auto m8  = sinZ * sinX;
+	auto m9  = -cosZ * sinX;
+	target.m[0] = matrix.m[0] * cosZ + matrix.m[4] * sinZ;
+	target.m[1] = matrix.m[1] * cosZ + matrix.m[5] * sinZ;
+	target.m[2] = matrix.m[2] * cosZ + matrix.m[6] * sinZ;
+	target.m[3] = matrix.m[3] * cosZ + matrix.m[7] * sinZ;
+	target.m[4] = matrix.m[0] * m4 + matrix.m[4] * m5 + matrix.m[8] * sinX;
+	target.m[5] = matrix.m[1] * m4 + matrix.m[5] * m5 + matrix.m[9] * sinX;
+	target.m[6] = matrix.m[2] * m4 + matrix.m[6] * m5 + matrix.m[10] * sinX;
+	target.m[7] = matrix.m[3] * m4 + matrix.m[7] * m5 + matrix.m[11] * sinX;
+	target.m[8] = matrix.m[0] * m8 + matrix.m[4] * m9 + matrix.m[8] * cosX;
+	target.m[9] = matrix.m[1] * m8 + matrix.m[5] * m9 + matrix.m[9] * cosX;
+	target.m[10] = matrix.m[2] * m8 + matrix.m[6] * m9 + matrix.m[10] * cosX;
+	target.m[11] = matrix.m[3] * m8 + matrix.m[7] * m9 + matrix.m[11] * cosX;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateXZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & rotate, GenoMatrix<4, 4, T> & target) {
+	auto sinX = sin(rotate.v[0]);
+	auto cosX = cos(rotate.v[0]);
+	auto sinZ = sin(rotate.v[1]);
+	auto cosZ = cos(rotate.v[1]);
+	auto m4  = -sinZ * cosX;
+	auto m5  = cosZ * cosX;
+	auto m8  = sinZ * sinX;
+	auto m9  = -cosZ * sinX;
+	target.m[0] = matrix.m[0] * cosZ + matrix.m[4] * sinZ;
+	target.m[1] = matrix.m[1] * cosZ + matrix.m[5] * sinZ;
+	target.m[2] = matrix.m[2] * cosZ + matrix.m[6] * sinZ;
+	target.m[3] = matrix.m[3] * cosZ + matrix.m[7] * sinZ;
+	target.m[4] = matrix.m[0] * m4 + matrix.m[4] * m5 + matrix.m[8] * sinX;
+	target.m[5] = matrix.m[1] * m4 + matrix.m[5] * m5 + matrix.m[9] * sinX;
+	target.m[6] = matrix.m[2] * m4 + matrix.m[6] * m5 + matrix.m[10] * sinX;
+	target.m[7] = matrix.m[3] * m4 + matrix.m[7] * m5 + matrix.m[11] * sinX;
+	target.m[8] = matrix.m[0] * m8 + matrix.m[4] * m9 + matrix.m[8] * cosX;
+	target.m[9] = matrix.m[1] * m8 + matrix.m[5] * m9 + matrix.m[9] * cosX;
+	target.m[10] = matrix.m[2] * m8 + matrix.m[6] * m9 + matrix.m[10] * cosX;
+	target.m[11] = matrix.m[3] * m8 + matrix.m[7] * m9 + matrix.m[11] * cosX;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateYX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & rotate, GenoMatrix<4, 4, T> & target) {
+	auto sinX = sin(rotate.v[1]);
+	auto cosX = cos(rotate.v[1]);
+	auto sinY = sin(rotate.v[0]);
+	auto cosY = cos(rotate.v[0]);
+	auto m1  = sinX * sinY;
+	auto m2  = -cosX * sinY;
+	auto m9  = -sinX * cosY;
+	auto m10 = cosX * cosY;
+	target.m[0] = matrix.m[0] * cosY + matrix.m[4] * m1 + matrix.m[8] * m2;
+	target.m[1] = matrix.m[1] * cosY + matrix.m[5] * m1 + matrix.m[9] * m2;
+	target.m[2] = matrix.m[2] * cosY + matrix.m[6] * m1 + matrix.m[10] * m2;
+	target.m[3] = matrix.m[3] * cosY + matrix.m[7] * m1 + matrix.m[11] * m2;
+	target.m[4] = matrix.m[4] * cosX + matrix.m[8] * sinX;
+	target.m[5] = matrix.m[5] * cosX + matrix.m[9] * sinX;
+	target.m[6] = matrix.m[6] * cosX + matrix.m[10] * sinX;
+	target.m[7] = matrix.m[7] * cosX + matrix.m[11] * sinX;
+	target.m[8] = matrix.m[0] * sinY + matrix.m[4] * m9 + matrix.m[8] * m10;
+	target.m[9] = matrix.m[1] * sinY + matrix.m[5] * m9 + matrix.m[9] * m10;
+	target.m[10] = matrix.m[2] * sinY + matrix.m[6] * m9 + matrix.m[10] * m10;
+	target.m[11] = matrix.m[3] * sinY + matrix.m[7] * m9 + matrix.m[11] * m10;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateYZ(const GenoMatrix<4, 4, T> & matrix, T rotateY, T rotateZ, GenoMatrix<4, 4, T> & target) {
+	auto sinY = sin(rotateY);
+	auto cosY = cos(rotateY);
+	auto sinZ = sin(rotateZ);
+	auto cosZ = cos(rotateZ);
+	auto m0  = cosZ * cosY;
+	auto m1  = sinZ * cosY;
+	auto m8  = cosZ * sinY;
+	auto m9  = sinZ * sinY;
+	target.m[0] = matrix.m[0] * m0 + matrix.m[4] * m1 + matrix.m[8] * -sinY;
+	target.m[1] = matrix.m[1] * m0 + matrix.m[5] * m1 + matrix.m[9] * -sinY;
+	target.m[2] = matrix.m[2] * m0 + matrix.m[6] * m1 + matrix.m[10] * -sinY;
+	target.m[3] = matrix.m[3] * m0 + matrix.m[7] * m1 + matrix.m[11] * -sinY;
+	target.m[4] = matrix.m[0] * -sinZ + matrix.m[4] * cosZ;
+	target.m[5] = matrix.m[1] * -sinZ + matrix.m[5] * cosZ;
+	target.m[6] = matrix.m[2] * -sinZ + matrix.m[6] * cosZ;
+	target.m[7] = matrix.m[3] * -sinZ + matrix.m[7] * cosZ;
+	target.m[8] = matrix.m[0] * m8 + matrix.m[4] * m9 + matrix.m[8] * cosY;
+	target.m[9] = matrix.m[1] * m8 + matrix.m[5] * m9 + matrix.m[9] * cosY;
+	target.m[10] = matrix.m[2] * m8 + matrix.m[6] * m9 + matrix.m[10] * cosY;
+	target.m[11] = matrix.m[3] * m8 + matrix.m[7] * m9 + matrix.m[11] * cosY;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateYZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & rotate, GenoMatrix<4, 4, T> & target) {
+	auto sinY = sin(rotate.v[0]);
+	auto cosY = cos(rotate.v[0]);
+	auto sinZ = sin(rotate.v[1]);
+	auto cosZ = cos(rotate.v[1]);
+	auto m0  = cosZ * cosY;
+	auto m1  = sinZ * cosY;
+	auto m8  = cosZ * sinY;
+	auto m9  = sinZ * sinY;
+	target.m[0] = matrix.m[0] * m0 + matrix.m[4] * m1 + matrix.m[8] * -sinY;
+	target.m[1] = matrix.m[1] * m0 + matrix.m[5] * m1 + matrix.m[9] * -sinY;
+	target.m[2] = matrix.m[2] * m0 + matrix.m[6] * m1 + matrix.m[10] * -sinY;
+	target.m[3] = matrix.m[3] * m0 + matrix.m[7] * m1 + matrix.m[11] * -sinY;
+	target.m[4] = matrix.m[0] * -sinZ + matrix.m[4] * cosZ;
+	target.m[5] = matrix.m[1] * -sinZ + matrix.m[5] * cosZ;
+	target.m[6] = matrix.m[2] * -sinZ + matrix.m[6] * cosZ;
+	target.m[7] = matrix.m[3] * -sinZ + matrix.m[7] * cosZ;
+	target.m[8] = matrix.m[0] * m8 + matrix.m[4] * m9 + matrix.m[8] * cosY;
+	target.m[9] = matrix.m[1] * m8 + matrix.m[5] * m9 + matrix.m[9] * cosY;
+	target.m[10] = matrix.m[2] * m8 + matrix.m[6] * m9 + matrix.m[10] * cosY;
+	target.m[11] = matrix.m[3] * m8 + matrix.m[7] * m9 + matrix.m[11] * cosY;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateZX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & rotate, GenoMatrix<4, 4, T> & target) {
+	auto sinX = sin(rotate.v[1]);
+	auto cosX = cos(rotate.v[1]);
+	auto sinZ = sin(rotate.v[0]);
+	auto cosZ = cos(rotate.v[0]);
+	auto m1  = cosX * sinZ;
+	auto m2  = sinX * sinZ;
+	auto m5  = cosX * cosZ;
+	auto m6  = sinX * cosZ;
+	target.m[0] = matrix.m[0] * cosZ + matrix.m[4] * m1 + matrix.m[8] * m2;
+	target.m[1] = matrix.m[1] * cosZ + matrix.m[5] * m1 + matrix.m[9] * m2;
+	target.m[2] = matrix.m[2] * cosZ + matrix.m[6] * m1 + matrix.m[10] * m2;
+	target.m[3] = matrix.m[3] * cosZ + matrix.m[7] * m1 + matrix.m[11] * m2;
+	target.m[4] = matrix.m[0] * -sinZ + matrix.m[4] * m5 + matrix.m[8] * m6;
+	target.m[5] = matrix.m[1] * -sinZ + matrix.m[5] * m5 + matrix.m[9] * m6;
+	target.m[6] = matrix.m[2] * -sinZ + matrix.m[6] * m5 + matrix.m[10] * m6;
+	target.m[7] = matrix.m[3] * -sinZ + matrix.m[7] * m5 + matrix.m[11] * m6;
+	target.m[8] = matrix.m[4] * -sinX + matrix.m[8] * cosX;
+	target.m[9] = matrix.m[5] * -sinX + matrix.m[9] * cosX;
+	target.m[10] = matrix.m[6] * -sinX + matrix.m[10] * cosX;
+	target.m[11] = matrix.m[7] * -sinX + matrix.m[11] * cosX;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateZY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & rotate, GenoMatrix<4, 4, T> & target) {
+	auto sinY = sin(rotate.v[1]);
+	auto cosY = cos(rotate.v[1]);
+	auto sinZ = sin(rotate.v[0]);
+	auto cosZ = cos(rotate.v[0]);
+	auto m0  = cosY * cosZ;
+	auto m2  = -sinY * cosZ;
+	auto m4  = -cosY * sinZ;
+	auto m6  = sinY * sinZ;
+	target.m[0] = matrix.m[0] * m0 + matrix.m[4] * sinZ + matrix.m[8] * m2;
+	target.m[1] = matrix.m[1] * m0 + matrix.m[5] * sinZ + matrix.m[9] * m2;
+	target.m[2] = matrix.m[2] * m0 + matrix.m[6] * sinZ + matrix.m[10] * m2;
+	target.m[3] = matrix.m[3] * m0 + matrix.m[7] * sinZ + matrix.m[11] * m2;
+	target.m[4] = matrix.m[0] * m4 + matrix.m[4] * cosZ + matrix.m[8] * m6;
+	target.m[5] = matrix.m[1] * m4 + matrix.m[5] * cosZ + matrix.m[9] * m6;
+	target.m[6] = matrix.m[2] * m4 + matrix.m[6] * cosZ + matrix.m[10] * m6;
+	target.m[7] = matrix.m[3] * m4 + matrix.m[7] * cosZ + matrix.m[11] * m6;
+	target.m[8] = matrix.m[0] * sinY + matrix.m[8] * cosY;
+	target.m[9] = matrix.m[1] * sinY + matrix.m[9] * cosY;
+	target.m[10] = matrix.m[2] * sinY + matrix.m[10] * cosY;
+	target.m[11] = matrix.m[3] * sinY + matrix.m[11] * cosY;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateXYZ(const GenoMatrix<4, 4, T> & matrix, T rotateX, T rotateY, T rotateZ, GenoMatrix<4, 4, T> & target) {
+	auto sinX = sin(rotateX);
+	auto cosX = cos(rotateX);
+	auto sinY = sin(rotateY);
+	auto cosY = cos(rotateY);
+	auto sinZ = sin(rotateZ);
+	auto cosZ = cos(rotateZ);
+	auto m0  = cosZ * cosY;
+	auto m1  = sinZ * cosY;
+	auto m4  = -sinZ * cosX + cosZ * sinY * sinX;
+	auto m5  = cosZ * cosX + sinZ * sinY * sinX;
+	auto m6  = cosY * sinX;
+	auto m8  = sinZ * sinX + cosZ * sinY * cosX;
+	auto m9  = -cosZ * sinX + sinZ * sinY * cosX;
+	auto m10 = cosY * cosX;
+	target.m[0] = matrix.m[0] * m0 + matrix.m[4] * m1 + matrix.m[8] * -sinY;
+	target.m[1] = matrix.m[1] * m0 + matrix.m[5] * m1 + matrix.m[9] * -sinY;
+	target.m[2] = matrix.m[2] * m0 + matrix.m[6] * m1 + matrix.m[10] * -sinY;
+	target.m[3] = matrix.m[3] * m0 + matrix.m[7] * m1 + matrix.m[11] * -sinY;
+	target.m[4] = matrix.m[0] * m4 + matrix.m[4] * m5 + matrix.m[8] * m6;
+	target.m[5] = matrix.m[1] * m4 + matrix.m[5] * m5 + matrix.m[9] * m6;
+	target.m[6] = matrix.m[2] * m4 + matrix.m[6] * m5 + matrix.m[10] * m6;
+	target.m[7] = matrix.m[3] * m4 + matrix.m[7] * m5 + matrix.m[11] * m6;
+	target.m[8] = matrix.m[0] * m8 + matrix.m[4] * m9 + matrix.m[8] * m10;
+	target.m[9] = matrix.m[1] * m8 + matrix.m[5] * m9 + matrix.m[9] * m10;
+	target.m[10] = matrix.m[2] * m8 + matrix.m[6] * m9 + matrix.m[10] * m10;
+	target.m[11] = matrix.m[3] * m8 + matrix.m[7] * m9 + matrix.m[11] * m10;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateXYZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & rotate, GenoMatrix<4, 4, T> & target) {
+	auto sinX = sin(rotate.v[0]);
+	auto cosX = cos(rotate.v[0]);
+	auto sinY = sin(rotate.v[1]);
+	auto cosY = cos(rotate.v[1]);
+	auto sinZ = sin(rotate.v[2]);
+	auto cosZ = cos(rotate.v[2]);
+	auto m0  = cosZ * cosY;
+	auto m1  = sinZ * cosY;
+	auto m4  = -sinZ * cosX + cosZ * sinY * sinX;
+	auto m5  = cosZ * cosX + sinZ * sinY * sinX;
+	auto m6  = cosY * sinX;
+	auto m8  = sinZ * sinX + cosZ * sinY * cosX;
+	auto m9  = -cosZ * sinX + sinZ * sinY * cosX;
+	auto m10 = cosY * cosX;
+	target.m[0] = matrix.m[0] * m0 + matrix.m[4] * m1 + matrix.m[8] * -sinY;
+	target.m[1] = matrix.m[1] * m0 + matrix.m[5] * m1 + matrix.m[9] * -sinY;
+	target.m[2] = matrix.m[2] * m0 + matrix.m[6] * m1 + matrix.m[10] * -sinY;
+	target.m[3] = matrix.m[3] * m0 + matrix.m[7] * m1 + matrix.m[11] * -sinY;
+	target.m[4] = matrix.m[0] * m4 + matrix.m[4] * m5 + matrix.m[8] * m6;
+	target.m[5] = matrix.m[1] * m4 + matrix.m[5] * m5 + matrix.m[9] * m6;
+	target.m[6] = matrix.m[2] * m4 + matrix.m[6] * m5 + matrix.m[10] * m6;
+	target.m[7] = matrix.m[3] * m4 + matrix.m[7] * m5 + matrix.m[11] * m6;
+	target.m[8] = matrix.m[0] * m8 + matrix.m[4] * m9 + matrix.m[8] * m10;
+	target.m[9] = matrix.m[1] * m8 + matrix.m[5] * m9 + matrix.m[9] * m10;
+	target.m[10] = matrix.m[2] * m8 + matrix.m[6] * m9 + matrix.m[10] * m10;
+	target.m[11] = matrix.m[3] * m8 + matrix.m[7] * m9 + matrix.m[11] * m10;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateXZY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & rotate, GenoMatrix<4, 4, T> & target) {
+	auto sinX = sin(rotate.v[0]);
+	auto cosX = cos(rotate.v[0]);
+	auto sinY = sin(rotate.v[2]);
+	auto cosY = cos(rotate.v[2]);
+	auto sinZ = sin(rotate.v[1]);
+	auto cosZ = cos(rotate.v[1]);
+	auto m0  = cosY * cosZ;
+	auto m2  = -sinY * cosZ;
+	auto m4  = -cosY * sinZ * cosX + sinY * sinX;
+	auto m5  = cosZ * cosX;
+	auto m6  = sinY * sinZ * cosX + cosY * sinX;
+	auto m8  = cosY * sinZ * sinX + sinY * cosX;
+	auto m9  = -cosZ * sinX;
+	auto m10 = -sinY * sinZ * sinX + cosY * cosX;
+	target.m[0] = matrix.m[0] * m0 + matrix.m[4] * sinZ + matrix.m[8] * m2;
+	target.m[1] = matrix.m[1] * m0 + matrix.m[5] * sinZ + matrix.m[9] * m2;
+	target.m[2] = matrix.m[2] * m0 + matrix.m[6] * sinZ + matrix.m[10] * m2;
+	target.m[3] = matrix.m[3] * m0 + matrix.m[7] * sinZ + matrix.m[11] * m2;
+	target.m[4] = matrix.m[0] * m4 + matrix.m[4] * m5 + matrix.m[8] * m6;
+	target.m[5] = matrix.m[1] * m4 + matrix.m[5] * m5 + matrix.m[9] * m6;
+	target.m[6] = matrix.m[2] * m4 + matrix.m[6] * m5 + matrix.m[10] * m6;
+	target.m[7] = matrix.m[3] * m4 + matrix.m[7] * m5 + matrix.m[11] * m6;
+	target.m[8] = matrix.m[0] * m8 + matrix.m[4] * m9 + matrix.m[8] * m10;
+	target.m[9] = matrix.m[1] * m8 + matrix.m[5] * m9 + matrix.m[9] * m10;
+	target.m[10] = matrix.m[2] * m8 + matrix.m[6] * m9 + matrix.m[10] * m10;
+	target.m[11] = matrix.m[3] * m8 + matrix.m[7] * m9 + matrix.m[11] * m10;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateYXZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & rotate, GenoMatrix<4, 4, T> & target) {
+	auto sinX = sin(rotate.v[1]);
+	auto cosX = cos(rotate.v[1]);
+	auto sinY = sin(rotate.v[0]);
+	auto cosY = cos(rotate.v[0]);
+	auto sinZ = sin(rotate.v[2]);
+	auto cosZ = cos(rotate.v[2]);
+	auto m0  = cosZ * cosY - sinZ * sinX * sinY;
+	auto m1  = sinZ * cosY + cosZ * sinX * sinY;
+	auto m2  = -cosX * sinY;
+	auto m4  = -sinZ * cosX;
+	auto m5  = cosZ * cosX;
+	auto m8  = cosZ * sinY + sinZ * sinX * cosY;
+	auto m9  = sinZ * sinY - cosZ * sinX * cosY;
+	auto m10 = cosX * cosY;
+	target.m[0] = matrix.m[0] * m0 + matrix.m[4] * m1 + matrix.m[8] * m2;
+	target.m[1] = matrix.m[1] * m0 + matrix.m[5] * m1 + matrix.m[9] * m2;
+	target.m[2] = matrix.m[2] * m0 + matrix.m[6] * m1 + matrix.m[10] * m2;
+	target.m[3] = matrix.m[3] * m0 + matrix.m[7] * m1 + matrix.m[11] * m2;
+	target.m[4] = matrix.m[0] * m4 + matrix.m[4] * m5 + matrix.m[8] * sinX;
+	target.m[5] = matrix.m[1] * m4 + matrix.m[5] * m5 + matrix.m[9] * sinX;
+	target.m[6] = matrix.m[2] * m4 + matrix.m[6] * m5 + matrix.m[10] * sinX;
+	target.m[7] = matrix.m[3] * m4 + matrix.m[7] * m5 + matrix.m[11] * sinX;
+	target.m[8] = matrix.m[0] * m8 + matrix.m[4] * m9 + matrix.m[8] * m10;
+	target.m[9] = matrix.m[1] * m8 + matrix.m[5] * m9 + matrix.m[9] * m10;
+	target.m[10] = matrix.m[2] * m8 + matrix.m[6] * m9 + matrix.m[10] * m10;
+	target.m[11] = matrix.m[3] * m8 + matrix.m[7] * m9 + matrix.m[11] * m10;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateYZX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & rotate, GenoMatrix<4, 4, T> & target) {
+	auto sinX = sin(rotate.v[2]);
+	auto cosX = cos(rotate.v[2]);
+	auto sinY = sin(rotate.v[0]);
+	auto cosY = cos(rotate.v[0]);
+	auto sinZ = sin(rotate.v[1]);
+	auto cosZ = cos(rotate.v[1]);
+	auto m0  = cosZ * cosY;
+	auto m1  = cosX * sinZ * cosY + sinX * sinY;
+	auto m2  = sinX * sinZ * cosY - cosX * sinY;
+	auto m5  = cosX * cosZ;
+	auto m6  = sinX * cosZ;
+	auto m8  = cosZ * sinY;
+	auto m9  = cosX * sinZ * sinY - sinX * cosY;
+	auto m10 = sinX * sinZ * sinY + cosX * cosY;
+	target.m[0] = matrix.m[0] * m0 + matrix.m[4] * m1 + matrix.m[8] * m2;
+	target.m[1] = matrix.m[1] * m0 + matrix.m[5] * m1 + matrix.m[9] * m2;
+	target.m[2] = matrix.m[2] * m0 + matrix.m[6] * m1 + matrix.m[10] * m2;
+	target.m[3] = matrix.m[3] * m0 + matrix.m[7] * m1 + matrix.m[11] * m2;
+	target.m[4] = matrix.m[0] * -sinZ + matrix.m[4] * m5 + matrix.m[8] * m6;
+	target.m[5] = matrix.m[1] * -sinZ + matrix.m[5] * m5 + matrix.m[9] * m6;
+	target.m[6] = matrix.m[2] * -sinZ + matrix.m[6] * m5 + matrix.m[10] * m6;
+	target.m[7] = matrix.m[3] * -sinZ + matrix.m[7] * m5 + matrix.m[11] * m6;
+	target.m[8] = matrix.m[0] * m8 + matrix.m[4] * m9 + matrix.m[8] * m10;
+	target.m[9] = matrix.m[1] * m8 + matrix.m[5] * m9 + matrix.m[9] * m10;
+	target.m[10] = matrix.m[2] * m8 + matrix.m[6] * m9 + matrix.m[10] * m10;
+	target.m[11] = matrix.m[3] * m8 + matrix.m[7] * m9 + matrix.m[11] * m10;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateZXY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & rotate, GenoMatrix<4, 4, T> & target) {
+	auto sinX = sin(rotate.v[1]);
+	auto cosX = cos(rotate.v[1]);
+	auto sinY = sin(rotate.v[2]);
+	auto cosY = cos(rotate.v[2]);
+	auto sinZ = sin(rotate.v[0]);
+	auto cosZ = cos(rotate.v[0]);
+	auto m0  = cosY * cosZ + sinY * sinX * sinZ;
+	auto m1  = cosX * sinZ;
+	auto m2  = -sinY * cosZ + cosY * sinX * sinZ;
+	auto m4  = -cosY * sinZ + sinY * sinX * cosZ;
+	auto m5  = cosX * cosZ;
+	auto m6  = sinY * sinZ + cosY * sinX * cosZ;
+	auto m8  = sinY * cosX;
+	auto m10 = cosY * cosX;
+	target.m[0] = matrix.m[0] * m0 + matrix.m[4] * m1 + matrix.m[8] * m2;
+	target.m[1] = matrix.m[1] * m0 + matrix.m[5] * m1 + matrix.m[9] * m2;
+	target.m[2] = matrix.m[2] * m0 + matrix.m[6] * m1 + matrix.m[10] * m2;
+	target.m[3] = matrix.m[3] * m0 + matrix.m[7] * m1 + matrix.m[11] * m2;
+	target.m[4] = matrix.m[0] * m4 + matrix.m[4] * m5 + matrix.m[8] * m6;
+	target.m[5] = matrix.m[1] * m4 + matrix.m[5] * m5 + matrix.m[9] * m6;
+	target.m[6] = matrix.m[2] * m4 + matrix.m[6] * m5 + matrix.m[10] * m6;
+	target.m[7] = matrix.m[3] * m4 + matrix.m[7] * m5 + matrix.m[11] * m6;
+	target.m[8] = matrix.m[0] * m8 + matrix.m[4] * -sinX + matrix.m[8] * m10;
+	target.m[9] = matrix.m[1] * m8 + matrix.m[5] * -sinX + matrix.m[9] * m10;
+	target.m[10] = matrix.m[2] * m8 + matrix.m[6] * -sinX + matrix.m[10] * m10;
+	target.m[11] = matrix.m[3] * m8 + matrix.m[7] * -sinX + matrix.m[11] * m10;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & rotateZYX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & rotate, GenoMatrix<4, 4, T> & target) {
+	auto sinX = sin(rotate.v[2]);
+	auto cosX = cos(rotate.v[2]);
+	auto sinY = sin(rotate.v[1]);
+	auto cosY = cos(rotate.v[1]);
+	auto sinZ = sin(rotate.v[0]);
+	auto cosZ = cos(rotate.v[0]);
+	auto m0  = cosY * cosZ;
+	auto m1  = sinX * sinY * cosZ + cosX * sinZ;
+	auto m2  = -cosX * sinY * cosZ + sinX * sinZ;
+	auto m4  = -cosY * sinZ;
+	auto m5  = -sinX * sinY * sinZ + cosX * cosZ;
+	auto m6  = cosX * sinY * sinZ + sinX * cosZ;
+	auto m9  = -sinX * cosY;
+	auto m10 = cosX * cosY;
+	target.m[0] = matrix.m[0] * m0 + matrix.m[4] * m1 + matrix.m[8] * m2;
+	target.m[1] = matrix.m[1] * m0 + matrix.m[5] * m1 + matrix.m[9] * m2;
+	target.m[2] = matrix.m[2] * m0 + matrix.m[6] * m1 + matrix.m[10] * m2;
+	target.m[3] = matrix.m[3] * m0 + matrix.m[7] * m1 + matrix.m[11] * m2;
+	target.m[4] = matrix.m[0] * m4 + matrix.m[4] * m5 + matrix.m[8] * m6;
+	target.m[5] = matrix.m[1] * m4 + matrix.m[5] * m5 + matrix.m[9] * m6;
+	target.m[6] = matrix.m[2] * m4 + matrix.m[6] * m5 + matrix.m[10] * m6;
+	target.m[7] = matrix.m[3] * m4 + matrix.m[7] * m5 + matrix.m[11] * m6;
+	target.m[8] = matrix.m[0] * sinY + matrix.m[4] * m9 + matrix.m[8] * m10;
+	target.m[9] = matrix.m[1] * sinY + matrix.m[5] * m9 + matrix.m[9] * m10;
+	target.m[10] = matrix.m[2] * sinY + matrix.m[6] * m9 + matrix.m[10] * m10;
+	target.m[11] = matrix.m[3] * sinY + matrix.m[7] * m9 + matrix.m[11] * m10;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scaleX(const GenoMatrix<4, 4, T> & matrix, T scaleX) {
+	return new T[4 * 4] {
+		matrix.m[0] * scaleX,
+		matrix.m[1] * scaleX,
+		matrix.m[2] * scaleX,
+		matrix.m[3] * scaleX,
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scaleY(const GenoMatrix<4, 4, T> & matrix, T scaleY) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4] * scaleY,
+		matrix.m[5] * scaleY,
+		matrix.m[6] * scaleY,
+		matrix.m[7] * scaleY,
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scaleZ(const GenoMatrix<4, 4, T> & matrix, T scaleZ) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8] * scaleZ,
+		matrix.m[9] * scaleZ,
+		matrix.m[10] * scaleZ,
+		matrix.m[11] * scaleZ,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scaleXY(const GenoMatrix<4, 4, T> & matrix, T scale) {
+	return new T[4 * 4] {
+		matrix.m[0] * scale,
+		matrix.m[1] * scale,
+		matrix.m[2] * scale,
+		matrix.m[3] * scale,
+		matrix.m[4] * scale,
+		matrix.m[5] * scale,
+		matrix.m[6] * scale,
+		matrix.m[7] * scale,
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scaleXY(const GenoMatrix<4, 4, T> & matrix, T scaleX, T scaleY) {
+	return new T[4 * 4] {
+		matrix.m[0] * scaleX,
+		matrix.m[1] * scaleX,
+		matrix.m[2] * scaleX,
+		matrix.m[3] * scaleX,
+		matrix.m[4] * scaleY,
+		matrix.m[5] * scaleY,
+		matrix.m[6] * scaleY,
+		matrix.m[7] * scaleY,
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scaleXY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & scale) {
+	return new T[4 * 4] {
+		matrix.m[0] * scale.v[0],
+		matrix.m[1] * scale.v[0],
+		matrix.m[2] * scale.v[0],
+		matrix.m[3] * scale.v[0],
+		matrix.m[4] * scale.v[1],
+		matrix.m[5] * scale.v[1],
+		matrix.m[6] * scale.v[1],
+		matrix.m[7] * scale.v[1],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scaleXZ(const GenoMatrix<4, 4, T> & matrix, T scale) {
+	return new T[4 * 4] {
+		matrix.m[0] * scale,
+		matrix.m[1] * scale,
+		matrix.m[2] * scale,
+		matrix.m[3] * scale,
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8] * scale,
+		matrix.m[9] * scale,
+		matrix.m[10] * scale,
+		matrix.m[11] * scale,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scaleXZ(const GenoMatrix<4, 4, T> & matrix, T scaleX, T scaleZ) {
+	return new T[4 * 4] {
+		matrix.m[0] * scaleX,
+		matrix.m[1] * scaleX,
+		matrix.m[2] * scaleX,
+		matrix.m[3] * scaleX,
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8] * scaleZ,
+		matrix.m[9] * scaleZ,
+		matrix.m[10] * scaleZ,
+		matrix.m[11] * scaleZ,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scaleXZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & scale) {
+	return new T[4 * 4] {
+		matrix.m[0] * scale.v[0],
+		matrix.m[1] * scale.v[0],
+		matrix.m[2] * scale.v[0],
+		matrix.m[3] * scale.v[0],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8] * scale.v[1],
+		matrix.m[9] * scale.v[1],
+		matrix.m[10] * scale.v[1],
+		matrix.m[11] * scale.v[1],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scaleYX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & scale) {
+	return new T[4 * 4] {
+		matrix.m[0] * scale.v[1],
+		matrix.m[1] * scale.v[1],
+		matrix.m[2] * scale.v[1],
+		matrix.m[3] * scale.v[1],
+		matrix.m[4] * scale.v[0],
+		matrix.m[5] * scale.v[0],
+		matrix.m[6] * scale.v[0],
+		matrix.m[7] * scale.v[0],
+		matrix.m[8],
+		matrix.m[9],
+		matrix.m[10],
+		matrix.m[11],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scaleYZ(const GenoMatrix<4, 4, T> & matrix, T scale) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4] * scale,
+		matrix.m[5] * scale,
+		matrix.m[6] * scale,
+		matrix.m[7] * scale,
+		matrix.m[8] * scale,
+		matrix.m[9] * scale,
+		matrix.m[10] * scale,
+		matrix.m[11] * scale,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scaleYZ(const GenoMatrix<4, 4, T> & matrix, T scaleY, T scaleZ) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4] * scaleY,
+		matrix.m[5] * scaleY,
+		matrix.m[6] * scaleY,
+		matrix.m[7] * scaleY,
+		matrix.m[8] * scaleZ,
+		matrix.m[9] * scaleZ,
+		matrix.m[10] * scaleZ,
+		matrix.m[11] * scaleZ,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scaleYZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & scale) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4] * scale.v[0],
+		matrix.m[5] * scale.v[0],
+		matrix.m[6] * scale.v[0],
+		matrix.m[7] * scale.v[0],
+		matrix.m[8] * scale.v[1],
+		matrix.m[9] * scale.v[1],
+		matrix.m[10] * scale.v[1],
+		matrix.m[11] * scale.v[1],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scaleZX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & scale) {
+	return new T[4 * 4] {
+		matrix.m[0] * scale.v[1],
+		matrix.m[1] * scale.v[1],
+		matrix.m[2] * scale.v[1],
+		matrix.m[3] * scale.v[1],
+		matrix.m[4],
+		matrix.m[5],
+		matrix.m[6],
+		matrix.m[7],
+		matrix.m[8] * scale.v[0],
+		matrix.m[9] * scale.v[0],
+		matrix.m[10] * scale.v[0],
+		matrix.m[11] * scale.v[0],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scaleZY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & scale) {
+	return new T[4 * 4] {
+		matrix.m[0],
+		matrix.m[1],
+		matrix.m[2],
+		matrix.m[3],
+		matrix.m[4] * scale.v[1],
+		matrix.m[5] * scale.v[1],
+		matrix.m[6] * scale.v[1],
+		matrix.m[7] * scale.v[1],
+		matrix.m[8] * scale.v[0],
+		matrix.m[9] * scale.v[0],
+		matrix.m[10] * scale.v[0],
+		matrix.m[11] * scale.v[0],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scaleXYZ(const GenoMatrix<4, 4, T> & matrix, T scale) {
+	return new T[4 * 4] {
+		matrix.m[0] * scale,
+		matrix.m[1] * scale,
+		matrix.m[2] * scale,
+		matrix.m[3] * scale,
+		matrix.m[4] * scale,
+		matrix.m[5] * scale,
+		matrix.m[6] * scale,
+		matrix.m[7] * scale,
+		matrix.m[8] * scale,
+		matrix.m[9] * scale,
+		matrix.m[10] * scale,
+		matrix.m[11] * scale,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scaleXYZ(const GenoMatrix<4, 4, T> & matrix, T scaleX, T scaleY, T scaleZ) {
+	return new T[4 * 4] {
+		matrix.m[0] * scaleX,
+		matrix.m[1] * scaleX,
+		matrix.m[2] * scaleX,
+		matrix.m[3] * scaleX,
+		matrix.m[4] * scaleY,
+		matrix.m[5] * scaleY,
+		matrix.m[6] * scaleY,
+		matrix.m[7] * scaleY,
+		matrix.m[8] * scaleZ,
+		matrix.m[9] * scaleZ,
+		matrix.m[10] * scaleZ,
+		matrix.m[11] * scaleZ,
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scaleXYZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & scale) {
+	return new T[4 * 4] {
+		matrix.m[0] * scale.v[0],
+		matrix.m[1] * scale.v[0],
+		matrix.m[2] * scale.v[0],
+		matrix.m[3] * scale.v[0],
+		matrix.m[4] * scale.v[1],
+		matrix.m[5] * scale.v[1],
+		matrix.m[6] * scale.v[1],
+		matrix.m[7] * scale.v[1],
+		matrix.m[8] * scale.v[2],
+		matrix.m[9] * scale.v[2],
+		matrix.m[10] * scale.v[2],
+		matrix.m[11] * scale.v[2],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scaleXZY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & scale) {
+	return new T[4 * 4] {
+		matrix.m[0] * scale.v[0],
+		matrix.m[1] * scale.v[0],
+		matrix.m[2] * scale.v[0],
+		matrix.m[3] * scale.v[0],
+		matrix.m[4] * scale.v[2],
+		matrix.m[5] * scale.v[2],
+		matrix.m[6] * scale.v[2],
+		matrix.m[7] * scale.v[2],
+		matrix.m[8] * scale.v[1],
+		matrix.m[9] * scale.v[1],
+		matrix.m[10] * scale.v[1],
+		matrix.m[11] * scale.v[1],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scaleYXZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & scale) {
+	return new T[4 * 4] {
+		matrix.m[0] * scale.v[1],
+		matrix.m[1] * scale.v[1],
+		matrix.m[2] * scale.v[1],
+		matrix.m[3] * scale.v[1],
+		matrix.m[4] * scale.v[0],
+		matrix.m[5] * scale.v[0],
+		matrix.m[6] * scale.v[0],
+		matrix.m[7] * scale.v[0],
+		matrix.m[8] * scale.v[2],
+		matrix.m[9] * scale.v[2],
+		matrix.m[10] * scale.v[2],
+		matrix.m[11] * scale.v[2],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scaleYZX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & scale) {
+	return new T[4 * 4] {
+		matrix.m[0] * scale.v[2],
+		matrix.m[1] * scale.v[2],
+		matrix.m[2] * scale.v[2],
+		matrix.m[3] * scale.v[2],
+		matrix.m[4] * scale.v[0],
+		matrix.m[5] * scale.v[0],
+		matrix.m[6] * scale.v[0],
+		matrix.m[7] * scale.v[0],
+		matrix.m[8] * scale.v[1],
+		matrix.m[9] * scale.v[1],
+		matrix.m[10] * scale.v[1],
+		matrix.m[11] * scale.v[1],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scaleZXY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & scale) {
+	return new T[4 * 4] {
+		matrix.m[0] * scale.v[1],
+		matrix.m[1] * scale.v[1],
+		matrix.m[2] * scale.v[1],
+		matrix.m[3] * scale.v[1],
+		matrix.m[4] * scale.v[2],
+		matrix.m[5] * scale.v[2],
+		matrix.m[6] * scale.v[2],
+		matrix.m[7] * scale.v[2],
+		matrix.m[8] * scale.v[0],
+		matrix.m[9] * scale.v[0],
+		matrix.m[10] * scale.v[0],
+		matrix.m[11] * scale.v[0],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> scaleZYX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & scale) {
+	return new T[4 * 4] {
+		matrix.m[0] * scale.v[2],
+		matrix.m[1] * scale.v[2],
+		matrix.m[2] * scale.v[2],
+		matrix.m[3] * scale.v[2],
+		matrix.m[4] * scale.v[1],
+		matrix.m[5] * scale.v[1],
+		matrix.m[6] * scale.v[1],
+		matrix.m[7] * scale.v[1],
+		matrix.m[8] * scale.v[0],
+		matrix.m[9] * scale.v[0],
+		matrix.m[10] * scale.v[0],
+		matrix.m[11] * scale.v[0],
+		matrix.m[12],
+		matrix.m[13],
+		matrix.m[14],
+		matrix.m[15]
+	};
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scaleX(const GenoMatrix<4, 4, T> & matrix, T scaleX, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0] * scaleX;
+	target.m[1] = matrix.m[1] * scaleX;
+	target.m[2] = matrix.m[2] * scaleX;
+	target.m[3] = matrix.m[3] * scaleX;
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scaleY(const GenoMatrix<4, 4, T> & matrix, T scaleY, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4] * scaleY;
+	target.m[5] = matrix.m[5] * scaleY;
+	target.m[6] = matrix.m[6] * scaleY;
+	target.m[7] = matrix.m[7] * scaleY;
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scaleZ(const GenoMatrix<4, 4, T> & matrix, T scaleZ, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8] * scaleZ;
+	target.m[9] = matrix.m[9] * scaleZ;
+	target.m[10] = matrix.m[10] * scaleZ;
+	target.m[11] = matrix.m[11] * scaleZ;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scaleXY(const GenoMatrix<4, 4, T> & matrix, T scale, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0] * scale;
+	target.m[1] = matrix.m[1] * scale;
+	target.m[2] = matrix.m[2] * scale;
+	target.m[3] = matrix.m[3] * scale;
+	target.m[4] = matrix.m[4] * scale;
+	target.m[5] = matrix.m[5] * scale;
+	target.m[6] = matrix.m[6] * scale;
+	target.m[7] = matrix.m[7] * scale;
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scaleXY(const GenoMatrix<4, 4, T> & matrix, T scaleX, T scaleY, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0] * scaleX;
+	target.m[1] = matrix.m[1] * scaleX;
+	target.m[2] = matrix.m[2] * scaleX;
+	target.m[3] = matrix.m[3] * scaleX;
+	target.m[4] = matrix.m[4] * scaleY;
+	target.m[5] = matrix.m[5] * scaleY;
+	target.m[6] = matrix.m[6] * scaleY;
+	target.m[7] = matrix.m[7] * scaleY;
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scaleXY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & scale, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0] * scale.v[0];
+	target.m[1] = matrix.m[1] * scale.v[0];
+	target.m[2] = matrix.m[2] * scale.v[0];
+	target.m[3] = matrix.m[3] * scale.v[0];
+	target.m[4] = matrix.m[4] * scale.v[1];
+	target.m[5] = matrix.m[5] * scale.v[1];
+	target.m[6] = matrix.m[6] * scale.v[1];
+	target.m[7] = matrix.m[7] * scale.v[1];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scaleXZ(const GenoMatrix<4, 4, T> & matrix, T scale, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0] * scale;
+	target.m[1] = matrix.m[1] * scale;
+	target.m[2] = matrix.m[2] * scale;
+	target.m[3] = matrix.m[3] * scale;
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8] * scale;
+	target.m[9] = matrix.m[9] * scale;
+	target.m[10] = matrix.m[10] * scale;
+	target.m[11] = matrix.m[11] * scale;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scaleXZ(const GenoMatrix<4, 4, T> & matrix, T scaleX, T scaleZ, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0] * scaleX;
+	target.m[1] = matrix.m[1] * scaleX;
+	target.m[2] = matrix.m[2] * scaleX;
+	target.m[3] = matrix.m[3] * scaleX;
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8] * scaleZ;
+	target.m[9] = matrix.m[9] * scaleZ;
+	target.m[10] = matrix.m[10] * scaleZ;
+	target.m[11] = matrix.m[11] * scaleZ;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scaleXZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & scale, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0] * scale.v[0];
+	target.m[1] = matrix.m[1] * scale.v[0];
+	target.m[2] = matrix.m[2] * scale.v[0];
+	target.m[3] = matrix.m[3] * scale.v[0];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8] * scale.v[1];
+	target.m[9] = matrix.m[9] * scale.v[1];
+	target.m[10] = matrix.m[10] * scale.v[1];
+	target.m[11] = matrix.m[11] * scale.v[1];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scaleYX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & scale, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0] * scale.v[1];
+	target.m[1] = matrix.m[1] * scale.v[1];
+	target.m[2] = matrix.m[2] * scale.v[1];
+	target.m[3] = matrix.m[3] * scale.v[1];
+	target.m[4] = matrix.m[4] * scale.v[0];
+	target.m[5] = matrix.m[5] * scale.v[0];
+	target.m[6] = matrix.m[6] * scale.v[0];
+	target.m[7] = matrix.m[7] * scale.v[0];
+	target.m[8] = matrix.m[8];
+	target.m[9] = matrix.m[9];
+	target.m[10] = matrix.m[10];
+	target.m[11] = matrix.m[11];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scaleYZ(const GenoMatrix<4, 4, T> & matrix, T scale, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4] * scale;
+	target.m[5] = matrix.m[5] * scale;
+	target.m[6] = matrix.m[6] * scale;
+	target.m[7] = matrix.m[7] * scale;
+	target.m[8] = matrix.m[8] * scale;
+	target.m[9] = matrix.m[9] * scale;
+	target.m[10] = matrix.m[10] * scale;
+	target.m[11] = matrix.m[11] * scale;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scaleYZ(const GenoMatrix<4, 4, T> & matrix, T scaleY, T scaleZ, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4] * scaleY;
+	target.m[5] = matrix.m[5] * scaleY;
+	target.m[6] = matrix.m[6] * scaleY;
+	target.m[7] = matrix.m[7] * scaleY;
+	target.m[8] = matrix.m[8] * scaleZ;
+	target.m[9] = matrix.m[9] * scaleZ;
+	target.m[10] = matrix.m[10] * scaleZ;
+	target.m[11] = matrix.m[11] * scaleZ;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scaleYZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & scale, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4] * scale.v[0];
+	target.m[5] = matrix.m[5] * scale.v[0];
+	target.m[6] = matrix.m[6] * scale.v[0];
+	target.m[7] = matrix.m[7] * scale.v[0];
+	target.m[8] = matrix.m[8] * scale.v[1];
+	target.m[9] = matrix.m[9] * scale.v[1];
+	target.m[10] = matrix.m[10] * scale.v[1];
+	target.m[11] = matrix.m[11] * scale.v[1];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scaleZX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & scale, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0] * scale.v[1];
+	target.m[1] = matrix.m[1] * scale.v[1];
+	target.m[2] = matrix.m[2] * scale.v[1];
+	target.m[3] = matrix.m[3] * scale.v[1];
+	target.m[4] = matrix.m[4];
+	target.m[5] = matrix.m[5];
+	target.m[6] = matrix.m[6];
+	target.m[7] = matrix.m[7];
+	target.m[8] = matrix.m[8] * scale.v[0];
+	target.m[9] = matrix.m[9] * scale.v[0];
+	target.m[10] = matrix.m[10] * scale.v[0];
+	target.m[11] = matrix.m[11] * scale.v[0];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scaleZY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<2, T> & scale, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0];
+	target.m[1] = matrix.m[1];
+	target.m[2] = matrix.m[2];
+	target.m[3] = matrix.m[3];
+	target.m[4] = matrix.m[4] * scale.v[1];
+	target.m[5] = matrix.m[5] * scale.v[1];
+	target.m[6] = matrix.m[6] * scale.v[1];
+	target.m[7] = matrix.m[7] * scale.v[1];
+	target.m[8] = matrix.m[8] * scale.v[0];
+	target.m[9] = matrix.m[9] * scale.v[0];
+	target.m[10] = matrix.m[10] * scale.v[0];
+	target.m[11] = matrix.m[11] * scale.v[0];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scaleXYZ(const GenoMatrix<4, 4, T> & matrix, T scale, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0] * scale;
+	target.m[1] = matrix.m[1] * scale;
+	target.m[2] = matrix.m[2] * scale;
+	target.m[3] = matrix.m[3] * scale;
+	target.m[4] = matrix.m[4] * scale;
+	target.m[5] = matrix.m[5] * scale;
+	target.m[6] = matrix.m[6] * scale;
+	target.m[7] = matrix.m[7] * scale;
+	target.m[8] = matrix.m[8] * scale;
+	target.m[9] = matrix.m[9] * scale;
+	target.m[10] = matrix.m[10] * scale;
+	target.m[11] = matrix.m[11] * scale;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scaleXYZ(const GenoMatrix<4, 4, T> & matrix, T scaleX, T scaleY, T scaleZ, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0] * scaleX;
+	target.m[1] = matrix.m[1] * scaleX;
+	target.m[2] = matrix.m[2] * scaleX;
+	target.m[3] = matrix.m[3] * scaleX;
+	target.m[4] = matrix.m[4] * scaleY;
+	target.m[5] = matrix.m[5] * scaleY;
+	target.m[6] = matrix.m[6] * scaleY;
+	target.m[7] = matrix.m[7] * scaleY;
+	target.m[8] = matrix.m[8] * scaleZ;
+	target.m[9] = matrix.m[9] * scaleZ;
+	target.m[10] = matrix.m[10] * scaleZ;
+	target.m[11] = matrix.m[11] * scaleZ;
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scaleXYZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & scale, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0] * scale.v[0];
+	target.m[1] = matrix.m[1] * scale.v[0];
+	target.m[2] = matrix.m[2] * scale.v[0];
+	target.m[3] = matrix.m[3] * scale.v[0];
+	target.m[4] = matrix.m[4] * scale.v[1];
+	target.m[5] = matrix.m[5] * scale.v[1];
+	target.m[6] = matrix.m[6] * scale.v[1];
+	target.m[7] = matrix.m[7] * scale.v[1];
+	target.m[8] = matrix.m[8] * scale.v[2];
+	target.m[9] = matrix.m[9] * scale.v[2];
+	target.m[10] = matrix.m[10] * scale.v[2];
+	target.m[11] = matrix.m[11] * scale.v[2];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scaleXZY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & scale, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0] * scale.v[0];
+	target.m[1] = matrix.m[1] * scale.v[0];
+	target.m[2] = matrix.m[2] * scale.v[0];
+	target.m[3] = matrix.m[3] * scale.v[0];
+	target.m[4] = matrix.m[4] * scale.v[2];
+	target.m[5] = matrix.m[5] * scale.v[2];
+	target.m[6] = matrix.m[6] * scale.v[2];
+	target.m[7] = matrix.m[7] * scale.v[2];
+	target.m[8] = matrix.m[8] * scale.v[1];
+	target.m[9] = matrix.m[9] * scale.v[1];
+	target.m[10] = matrix.m[10] * scale.v[1];
+	target.m[11] = matrix.m[11] * scale.v[1];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scaleYXZ(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & scale, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0] * scale.v[1];
+	target.m[1] = matrix.m[1] * scale.v[1];
+	target.m[2] = matrix.m[2] * scale.v[1];
+	target.m[3] = matrix.m[3] * scale.v[1];
+	target.m[4] = matrix.m[4] * scale.v[0];
+	target.m[5] = matrix.m[5] * scale.v[0];
+	target.m[6] = matrix.m[6] * scale.v[0];
+	target.m[7] = matrix.m[7] * scale.v[0];
+	target.m[8] = matrix.m[8] * scale.v[2];
+	target.m[9] = matrix.m[9] * scale.v[2];
+	target.m[10] = matrix.m[10] * scale.v[2];
+	target.m[11] = matrix.m[11] * scale.v[2];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scaleYZX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & scale, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0] * scale.v[2];
+	target.m[1] = matrix.m[1] * scale.v[2];
+	target.m[2] = matrix.m[2] * scale.v[2];
+	target.m[3] = matrix.m[3] * scale.v[2];
+	target.m[4] = matrix.m[4] * scale.v[0];
+	target.m[5] = matrix.m[5] * scale.v[0];
+	target.m[6] = matrix.m[6] * scale.v[0];
+	target.m[7] = matrix.m[7] * scale.v[0];
+	target.m[8] = matrix.m[8] * scale.v[1];
+	target.m[9] = matrix.m[9] * scale.v[1];
+	target.m[10] = matrix.m[10] * scale.v[1];
+	target.m[11] = matrix.m[11] * scale.v[1];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scaleZXY(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & scale, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0] * scale.v[1];
+	target.m[1] = matrix.m[1] * scale.v[1];
+	target.m[2] = matrix.m[2] * scale.v[1];
+	target.m[3] = matrix.m[3] * scale.v[1];
+	target.m[4] = matrix.m[4] * scale.v[2];
+	target.m[5] = matrix.m[5] * scale.v[2];
+	target.m[6] = matrix.m[6] * scale.v[2];
+	target.m[7] = matrix.m[7] * scale.v[2];
+	target.m[8] = matrix.m[8] * scale.v[0];
+	target.m[9] = matrix.m[9] * scale.v[0];
+	target.m[10] = matrix.m[10] * scale.v[0];
+	target.m[11] = matrix.m[11] * scale.v[0];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
+GenoMatrix<4, 4, T> & scaleZYX(const GenoMatrix<4, 4, T> & matrix, const GenoVector<3, T> & scale, GenoMatrix<4, 4, T> & target) {
+	target.m[0] = matrix.m[0] * scale.v[2];
+	target.m[1] = matrix.m[1] * scale.v[2];
+	target.m[2] = matrix.m[2] * scale.v[2];
+	target.m[3] = matrix.m[3] * scale.v[2];
+	target.m[4] = matrix.m[4] * scale.v[1];
+	target.m[5] = matrix.m[5] * scale.v[1];
+	target.m[6] = matrix.m[6] * scale.v[1];
+	target.m[7] = matrix.m[7] * scale.v[1];
+	target.m[8] = matrix.m[8] * scale.v[0];
+	target.m[9] = matrix.m[9] * scale.v[0];
+	target.m[10] = matrix.m[10] * scale.v[0];
+	target.m[11] = matrix.m[11] * scale.v[0];
+	target.m[12] = matrix.m[12];
+	target.m[13] = matrix.m[13];
+	target.m[14] = matrix.m[14];
+	target.m[15] = matrix.m[15];
+	return target;
+}
+
+template <typename T>
 GenoVector<4, T> operator*(const GenoMatrix<4, 4, T> & left, const GenoVector<4, T> & right) {
 	return new T[4] {
 		left.m[0] * right.v[0] + left.m[4] * right.v[1] + left.m[8 ] * right.v[2] + left.m[12] * right.v[3],
