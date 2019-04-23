@@ -126,6 +126,17 @@ class GenoMatrix<4, 4, T> {
 			};
 		}
 
+		static GenoMatrix<4, 4, T> makeRotate2D(T rotation) {
+			auto sinZ = sin(rotation);
+			auto cosZ = cos(rotation);
+			return new T[4 * 4] {
+				cosZ, sinZ, 0, 0,
+				-sinZ, cosZ, 0, 0,
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			};
+		}
+
 		static GenoMatrix<4, 4, T> makeScale2D(T scale) {
 			return new T[4 * 4] {
 				scale, 0, 0, 0,
@@ -1091,6 +1102,28 @@ class GenoMatrix<4, 4, T> {
 			m[12] = translate.v[0];
 			m[13] = translate.v[1];
 			m[14] = translate.v[2];
+			m[15] = 1;
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & setRotate2D(T rotation) {
+			auto sinZ = sin(rotation);
+			auto cosZ = cos(rotation);
+			m[0 ] = cosZ;
+			m[1 ] = sinZ;
+			m[2 ] = 0;
+			m[3 ] = 0;
+			m[4 ] = -sinZ;
+			m[5 ] = cosZ;
+			m[6 ] = 0;
+			m[7 ] = 0;
+			m[8 ] = 0;
+			m[9 ] = 0;
+			m[10] = 1;
+			m[11] = 0;
+			m[12] = 0;
+			m[13] = 0;
+			m[14] = 0;
 			m[15] = 1;
 			return *this;
 		}
@@ -2578,6 +2611,202 @@ class GenoMatrix<4, 4, T> {
 			m[4 ] = newM[4 ]; m[5 ] = newM[5 ]; m[6 ] = newM[6 ]; m[7 ] = newM[7 ];
 			m[8 ] = newM[8 ]; m[9 ] = newM[9 ]; m[10] = newM[10]; m[11] = newM[11];
 			m[12] = newM[12]; m[13] = newM[13]; m[14] = newM[14]; m[15] = newM[15];
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & translate2D(T translateX, T translateY) {
+			T newM[] = {
+				m[0] * translateX + m[4] * translateY + m[12],
+				m[1] * translateX + m[5] * translateY + m[13],
+				m[2] * translateX + m[6] * translateY + m[14],
+				m[3] * translateX + m[7] * translateY + m[15]
+			};
+			/**** m[0 ] ****/ /**** m[1 ] ****/ /**** m[2 ] ****/ /**** m[3 ] ****/
+			/**** m[4 ] ****/ /**** m[5 ] ****/ /**** m[6 ] ****/ /**** m[7 ] ****/
+			/**** m[8 ] ****/ /**** m[9 ] ****/ /**** m[10] ****/ /**** m[11] ****/
+			m[12] = newM[0 ]; m[13] = newM[1 ]; m[14] = newM[2 ]; m[15] = newM[3 ];
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & translate2D(const GenoVector<2, T> & translate) {
+			T newM[] = {
+				m[0] * translate.v[0] + m[4] * translate.v[1] + m[12],
+				m[1] * translate.v[0] + m[5] * translate.v[1] + m[13],
+				m[2] * translate.v[0] + m[6] * translate.v[1] + m[14],
+				m[3] * translate.v[0] + m[7] * translate.v[1] + m[15]
+			};
+			/**** m[0 ] ****/ /**** m[1 ] ****/ /**** m[2 ] ****/ /**** m[3 ] ****/
+			/**** m[4 ] ****/ /**** m[5 ] ****/ /**** m[6 ] ****/ /**** m[7 ] ****/
+			/**** m[8 ] ****/ /**** m[9 ] ****/ /**** m[10] ****/ /**** m[11] ****/
+			m[12] = newM[0 ]; m[13] = newM[1 ]; m[14] = newM[2 ]; m[15] = newM[3 ];
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & translate(T translateX, T translateY, T translateZ) {
+			T newM[] = {
+				m[0] * translateX + m[4] * translateY + m[8] * translateZ + m[12],
+				m[1] * translateX + m[5] * translateY + m[9] * translateZ + m[13],
+				m[2] * translateX + m[6] * translateY + m[10] * translateZ + m[14],
+				m[3] * translateX + m[7] * translateY + m[11] * translateZ + m[15]
+			};
+			/**** m[0 ] ****/ /**** m[1 ] ****/ /**** m[2 ] ****/ /**** m[3 ] ****/
+			/**** m[4 ] ****/ /**** m[5 ] ****/ /**** m[6 ] ****/ /**** m[7 ] ****/
+			/**** m[8 ] ****/ /**** m[9 ] ****/ /**** m[10] ****/ /**** m[11] ****/
+			m[12] = newM[0 ]; m[13] = newM[1 ]; m[14] = newM[2 ]; m[15] = newM[3 ];
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & translate(const GenoVector<3, T> & translate) {
+			T newM[] = {
+				m[0] * translate.v[0] + m[4] * translate.v[1] + m[8] * translate.v[2] + m[12],
+				m[1] * translate.v[0] + m[5] * translate.v[1] + m[9] * translate.v[2] + m[13],
+				m[2] * translate.v[0] + m[6] * translate.v[1] + m[10] * translate.v[2] + m[14],
+				m[3] * translate.v[0] + m[7] * translate.v[1] + m[11] * translate.v[2] + m[15]
+			};
+			/**** m[0 ] ****/ /**** m[1 ] ****/ /**** m[2 ] ****/ /**** m[3 ] ****/
+			/**** m[4 ] ****/ /**** m[5 ] ****/ /**** m[6 ] ****/ /**** m[7 ] ****/
+			/**** m[8 ] ****/ /**** m[9 ] ****/ /**** m[10] ****/ /**** m[11] ****/
+			m[12] = newM[0 ]; m[13] = newM[1 ]; m[14] = newM[2 ]; m[15] = newM[3 ];
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & rotate2D(T rotation) {
+			auto sinZ = sin(rotation);
+			auto cosZ = cos(rotation);
+			T newM[] = {
+				m[0] * cosZ + m[4] * sinZ,
+				m[1] * cosZ + m[5] * sinZ,
+				m[2] * cosZ + m[6] * sinZ,
+				m[3] * cosZ + m[7] * sinZ,
+				m[0] * -sinZ + m[4] * cosZ,
+				m[1] * -sinZ + m[5] * cosZ,
+				m[2] * -sinZ + m[6] * cosZ,
+				m[3] * -sinZ + m[7] * cosZ,
+			};
+			m[0 ] = newM[0 ]; m[1 ] = newM[1 ]; m[2 ] = newM[2 ]; m[3 ] = newM[3 ];
+			m[4 ] = newM[4 ]; m[5 ] = newM[5 ]; m[6 ] = newM[6 ]; m[7 ] = newM[7 ];
+			/**** m[8 ] ****/ /**** m[9 ] ****/ /**** m[10] ****/ /**** m[11] ****/
+			/**** m[12] ****/ /**** m[13] ****/ /**** m[14] ****/ /**** m[15] ****/
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & scale2D(T scale) {
+			T newM[] = {
+				m[0] * scale,
+				m[1] * scale,
+				m[2] * scale,
+				m[3] * scale,
+				m[4] * scale,
+				m[5] * scale,
+				m[6] * scale,
+				m[7] * scale,
+			};
+			m[0 ] = newM[0 ]; m[1 ] = newM[1 ]; m[2 ] = newM[2 ]; m[3 ] = newM[3 ];
+			m[4 ] = newM[4 ]; m[5 ] = newM[5 ]; m[6 ] = newM[6 ]; m[7 ] = newM[7 ];
+			/**** m[8 ] ****/ /**** m[9 ] ****/ /**** m[10] ****/ /**** m[11] ****/
+			/**** m[12] ****/ /**** m[13] ****/ /**** m[14] ****/ /**** m[15] ****/
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & scale2D(T scaleX, T scaleY) {
+			T newM[] = {
+				m[0] * scaleX,
+				m[1] * scaleX,
+				m[2] * scaleX,
+				m[3] * scaleX,
+				m[4] * scaleY,
+				m[5] * scaleY,
+				m[6] * scaleY,
+				m[7] * scaleY,
+			};
+			m[0 ] = newM[0 ]; m[1 ] = newM[1 ]; m[2 ] = newM[2 ]; m[3 ] = newM[3 ];
+			m[4 ] = newM[4 ]; m[5 ] = newM[5 ]; m[6 ] = newM[6 ]; m[7 ] = newM[7 ];
+			/**** m[8 ] ****/ /**** m[9 ] ****/ /**** m[10] ****/ /**** m[11] ****/
+			/**** m[12] ****/ /**** m[13] ****/ /**** m[14] ****/ /**** m[15] ****/
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & scale2D(const GenoVector<2, T> & scale) {
+			T newM[] = {
+				m[0] * scale.v[0],
+				m[1] * scale.v[0],
+				m[2] * scale.v[0],
+				m[3] * scale.v[0],
+				m[4] * scale.v[1],
+				m[5] * scale.v[1],
+				m[6] * scale.v[1],
+				m[7] * scale.v[1],
+			};
+			m[0 ] = newM[0 ]; m[1 ] = newM[1 ]; m[2 ] = newM[2 ]; m[3 ] = newM[3 ];
+			m[4 ] = newM[4 ]; m[5 ] = newM[5 ]; m[6 ] = newM[6 ]; m[7 ] = newM[7 ];
+			/**** m[8 ] ****/ /**** m[9 ] ****/ /**** m[10] ****/ /**** m[11] ****/
+			/**** m[12] ****/ /**** m[13] ****/ /**** m[14] ****/ /**** m[15] ****/
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & scale(T scale) {
+			T newM[] = {
+				m[0] * scale,
+				m[1] * scale,
+				m[2] * scale,
+				m[3] * scale,
+				m[4] * scale,
+				m[5] * scale,
+				m[6] * scale,
+				m[7] * scale,
+				m[8] * scale,
+				m[9] * scale,
+				m[10] * scale,
+				m[11] * scale,
+			};
+			m[0 ] = newM[0 ]; m[1 ] = newM[1 ]; m[2 ] = newM[2 ]; m[3 ] = newM[3 ];
+			m[4 ] = newM[4 ]; m[5 ] = newM[5 ]; m[6 ] = newM[6 ]; m[7 ] = newM[7 ];
+			m[8 ] = newM[8 ]; m[9 ] = newM[9 ]; m[10] = newM[10]; m[11] = newM[11];
+			/**** m[12] ****/ /**** m[13] ****/ /**** m[14] ****/ /**** m[15] ****/
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & scale(T scaleX, T scaleY, T scaleZ) {
+			T newM[] = {
+				m[0] * scaleX,
+				m[1] * scaleX,
+				m[2] * scaleX,
+				m[3] * scaleX,
+				m[4] * scaleY,
+				m[5] * scaleY,
+				m[6] * scaleY,
+				m[7] * scaleY,
+				m[8] * scaleZ,
+				m[9] * scaleZ,
+				m[10] * scaleZ,
+				m[11] * scaleZ,
+			};
+			m[0 ] = newM[0 ]; m[1 ] = newM[1 ]; m[2 ] = newM[2 ]; m[3 ] = newM[3 ];
+			m[4 ] = newM[4 ]; m[5 ] = newM[5 ]; m[6 ] = newM[6 ]; m[7 ] = newM[7 ];
+			m[8 ] = newM[8 ]; m[9 ] = newM[9 ]; m[10] = newM[10]; m[11] = newM[11];
+			/**** m[12] ****/ /**** m[13] ****/ /**** m[14] ****/ /**** m[15] ****/
+			return *this;
+		}
+
+		GenoMatrix<4, 4, T> & scale(const GenoVector<3, T> & scale) {
+			T newM[] = {
+				m[0] * scale.v[0],
+				m[1] * scale.v[0],
+				m[2] * scale.v[0],
+				m[3] * scale.v[0],
+				m[4] * scale.v[1],
+				m[5] * scale.v[1],
+				m[6] * scale.v[1],
+				m[7] * scale.v[1],
+				m[8] * scale.v[2],
+				m[9] * scale.v[2],
+				m[10] * scale.v[2],
+				m[11] * scale.v[2],
+			};
+			m[0 ] = newM[0 ]; m[1 ] = newM[1 ]; m[2 ] = newM[2 ]; m[3 ] = newM[3 ];
+			m[4 ] = newM[4 ]; m[5 ] = newM[5 ]; m[6 ] = newM[6 ]; m[7 ] = newM[7 ];
+			m[8 ] = newM[8 ]; m[9 ] = newM[9 ]; m[10] = newM[10]; m[11] = newM[11];
+			/**** m[12] ****/ /**** m[13] ****/ /**** m[14] ****/ /**** m[15] ****/
 			return *this;
 		}
 
