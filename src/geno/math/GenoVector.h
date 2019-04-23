@@ -32,13 +32,6 @@
 
 #include "../GenoInts.h"
 
-namespace GenoVectorDimensions {
-	template <uint32 N>
-	struct GenoVectorDimension {
-		const static uint32 dimension = N;
-	};
-}
-
 template <uint32 N, typename T>
 class GenoVector {
 

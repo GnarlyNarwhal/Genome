@@ -26,6 +26,30 @@
 
 #include "../GenoInts.h"
 
+#ifndef GNARLY_GENOME_VECTOR_FORWARD
+#define GNARLY_GENOME_VECTOR_FORWARD
+
+template <uint32 N, typename T>
+class GenoVector;
+
+#endif // GNARLY_GENOME_VECTOR_FORWARD
+
+#ifndef GNARLY_GENOME_VECTOR2_FORWARD
+#define GNARLY_GENOME_VECTOR2_FORWARD
+
+template <typename T>
+class GenoVector<2, T>;
+
+#endif // GNARLY_GENOME_VECTOR2_FORWARD
+
+#ifndef GNARLY_GENOME_VECTOR3_FORWARD
+#define GNARLY_GENOME_VECTOR3_FORWARD
+
+template <typename T>
+class GenoVector<3, T>;
+
+#endif // GNARLY_GENOME_VECTOR3_FORWARD
+
 #ifndef GNARLY_GENOME_VECTOR4_FORWARD
 #define GNARLY_GENOME_VECTOR4_FORWARD
 
@@ -42,11 +66,21 @@ class GenoMatrix;
 
 #endif // GNARLY_GENOME_MATRIX_FORWARD
 
-#ifndef GNARLY_GENOME_MATRIXN
-#define GNARLY_GENOME_MATRIXN
+#ifndef GNARLY_GENOME_MATRIXN_FORWARD
+#define GNARLY_GENOME_MATRIXN_FORWARD
+
+template <uint32 N, typename T>
+class GenoMatrix<N, N, T>;
+
+#endif // GNARLY_GENOME_MATRIXN_FORWARD
+
+#ifndef GNARLY_GENOME_MATRIX4
+#define GNARLY_GENOME_MATRIX4
 
 #include <ostream>
 
+#include "GenoVector2.h"
+#include "GenoVector3.h"
 #include "GenoVector4.h"
 #include "GenoMatrixN.h"
 
@@ -991,7 +1025,7 @@ class GenoMatrix<4, 4, T> {
 			return *this;
 		}
 
-		GenoMatrix<4, 4, T> & operator=(GenoMatrix<4, 4, T> && matrix) {
+		GenoMatrix<4, 4, T> & operator=(GenoMatrix<4, 4, T> && matrix) noexcept {
 			clean();
 			owner = matrix.owner;
 			m = matrix.m;
@@ -8540,5 +8574,5 @@ using GenoMatrix4ul = GenoMatrix<4, 4, uint64>;
 using GenoMatrix4f  = GenoMatrix<4, 4, float >;
 using GenoMatrix4d  = GenoMatrix<4, 4, double>;
 
-#define GNARLY_GENOME_MATRIXN_FORWARD
-#endif // GNARLY_GENOME_MATRIXN
+#define GNARLY_GENOME_MATRIX4_FORWARD
+#endif // GNARLY_GENOME_MATRIX4

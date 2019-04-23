@@ -28,8 +28,7 @@
 #include <chrono>
 
 #include "geno/GenoInts.h"
-#include "geno/math/GenoVector3.h"
-#include "geno/math/GenoVector4.h"
+#include "geno/math/GenoVector2.h"
 #include "geno/math/GenoMatrix4.h"
 
 int32 main(int32 argc, char ** argv) {

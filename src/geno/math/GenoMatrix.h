@@ -97,7 +97,7 @@ class GenoMatrix {
 			return *this;
 		}
 
-		GenoMatrix<N, M, T> & operator=(GenoMatrix<N, M, T> && matrix) {
+		GenoMatrix<N, M, T> & operator=(GenoMatrix<N, M, T> && matrix) noexcept {
 			clean();
 			owner = matrix.owner;
 			m = matrix.m;

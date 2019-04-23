@@ -26,16 +26,24 @@
 
 #include "../GenoInts.h"
 
-#ifndef GNARLY_GENONE_NATRIX_FORWARD
-#define GNARLY_GENONE_NATRIX_FORWARD
+#ifndef GNARLY_GENOME_VECTOR_FORWARD
+#define GNARLY_GENOME_VECTOR_FORWARD
+
+template <uint32 N, typename T>
+class GenoVector<N, T>;
+
+#endif // GNARLY_GENOME_VECTOR_FORWARD
+
+#ifndef GNARLY_GENOME_MATRIX_FORWARD
+#define GNARLY_GENOME_MATRIX_FORWARD
 
 template <uint32 N, uint32 M, typename T>
 class GenoMatrix;
 
-#endif // GNARLY_GENONE_NATRIX_FORWARD
+#endif // GNARLY_GENOME_MATRIX_FORWARD
 
-#ifndef GNARLY_GENONE_NATRIXN
-#define GNARLY_GENONE_NATRIXN
+#ifndef GNARLY_GENOME_MATRIXN
+#define GNARLY_GENOME_MATRIXN
 
 #include <ostream>
 
@@ -108,7 +116,7 @@ class GenoMatrix<N, N, T> {
 			return *this;
 		}
 
-		GenoMatrix<N, N, T> & operator=(GenoMatrix<N, N, T> && matrix) {
+		GenoMatrix<N, N, T> & operator=(GenoMatrix<N, N, T> && matrix) noexcept {
 			clean();
 			owner = matrix.owner;
 			m = matrix.m;
@@ -188,5 +196,5 @@ template <uint32 N> using GenoMatrixNul = GenoMatrix<N, N, uint64>;
 template <uint32 N> using GenoMatrixNf  = GenoMatrix<N, N, float >;
 template <uint32 N> using GenoMatrixNd  = GenoMatrix<N, N, double>;
 
-#define GNARLY_GENONE_NATRIXN_FORWARD
-#endif // GNARLY_GENONE_NATRIXN
+#define GNARLY_GENOME_MATRIXN_FORWARD
+#endif // GNARLY_GENOME_MATRIXN

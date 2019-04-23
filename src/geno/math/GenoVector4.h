@@ -59,9 +59,10 @@ class GenoVector<3, T>;
 #include "GenoVector.h"
 #include "GenoVector2.h"
 #include "GenoVector3.h"
+#include "GenoVectorDimensions.h"
 
 namespace GenoVectorDimensions {
-	GenoVectorDimension<3> w;
+	extern GenoVectorDimension<3> w;
 }
 
 template <typename T>
@@ -203,6 +204,38 @@ class GenoVector<4, T> {
 		const T & operator[](const GenoVectorDimensions::GenoVectorDimension<N> & dimension) const noexcept {
 			static_assert(GenoVectorDimensions::GenoVectorDimension<N>::dimension < 4, "GenoVector<4, T> has no dimension beyond w!");
 			return v[GenoVectorDimensions::GenoVectorDimension<N>::dimension];
+		}
+
+		T & x() noexcept {
+			return v[0];
+		}
+
+		const T & x() const noexcept {
+			return v[0];
+		}
+
+		T & y() noexcept {
+			return v[1];
+		}
+
+		const T & y() const noexcept {
+			return v[1];
+		}
+
+		T & z() noexcept {
+			return v[2];
+		}
+
+		const T & z() const noexcept {
+			return v[2];
+		}
+
+		T & w() noexcept {
+			return v[3];
+		}
+
+		const T & w() const noexcept {
+			return v[3];
 		}
 
 		double getLength() const {
