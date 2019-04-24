@@ -56,12 +56,16 @@ GenoMatrix4f GenoCamera2D::getVPMatrix() {
 	return projectionView;
 }
 
-uint32 GenoCamera2D::getWidth() {
+float GenoCamera2D::getWidth() {
 	return width;
 }
 
-uint32 GenoCamera2D::getHeight() {
+float GenoCamera2D::getHeight() {
 	return height;
+}
+
+GenoVector2f GenoCamera2D::getDimensions() {
+	return { width, height };
 }
 
 GenoCamera2D::~GenoCamera2D() {}

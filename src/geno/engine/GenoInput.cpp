@@ -25,17 +25,18 @@
  *******************************************************************************/
 
 #include "GenoEngine.h"
+#include "../gl/GenoFramebuffer.h"
 
 #include "GenoInput.h"
 
 double GenoInput::repeatDelay = GENO_INPUT_DEFAULT_DELAY;
 double GenoInput::repeatSpeed = GENO_INPUT_DEFAULT_SPEED;
 
-uint8 GenoInput::keyStates[GLFW_KEY_LAST];
+uint8  GenoInput::keyStates[GLFW_KEY_LAST];
 double GenoInput::keyTimes[GLFW_KEY_LAST];
 double GenoInput::keyTargets[GLFW_KEY_LAST];
 
-uint8 GenoInput::mouseButtonStates[GLFW_MOUSE_BUTTON_LAST];
+uint8  GenoInput::mouseButtonStates[GLFW_MOUSE_BUTTON_LAST];
 double GenoInput::mouseButtonTimes[GLFW_MOUSE_BUTTON_LAST];
 double GenoInput::mouseButtonTargets[GLFW_MOUSE_BUTTON_LAST];
 
@@ -102,11 +103,14 @@ GenoVector2d GenoInput::getRawMouseCoords() {
 	return mouseCoords;
 }
 
+GenoVector2f GenoInput::getMouseCoords(GenoCamera2D * camera) {
+	return (GenoVector2f) mouseCoords / GenoVector2f(GenoFramebuffer::getCurrentWidth(), GenoFramebuffer::getCurrentHeight()) * camera->getDimensions() + camera->position;
+}
+
 GenoInput::GenoInput() {}
 GenoInput::~GenoInput() {}
 
 ////// CALLBACKS //////
-
 
 void GenoInput::keyCallback(GLFWwindow * window, int32 key, int32 scancode, int32 action, int32 mods) {
 	if (key != GLFW_KEY_UNKNOWN) {

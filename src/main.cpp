@@ -68,21 +68,11 @@ int32 main(int32 argc, char ** argv) {
 	/////// TIME TRIALS - LEAVE FOR FUTURE USE ///////
 /*
 	const uint32 NUM_ITERATIONS = 1000000;
-
-	auto mat = GenoMatrix4f::makeIdentity();
-
+	
 	auto begin1 = std::chrono::high_resolution_clock::now();
-	
-	for (uint32 i = 0; i < NUM_ITERATIONS; ++i)
-		mat = GenoMatrix4f::makeOrthographic(1, 8, 7, 6, 4, 2) * GenoMatrix4f::makePerspective(7, 9, 6, 3);
-	
 	auto end1 = std::chrono::high_resolution_clock::now();
 
 	auto begin2 = std::chrono::high_resolution_clock::now();
-
-	for (uint32 i = 0; i < NUM_ITERATIONS; ++i)
-		mat.setOrthographic(1, 8, 7, 6, 4, 2).projectPerspective(7, 9, 6, 3);
-
 	auto end2 = std::chrono::high_resolution_clock::now();
 	
 	std::cout << std::chrono::duration_cast<std::chrono::microseconds>(end1 - begin1).count() << std::endl;
@@ -104,7 +94,7 @@ bool init() {
 	GenoEngine::init();
 
 	GenoLoopCreateInfo loopInfo = {};
-	loopInfo.targetFps   = 60;
+	loopInfo.targetFps   = GenoMonitors::getPrimaryMonitor()->getDefaultVideoMode()->getRefreshRate();
 	loopInfo.deltaScale  = 1;
 	loopInfo.callback    = loop;
 	loopInfo.numSubLoops = 0;
@@ -143,13 +133,6 @@ bool init() {
 	GenoEngine::setSwapInterval(1);
 
 	GenoEngine::initGlew();
-
-	uint8 image[] = {
-		0xFF, 0x00, 0x00, 0xFF,
-		0x00, 0xFF, 0x00, 0xFF,
-		0x00, 0x00, 0xFF, 0xFF,
-		0xFF, 0xFF, 0xFF, 0xFF
-	};
 
 	uint32 textureParams[] = {
 		GL_TEXTURE_MIN_FILTER, GL_NEAREST,

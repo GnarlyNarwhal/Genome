@@ -35,7 +35,7 @@ class GenoVao {
 		uint8 attribs = 0;
 	public:
 		GenoVao(uint32 num, float verts[], uint32 count, uint32 indices[]);
-		void addAttrib(uint32 num, int32 stride, float data[]);
+		template <typename T> void addAttrib(uint32 num, uint32 stride, T data[]);
 		void render();
 		~GenoVao();
 };

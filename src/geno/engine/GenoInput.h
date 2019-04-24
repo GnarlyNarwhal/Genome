@@ -29,8 +29,9 @@
 
 #include "../GenoInts.h"
 
-#include "../math/GenoVector2.h"
 #include "../gl/GenoGL.h"
+#include "../math/GenoVector2.h"
+#include "../engine/GenoCamera2D.h"
 
 #define GENO_INPUT_RELEASED  0x00
 #define GENO_INPUT_UNPRESSED 0x01
@@ -78,7 +79,7 @@ class GenoInput final {
 		static double getMouseButtonDuration(uint8 mouseButton);
 
 		static GenoVector2d getRawMouseCoords();
-//		static GenoVector2f getMouseCoords(const GenoCamera * camera = 0);
+		static GenoVector2f getMouseCoords(GenoCamera2D * camera);
 
 	friend class GenoWindow;
 };

@@ -64,6 +64,7 @@ GenoLoop::GenoLoop(const GenoLoopCreateInfo & info) :
 void GenoLoop::start() {
 	uint32 * frames = new uint32[callbackCount];
 	double * pastTimes = new double[callbackCount + 1];
+	double * truePastTimes = new double[callbackCount + 1];
 	double curTime = 0;
 
 	for (uint32 i = 0; i < callbackCount; ++i) {
@@ -83,17 +84,19 @@ void GenoLoop::start() {
 			pastTimes[0] += 1000;
 		}
 		for (uint32 i = 0; i < callbackCount; ++i) {
-			if (curTime - pastTimes[i + 1] > millisPerFrames[i]) {
+			if (curTime - pastTimes[i + 1] >= millisPerFrames[i]) {
 				callbacks[i]();
-				deltas[i] = (curTime - pastTimes[i + 1]) * deltaScales[i];
-				pastTimes[i + 1] = curTime;
+				deltas[i] = (curTime - truePastTimes[i + 1]) * deltaScales[i];
+				pastTimes[i + 1] += millisPerFrames[i];
+				truePastTimes[i + 1] = curTime;
 				++frames[i];
 			}
 		}
 		if (!sanicLoop)
 			GenoTime::sleepUntil(pastTimes[1] + millisPerFrames[0]);
 	}
-
+	
+	delete [] truePastTimes;
 	delete [] pastTimes;
 	delete [] frames;
 }

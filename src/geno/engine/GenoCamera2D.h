@@ -32,8 +32,8 @@
 
 class GenoCamera2D {
 	private:
-		uint32 width;
-		uint32 height;
+		float width;
+		float height;
 
 		GenoMatrix4f projection;
 		GenoMatrix4f view;
@@ -48,8 +48,9 @@ class GenoCamera2D {
 		GenoMatrix4f getProjection();
 		GenoMatrix4f getView();
 		GenoMatrix4f getVPMatrix();
-		uint32 getWidth();
-		uint32 getHeight();
+		float getWidth();
+		float getHeight();
+		GenoVector2f getDimensions();
 		~GenoCamera2D();
 };
 

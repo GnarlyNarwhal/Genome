@@ -28,6 +28,18 @@
 
 #include "GenoVao.h"
 
+template <typename T>
+struct GenoVertexAttribType {};
+
+template<> struct GenoVertexAttribType< int8 > { const static uint32 TYPE = GL_UNSIGNED_BYTE;  };
+template<> struct GenoVertexAttribType<uint8 > { const static uint32 TYPE = GL_BYTE;           };
+template<> struct GenoVertexAttribType< int16> { const static uint32 TYPE = GL_UNSIGNED_SHORT; };
+template<> struct GenoVertexAttribType<uint16> { const static uint32 TYPE = GL_SHORT;          };
+template<> struct GenoVertexAttribType< int32> { const static uint32 TYPE = GL_UNSIGNED_INT;   };
+template<> struct GenoVertexAttribType<uint32> { const static uint32 TYPE = GL_INT;            };
+template<> struct GenoVertexAttribType<float > { const static uint32 TYPE = GL_FLOAT;          };
+template<> struct GenoVertexAttribType<double> { const static uint32 TYPE = GL_DOUBLE;         };
+
 GenoVao::GenoVao(uint32 num, float verts[], uint32 count, uint32 indices[]) {
 	this->count = count;
 	glGenVertexArrays(1, &vao);
@@ -37,12 +49,13 @@ GenoVao::GenoVao(uint32 num, float verts[], uint32 count, uint32 indices[]) {
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(int32), indices, GL_STATIC_DRAW);
 }
 
-void GenoVao::addAttrib(uint32 num, int32 stride, float data[]) {
+template <typename T>
+void GenoVao::addAttrib(uint32 num, uint32 stride, T data[]) {
 	glBindVertexArray(vao);
 	glGenBuffers(1, vbos + attribs);
 	glBindBuffer(GL_ARRAY_BUFFER, vbos[attribs]);
-	glBufferData(GL_ARRAY_BUFFER, stride * num * sizeof(float), data, GL_STATIC_DRAW);
-	glVertexAttribPointer(attribs, stride, GL_FLOAT, GL_FALSE, 0, (void*) 0);
+	glBufferData(GL_ARRAY_BUFFER, stride * num * sizeof(T), data, GL_STATIC_DRAW);
+	glVertexAttribPointer(attribs, stride, GenoVertexAttribType<T>::TYPE, GL_FALSE, 0, (void*) 0);
 	glEnableVertexAttribArray(attribs);
 	++attribs;
 }
