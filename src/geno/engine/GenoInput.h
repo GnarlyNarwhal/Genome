@@ -30,7 +30,7 @@
 #include "../GenoInts.h"
 
 #include "../gl/GenoGL.h"
-#include "../math/GenoVector2.h"
+#include "../math/linear/GenoVector2.h"
 #include "../engine/GenoCamera2D.h"
 
 #define GENO_INPUT_RELEASED  0x00

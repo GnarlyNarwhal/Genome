@@ -24,7 +24,7 @@
  *
  *******************************************************************************/
 
-#include "../GenoInts.h"
+#include "../../GenoInts.h"
 
 #ifndef GNARLY_GENOME_VECTOR_FORWARD
 #define GNARLY_GENOME_VECTOR_FORWARD
@@ -78,6 +78,7 @@ class GenoMatrix<N, N, T>;
 #define GNARLY_GENOME_MATRIX4
 
 #include <ostream>
+#include <cmath>
 
 #include "GenoVector2.h"
 #include "GenoVector3.h"

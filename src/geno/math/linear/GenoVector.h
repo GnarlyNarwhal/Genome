@@ -28,9 +28,10 @@
 #define GNARLY_GENOME_VECTOR
 
 #include <ostream>
+#include <cmath>
 #include <initializer_list>
 
-#include "../GenoInts.h"
+#include "../../GenoInts.h"
 
 template <uint32 N, typename T>
 class GenoVector {
@@ -46,6 +47,15 @@ class GenoVector {
 		}
 
 	public:
+		static GenoVector<N, T> * newArray(uint32 length) {
+			T * v = new T[N * length];
+			GenoVector<N, T> * ret = new GenoVector<N, T>[length];
+			ret[0] = GenoVector<N, T>(v);
+			for (uint32 i = 1; i < length; ++i)
+				ret[i] = GenoVector<N, T>(v + i * N, false);
+			return ret;
+		}
+
 		T * v;
 
 		GenoVector() :
@@ -150,7 +160,7 @@ class GenoVector {
 			return v[index];
 		}
 		
-		double getLength() const {
+		T getLength() const {
 			auto lengthSquared = 0;
 			for (uint32 i = 0; i < N; ++i)
 				lengthSquared += v[i] * v[i];
@@ -385,6 +395,11 @@ GenoVector<N, T> & project(const GenoVector<N, T> & vector, const GenoVector<N, 
 	for (uint32 i = 0; i < N; ++i)
 		target.v[i] = scalar * projection.v[i];
 	return target;
+}
+
+template <uint32 N, typename T>
+T angleBetween(const GenoVector<N, T> & vector1, const GenoVector<N, T> & vector2) {
+	return acos(dot(vector1, vector2) / (vector1.getLength() * vector2.getLength());
 }
 
 template <uint32 N, typename T>

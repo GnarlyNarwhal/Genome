@@ -30,7 +30,7 @@
 #include "geno/GenoInts.h"
 #include "geno/GenoMacros.h"
 
-#include "geno/math/GenoMatrix4.h"
+#include "geno/math/linear/GenoMatrix4.h"
 #include "geno/thread/GenoTime.h"
 #include "geno/engine/GenoEngine.h"
 #include "geno/engine/GenoLoop.h"
@@ -57,13 +57,12 @@ GenoVao * vao;
 GenoShader2ss * shader;
 GenoSpritesheet * texture;
 GenoCamera2D * camera;
-GenoFramebuffer * framebuffer;
 
 int32 main(int32 argc, char ** argv) {
 
-	init();
-	begin();
-	cleanup();
+	// init();
+	// begin();
+	// cleanup();
 
 	/////// TIME TRIALS - LEAVE FOR FUTURE USE ///////
 /*
@@ -220,6 +219,7 @@ void cleanup() {
 	delete shader;
 	delete vao;
 
+	delete camera;
 	delete window;
 
 	GenoEngine::destroy();

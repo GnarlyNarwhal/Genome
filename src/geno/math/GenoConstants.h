@@ -1,6 +1,6 @@
 /*******************************************************************************
  *
- * Copyright (c) 2018 Gnarly Narwhal
+ * Copyright (c) 2019 Gnarly Narwhal
  *
  * -----------------------------------------------------------------------------
  *
@@ -24,42 +24,11 @@
  *
  *******************************************************************************/
 
-#ifndef GNARLY_GENOME_SHADER
-#define GNARLY_GENOME_SHADER
+#ifndef GNARLY_GENOME_CONSTANTS
+#define GNARLY_GENOME_CONSTANTS
 
-#include "../GenoInts.h"
+template <typename T> constexpr T GENO_PI  = T(3.141592653589793238462643383279l);
+template <typename T> constexpr T GENO_TAU = T(6.283185307179586476925286766559l);
+template <typename T> constexpr T GENO_E   = T(2.718281828459045235360287471353l);
 
-#include "../math/linear/GenoMatrix4.h"
-
-#define GENO_SHADER_STRING_IS_SOURCE 0x00
-#define GENO_SHADER_STRING_IS_PATH   0x01
-
-class GenoShader {
-	private:
-		static int32 active;
-
-		uint32 loadShader(const char * path, int32 type, bool file);
-	protected:
-		GenoShader(const char * vert, const char * frag, bool file);
-		GenoShader(const char * vert, const char * geom, const char * frag, bool file);
-		int32 program;
-	public:
-		void enable();
-		void disable();
-		~GenoShader();
-};
-
-class GenoMvpShader : public GenoShader {
-	private:
-		uint32 mvpLoc;
-	protected:
-		GenoMvpShader(const char * vert, const char * frag, bool file);
-		GenoMvpShader(const char * vert, const char * frag, const char * geom, bool file);
-	public:
-		void setMvp(const GenoMatrix4f & mvp);
-		void setMvp(const float * mvp);
-
-};
-
-#define GNARLY_GENOME_SHADER_FORWARD
-#endif // GNARLY_GENOME_SHADER
+#endif // GNARLY_GENOME_CONSTANTS

@@ -24,18 +24,33 @@
  *
  *******************************************************************************/
 
-#ifndef GNARLY_GENOME_VECTOR_DIMENSIONS
-#define GNARLY_GENOME_VECTOR_DIMENSIONS
+#include "../../GenoInts.h"
 
-#include "../GenoInts.h"
+#ifndef GNARLY_GENOME_VECTOR_FORWARD
+#define GNARLY_GENOME_VECTOR_FORWARD
 
-namespace GenoVectorDimensions {
+template <uint32 N, typename T>
+class GenoVector;
 
-	template <uint32 N>
-	struct GenoVectorDimension {
-		const static uint32 dimension = N;
-	};
-}
+#endif // GNARLY_GENOME_VECTOR_FORWARD
 
-#define GNARLY_GENOME_VECTOR_DIMENSIONS_FORWARD
-#endif // GNARLY_GENOME_VECTOR_DIMENSIONS
+#ifndef GNARLY_GENOME_VECTOR1
+#define GNARLY_GENOME_VECTOR1
+
+#include "GenoVector.h"
+
+template <typename T> using GenoVector1 = GenoVector<1, T>;
+
+using GenoVector1b  = GenoVector1< int8 >;
+using GenoVector1ub = GenoVector1<uint8 >;
+using GenoVector1s  = GenoVector1< int16>;
+using GenoVector1us = GenoVector1<uint16>;
+using GenoVector1i  = GenoVector1< int32>;
+using GenoVector1ui = GenoVector1<uint32>;
+using GenoVector1l  = GenoVector1< int64>;
+using GenoVector1ul = GenoVector1<uint64>;
+using GenoVector1f  = GenoVector1<float >;
+using GenoVector1d  = GenoVector1<double>;
+
+#define GNARLY_GENOME_VECTOR1_FORWARD
+#endif // GNARLY_GENOME_VECTOR1

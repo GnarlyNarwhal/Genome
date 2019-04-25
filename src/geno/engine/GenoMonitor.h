@@ -29,8 +29,8 @@
 
 #include "../GenoInts.h"
 
-#include "../math/GenoVector2.h"
-#include "../math/GenoVector3.h"
+#include "../math/linear/GenoVector2.h"
+#include "../math/linear/GenoVector3.h"
 #include "../gl/GenoGL.h"
 
 #define GENO_MONITOR_SCALE_MILLIMETERS 1.0

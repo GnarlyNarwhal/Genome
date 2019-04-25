@@ -39,8 +39,8 @@ class GenoTexture;
 #define GENO_SPRITESHEET_TYPE_BMP    0x02
 
 #include "../GenoInts.h"
-#include "../math/GenoMatrix4.h"
-#include "../math/GenoVector2.h"
+#include "../math/linear/GenoMatrix4.h"
+#include "../math/linear/GenoVector2.h"
 #include "GenoTexture.h"
 
 struct GenoSpritesheetCreateInfo {

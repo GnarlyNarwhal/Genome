@@ -24,7 +24,7 @@
  *
  *******************************************************************************/
 
-#include "../GenoInts.h"
+#include "../../GenoInts.h"
 
 #ifndef GNARLY_GENOME_VECTOR_FORWARD
 #define GNARLY_GENOME_VECTOR_FORWARD
@@ -76,6 +76,15 @@ class GenoVector<3, T> {
 		}
 
 	public:
+		static GenoVector<3, T> * newArray(uint32 length) {
+			T * v = new T[3 * length];
+			GenoVector<3, T> * ret = new GenoVector<3, T>[length];
+			ret[0] = GenoVector<3, T>(v);
+			for (uint32 i = 1; i < length; ++i)
+				ret[i] = GenoVector<3, T>(v + i * 3, false);
+			return ret;
+		}
+
 		T * v;
 
 		GenoVector() :
@@ -222,7 +231,7 @@ class GenoVector<3, T> {
 			return v[2];
 		}
 
-		double getLength() const {
+		T getLength() const {
 			return sqrt(
 				v[0] * v[0] +
 				v[1] * v[1] +

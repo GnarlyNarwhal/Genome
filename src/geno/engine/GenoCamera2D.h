@@ -27,8 +27,8 @@
 #ifndef GNARLY_GENOME_CAMERA2D
 #define GNARLY_GENOME_CAMERA2D
 
-#include "../math/GenoVector2.h"
-#include "../math/GenoMatrix4.h"
+#include "../math/linear/GenoVector2.h"
+#include "../math/linear/GenoMatrix4.h"
 
 class GenoCamera2D {
 	private:

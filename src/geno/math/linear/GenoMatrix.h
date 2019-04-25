@@ -24,7 +24,7 @@
  *
  *******************************************************************************/
 
-#include "../GenoInts.h"
+#include "../../GenoInts.h"
 
 #ifndef GNARLY_GENOME_VECTOR_FORWARD
 #define GNARLY_GENOME_VECTOR_FORWARD
