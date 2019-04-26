@@ -29,6 +29,7 @@
 #include "../gl/GenoGL.h"
 #include "GenoInput.h"
 #include "GenoMonitor.h"
+#include "../audio/GenoAudioDevice.h"
 
 #include "GenoEngine.h"
 
@@ -57,6 +58,7 @@ bool GenoEngine::init() {
 	getEvents = glfwPollEvents;
 
 	GenoMonitors::init();
+	GenoAudioDevices::init();
 
 	return true;
 }
@@ -92,7 +94,8 @@ void GenoEngine::stopLoop() {
 void GenoEngine::destroy() {
 	stopLoop();
 	delete loop;
-
+	
+	GenoAudioDevices::cleanup();
 	GenoMonitors::cleanup();
 
 	glfwTerminate();

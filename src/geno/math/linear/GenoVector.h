@@ -399,7 +399,7 @@ GenoVector<N, T> & project(const GenoVector<N, T> & vector, const GenoVector<N, 
 
 template <uint32 N, typename T>
 T angleBetween(const GenoVector<N, T> & vector1, const GenoVector<N, T> & vector2) {
-	return acos(dot(vector1, vector2) / (vector1.getLength() * vector2.getLength());
+	return acos(dot(vector1, vector2) / (vector1.getLength() * vector2.getLength()));
 }
 
 template <uint32 N, typename T>

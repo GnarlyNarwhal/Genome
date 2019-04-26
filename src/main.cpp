@@ -42,6 +42,10 @@
 #include "geno/gl/GenoVao.h"
 #include "geno/gl/GenoSpritesheet.h"
 #include "geno/shaders/GenoShader2ss.h"
+#include "geno/audio/GenoAudioDevice.h"
+#include "geno/audio/GenoAudioBuffer.h"
+#include "geno/audio/GenoAudioSource.h"
+#include "geno/audio/GenoListener.h"
 
 bool init();
 void begin();
@@ -58,11 +62,15 @@ GenoShader2ss * shader;
 GenoSpritesheet * texture;
 GenoCamera2D * camera;
 
+GenoWavFile * wavFile;
+GenoAudioBuffer * buffer;
+GenoAudioSource * source;
+
 int32 main(int32 argc, char ** argv) {
 
-	// init();
-	// begin();
-	// cleanup();
+	init();
+	begin();
+	cleanup();
 
 	/////// TIME TRIALS - LEAVE FOR FUTURE USE ///////
 /*
@@ -176,6 +184,14 @@ bool init() {
 
 	GenoFramebuffer::bindDefault();
 
+	GenoAudioDevices::getDefaultOutputDevice()->setActive();
+
+	wavFile = new GenoWavFile("res/audio/test.wav");
+	buffer = new GenoAudioBuffer(wavFile);
+	source = new GenoAudioSource(buffer);
+
+	source->play();
+
 	return true;
 }
 
@@ -215,6 +231,10 @@ void render() {
 }
 
 void cleanup() {
+	delete wavFile;
+	delete buffer;
+	delete source;
+
 	delete texture;
 	delete shader;
 	delete vao;
